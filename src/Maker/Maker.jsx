@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import BlocklyComponent, { Block, Value, Field, Shadow } from "../Blockly";
 
 import BlocklyJS from "blockly/javascript";
-import logo from "../logodjde.png";
+// import logo from "../logodjde.png";
 import "../blocks/customblocks";
 import "../generator/generator";
 import Style from "./Maker.module.scss";
