@@ -3,14 +3,16 @@ import ThemeProvider from "./ThemeProvider";
 import { themePrimary } from "./style/theme";
 // import Maker from "./Maker";
 import BlocksLevel1 from "./BlocksLevel1";
-import "./App.module.scss";
+import CodeProvider from "./Run/CodeProvider";
 
 function App() {
   return (
     <ThemeProvider theme={themePrimary}>
       <Navbar />
-      {/* <Maker /> */}
-      <BlocksLevel1 />
+      <CodeProvider>
+        {/* <Maker /> */}
+        <BlocksLevel1 />
+      </CodeProvider>
     </ThemeProvider>
   );
 }

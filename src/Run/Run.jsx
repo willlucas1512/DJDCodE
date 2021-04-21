@@ -1,10 +1,12 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, useContext } from "react";
 import BlocklyJS from "blockly/javascript";
 import { Button } from "@material-ui/core";
+import CodeContext from "./CodeContext";
 import PropTypes from "prop-types";
 import Style from "./Run.module.scss";
 
 const Run = (props) => {
+  const { updateCode } = useContext(CodeContext);
   const demoWorkspace = useRef();
   const [stateCode, setCode] = useState("");
   const [show, setShow] = useState(false);
@@ -12,6 +14,7 @@ const Run = (props) => {
   const generateCode = () => {
     var code = BlocklyJS.workspaceToCode(demoWorkspace.current.workspace);
     setCode(code);
+    updateCode(code);
     setShow(!show);
   };
 
@@ -23,6 +26,7 @@ const Run = (props) => {
 
     const code = BlocklyJS.workspaceToCode(demoWorkspace.current.workspace);
     setCode(code);
+    updateCode(code);
     BlocklyJS.INFINITE_LOOP_TRAP = null;
     try {
       // eslint-disable-next-line
@@ -48,7 +52,7 @@ const Run = (props) => {
           {show ? "Esconder" : "Mostrar"} JavaScript
         </Button>
       </div>
-      {show && stateCode}
+      {/* {show && stateCode} */}
     </>
   );
 };
