@@ -8,12 +8,10 @@ import Style from "./Run.module.scss";
 const Run = (props) => {
   const { updateCode } = useContext(CodeContext);
   const demoWorkspace = useRef();
-  const [stateCode, setCode] = useState("");
   const [show, setShow] = useState(false);
 
   const generateCode = () => {
     var code = BlocklyJS.workspaceToCode(demoWorkspace.current.workspace);
-    setCode(code);
     updateCode(code);
     setShow(!show);
   };
@@ -25,7 +23,6 @@ const Run = (props) => {
       'if (--window.LoopTrap == 0) throw "Infinite loop.";\n';
 
     const code = BlocklyJS.workspaceToCode(demoWorkspace.current.workspace);
-    setCode(code);
     updateCode(code);
     BlocklyJS.INFINITE_LOOP_TRAP = null;
     try {
@@ -52,7 +49,6 @@ const Run = (props) => {
           {show ? "Esconder" : "Mostrar"} JavaScript
         </Button>
       </div>
-      {/* {show && stateCode} */}
     </>
   );
 };
