@@ -1,12 +1,6 @@
-.circle {
-  height: 300px;
-  width: 300px;
-  border-radius: 50%;
+.mapContour {
+  height: 100%;
+  width: 100%;
   background-color: white;
-  border: solid 1px black;
-  /*float: left;
-       margin:10px;*/
-  position: absolute;
-  left: 760px;
-  top: 110px;
+  border: solid 2px lightgrey;
 }

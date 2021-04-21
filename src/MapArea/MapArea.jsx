@@ -10,15 +10,16 @@ const MapArea = (props) => {
     // adicionado manualmente
     if (dropdown_switch === "on") {
       var code =
-        "document.getElementById('circle').style.backgroundColor='red';";
+        "document.getElementById('mapContour').style.backgroundColor='red';";
     }
     if (dropdown_switch === "off") {
-      code = "document.getElementById('circle').style.backgroundColor='white';";
+      code =
+        "document.getElementById('mapContour').style.backgroundColor='white';";
     }
 
     return code;
   };
-  return <div className={Style.circle} id="circle"></div>;
+  return <div className={Style.mapContour} id="mapContour"></div>;
 };
 
 export default MapArea;

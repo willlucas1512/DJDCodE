@@ -4,6 +4,7 @@ import { Block, Value, Field, Category } from "../Blockly";
 import BlocksArea from "../BlocksArea";
 import MapArea from "../MapArea";
 import Run from "../Run";
+import Style from "./BlocksLevel1.module.scss";
 
 const BlocksLevel1 = (props) => {
   const demoWorkspace = useRef();
@@ -40,22 +41,28 @@ const BlocksLevel1 = (props) => {
   //   );
 
   return (
-    <>
-      <Run workspace={demoWorkspace} />
-      <MapArea />
-      <BlocksArea ref={demoWorkspace}>
-        <Category name="Círculo">
-          <Block type="lightswitch">
-            <Value name="VALUE">
-              <Block type="variables_get">
-                <Field name="lightcolor">red</Field>
-                <Field name="switch">on</Field>
-              </Block>
-            </Value>
-          </Block>
-        </Category>
-      </BlocksArea>
-    </>
+    <div className={Style.root}>
+      <div className={Style.blockArea}>
+        <BlocksArea ref={demoWorkspace}>
+          <Category name="Pintar">
+            <Block type="lightswitch">
+              <Value name="VALUE">
+                <Block type="variables_get">
+                  <Field name="lightcolor">red</Field>
+                  <Field name="switch">on</Field>
+                </Block>
+              </Value>
+            </Block>
+          </Category>
+        </BlocksArea>
+      </div>
+      <div className={Style.map}>
+        <MapArea />
+        <div className={Style.run}>
+          <Run workspace={demoWorkspace} />
+        </div>
+      </div>
+    </div>
   );
 };
 

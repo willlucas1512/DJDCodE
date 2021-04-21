@@ -1,6 +1,5 @@
 .blocklyDiv {
-  height: 50vh;
-  width: 100vw;
-  position: absolute;
-  bottom: 0;
+  height: 100%;
+  width: 100%;
+  background-image: radial-gradient(black 1px, transparent 0);
 }

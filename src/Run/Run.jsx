@@ -1,6 +1,8 @@
 import React, { useRef, useState, useEffect } from "react";
 import BlocklyJS from "blockly/javascript";
+import { Button } from "@material-ui/core";
 import PropTypes from "prop-types";
+import Style from "./Run.module.scss";
 
 const Run = (props) => {
   const demoWorkspace = useRef();
@@ -36,10 +38,16 @@ const Run = (props) => {
 
   return (
     <>
-      <button onClick={generateCode}>
-        {show ? "Esconder" : "Mostrar"} JavaScript
-      </button>
-      <button onClick={runCode}>Rodar</button>
+      <div className={Style.buttons}>
+        <div className={Style.button}>
+          <Button variant={"contained"} color={"primary"} onClick={runCode}>
+            Rodar
+          </Button>
+        </div>
+        <Button variant={"contained"} color={"primary"} onClick={generateCode}>
+          {show ? "Esconder" : "Mostrar"} JavaScript
+        </Button>
+      </div>
       {show && stateCode}
     </>
   );
