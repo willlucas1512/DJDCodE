@@ -1,4 +1,4 @@
-const MazeBuilder = require("./MazeBuilder.js");
+var MazeBuilder = require("./MazeBuilder.js");
 
 class FancyMazeBuilder extends MazeBuilder {
   constructor(width, height) {
