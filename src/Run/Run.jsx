@@ -2,7 +2,6 @@ import React, { useRef, useState, useEffect, useContext } from "react";
 import BlocklyJS from "blockly/javascript";
 import { Button } from "@material-ui/core";
 import CodeContext from "./CodeContext";
-import Mazing from "../Maze/Mazing";
 import PropTypes from "prop-types";
 import Style from "./Run.module.scss";
 

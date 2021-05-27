@@ -15,7 +15,7 @@ class FancyMazeBuilder extends MazeBuilder {
       let row, col;
       [row, col] = array;
       if (
-        this.maze[row][col].length == 0 ||
+        this.maze[row][col].length === 0 ||
         !this.maze[row][col].includes(value)
       ) {
         return false;

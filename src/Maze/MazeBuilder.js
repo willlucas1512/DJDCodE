@@ -18,23 +18,23 @@ class MazeBuilder {
             break;
 
           default:
-            if (r % 2 == 1) {
-              if (c == 0 || c == this.cols - 1) {
+            if (r % 2 === 1) {
+              if (c === 0 || c === this.cols - 1) {
                 this.maze[r][c] = ["wall"];
               }
-            } else if (c % 2 == 0) {
+            } else if (c % 2 === 0) {
               this.maze[r][c] = ["wall"];
             }
         }
       });
 
-      if (r == 0) {
+      if (r === 0) {
         // place exit in top row
         let doorPos = this.posToSpace(this.rand(1, this.width));
         this.maze[r][doorPos] = ["door", "exit"];
       }
 
-      if (r == this.rows - 1) {
+      if (r === this.rows - 1) {
         // place entrance in bottom row
         let doorPos = this.posToSpace(this.rand(1, this.width));
         this.maze[r][doorPos] = ["door", "entrance"];
@@ -65,8 +65,8 @@ class MazeBuilder {
 
   inBounds(r, c) {
     if (
-      typeof this.maze[r] == "undefined" ||
-      typeof this.maze[r][c] == "undefined"
+      typeof this.maze[r] === "undefined" ||
+      typeof this.maze[r][c] === "undefined"
     ) {
       return false; // out of bounds
     }
@@ -92,7 +92,7 @@ class MazeBuilder {
       return false;
     }
 
-    if (r1 == r2) {
+    if (r1 === r2) {
       horiz = r1;
     } else {
       x = r1 + 1;
@@ -102,7 +102,7 @@ class MazeBuilder {
       horiz = this.rand(start, end);
     }
 
-    if (c1 == c2) {
+    if (c1 === c2) {
       vert = c1;
     } else {
       x = c1 + 1;
@@ -114,7 +114,7 @@ class MazeBuilder {
 
     for (let i = this.posToWall(r1) - 1; i <= this.posToWall(r2) + 1; i++) {
       for (let j = this.posToWall(c1) - 1; j <= this.posToWall(c2) + 1; j++) {
-        if (i == this.posToWall(horiz) || j == this.posToWall(vert)) {
+        if (i === this.posToWall(horiz) || j === this.posToWall(vert)) {
           this.maze[i][j] = ["wall"];
         }
       }
@@ -210,7 +210,7 @@ class MazeBuilder {
 
     this.maze.forEach((row, r) => {
       row.forEach((cell, c) => {
-        if (typeof fromEntrance[r][c] == "undefined") {
+        if (typeof fromEntrance[r][c] === "undefined") {
           return;
         }
         let stepCount = fromEntrance[r][c] + fromExit[r][c];
