@@ -31,7 +31,7 @@ function Maze(props) {
       };
     };
 
-    makeMaze("maze_container", 12, 12);
+    makeMaze("maze_container", 4, 4);
   }, []);
 
   return <div id="maze_container">{/**/}</div>;
