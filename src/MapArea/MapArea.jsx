@@ -1,7 +1,8 @@
 import React from "react";
 import BlocklyJS from "blockly/javascript";
 import Style from "./MapArea.module.scss";
-import { Typography } from "@material-ui/core";
+import Maze from "../Maze";
+import Mazing from "../Maze/Mazing";
 
 const MapArea = (props) => {
   // ctrl-c ctrl-v do generator stub no blocky dev
@@ -20,11 +21,13 @@ const MapArea = (props) => {
 
     return code;
   };
+
   return (
     <div className={Style.mapContour} id="mapContour">
-      <Typography variant="h6" color="primary">
+      <Maze />
+      {/* <Typography variant="h6" color="primary">
         {props.code}
-      </Typography>
+      </Typography> */}
     </div>
   );
 };

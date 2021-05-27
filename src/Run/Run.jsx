@@ -2,6 +2,7 @@ import React, { useRef, useState, useEffect, useContext } from "react";
 import BlocklyJS from "blockly/javascript";
 import { Button } from "@material-ui/core";
 import CodeContext from "./CodeContext";
+import Mazing from "../Maze/Mazing";
 import PropTypes from "prop-types";
 import Style from "./Run.module.scss";
 
@@ -16,12 +17,15 @@ const Run = (props) => {
     setShow(!show);
   };
 
+  // const deepCopy = (pSource) => {
+  //   return JSON.parse(JSON.stringify(pSource));
+  // };
+
   const runCode = () => {
     // Generate JavaScript code and run it.
     window.LoopTrap = 1000;
     BlocklyJS.INFINITE_LOOP_TRAP =
       'if (--window.LoopTrap == 0) throw "Infinite loop.";\n';
-
     const code = BlocklyJS.workspaceToCode(demoWorkspace.current.workspace);
     updateCode(code);
     BlocklyJS.INFINITE_LOOP_TRAP = null;

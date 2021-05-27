@@ -104,19 +104,52 @@ const BlocksLevel1 = (props) => {
     return [code, Blockly.JavaScript.ORDER_NONE];
   };
 
-  //   const demoWorkspace = Blockly.inject("blocklyDiv", {
-  //     media: "../../media/",
-  //     toolbox: document.getElementById("toolbox"),
-  //   });
-  //   Blockly.Xml.domToWorkspace(
-  //     document.getElementById("startBlocks"),
-  //     demoWorkspace
-  //   );
+  Blockly.Blocks["maze_walk_up"] = {
+    init: function () {
+      this.appendDummyInput().appendField("andar pra cima");
+      this.setColour(300);
+      this.setTooltip("Andar pra cima.");
+      this.setHelpUrl("");
+    },
+  };
+
+  Blockly.Blocks["maze_walk_down"] = {
+    init: function () {
+      this.appendDummyInput().appendField("andar pra baixo");
+      this.setColour(300);
+      this.setTooltip("Andar pra baixo.");
+      this.setHelpUrl("");
+    },
+  };
+
+  Blockly.Blocks["maze_walk_left"] = {
+    init: function () {
+      this.appendDummyInput().appendField("andar pra esquerda");
+      this.setColour(300);
+      this.setTooltip("Andar pra esquerda.");
+      this.setHelpUrl("");
+    },
+  };
+
+  Blockly.Blocks["maze_walk_right"] = {
+    init: function () {
+      this.appendDummyInput().appendField("andar pra direita");
+      this.setColour(300);
+      this.setTooltip("Andar pra direita.");
+      this.setHelpUrl("");
+    },
+  };
 
   return (
     <div className={Style.root}>
       <div className={Style.blockArea}>
         <BlocksArea ref={demoWorkspace}>
+          <Category name="Labirinto" colour="120">
+            <Block type="maze_walk_up"></Block>
+            <Block type="maze_walk_right"></Block>
+            <Block type="maze_walk_left"></Block>
+            <Block type="maze_walk_down"></Block>
+          </Category>
           <Category name="Variáveis" custom="VARIABLE" colour="330"></Category>
           <Category name="Funções" custom="PROCEDURE" colour="330"></Category>
           <Category name="Lógica" colour="210">
