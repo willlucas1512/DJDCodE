@@ -1,5 +1,5 @@
-var MazeBuilder = require("./MazeBuilder.js");
-
+// var MazeBuilder = require("./MazeBuilder.js");
+import MazeBuilder from "./MazeBuilder";
 class FancyMazeBuilder extends MazeBuilder {
   constructor(width, height) {
     super(width, height);

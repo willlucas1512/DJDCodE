@@ -266,4 +266,4 @@ class MazeBuilder {
   }
 }
 
-module.exports = MazeBuilder;
+export default MazeBuilder;
