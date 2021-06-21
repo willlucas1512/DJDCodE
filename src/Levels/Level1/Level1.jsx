@@ -1,15 +1,26 @@
 import React, { useRef, useContext } from "react";
 import Blockly from "blockly/core";
-import { Block, Value, Field, Category } from "../Blockly";
-import BlocksArea from "../BlocksArea";
-import MapArea from "../MapArea";
-import Run from "../Run";
-import CodeContext from "../Run/CodeContext";
-import Style from "./BlocksLevel1.module.scss";
+import { Block, Value, Field, Category } from "../../Blockly";
+import BlocksArea from "../../BlocksArea";
+import MapArea from "../../MapArea";
+import Run from "../../Run";
+import CodeContext from "../../Run/CodeContext";
+import classNames from "classnames";
+import Style from "./Level1.module.scss";
 
-const BlocksLevel1 = (props) => {
+const Level1 = (props) => {
   const demoWorkspace = useRef();
   const { code } = useContext(CodeContext);
+  const levelLayout = [
+    [["wall"], ["wall"], ["wall"], ["wall"], ["wall"], ["wall"]],
+    [["wall"], ["wall"], ["entrance"], ["wall"], ["wall"], ["wall"]],
+    [["wall"], ["wall"], [], ["wall"], ["wall"], ["wall"]],
+    [["wall"], ["wall"], ["key"], ["wall"], ["wall"], ["wall"]],
+    [["wall"], ["wall"], ["nubbin"], ["wall"], ["wall"], ["wall"]],
+    [["wall"], ["wall"], ["door", "exit"], ["wall"], ["wall"], ["wall"]],
+  ];
+  const levelWidth = levelLayout[0].length;
+  const levelHeight = levelLayout.length;
   Blockly.Blocks["lightswitch"] = {
     init: function () {
       this.appendDummyInput()
@@ -140,8 +151,12 @@ const BlocksLevel1 = (props) => {
     },
   };
 
+  const root = classNames(Style.root, {
+    [Style.isMobile]: props.isMobile,
+  });
+
   return (
-    <div className={Style.root}>
+    <div className={root}>
       <div className={Style.blockArea}>
         <BlocksArea ref={demoWorkspace}>
           <Category name="Labirinto" colour="120">
@@ -190,7 +205,14 @@ const BlocksLevel1 = (props) => {
         </BlocksArea>
       </div>
       <div className={Style.map}>
-        <MapArea code={code} />
+        <MapArea
+          code={code}
+          mazeProps={{
+            layout: levelLayout,
+            width: levelWidth,
+            height: levelHeight,
+          }}
+        />
         <div className={Style.run}>
           <Run workspace={demoWorkspace} />
         </div>
@@ -199,4 +221,4 @@ const BlocksLevel1 = (props) => {
   );
 };
 
-export default BlocksLevel1;
+export default Level1;

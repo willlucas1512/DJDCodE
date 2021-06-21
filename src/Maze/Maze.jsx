@@ -7,8 +7,8 @@ function Maze(props) {
   useEffect(() => {
     var Maze, MazeGame;
 
-    const makeMaze = (id, width, height, speech = false) => {
-      Maze = new FancyMazeBuilder(width, height);
+    const makeMaze = (id, layout, width, height, random, speech = false) => {
+      Maze = new FancyMazeBuilder(layout, width, height, random);
       Maze.display(id);
       MazeGame = new Mazing("maze");
       if (speech) {
@@ -31,7 +31,13 @@ function Maze(props) {
       };
     };
 
-    makeMaze("maze_container", 4, 4);
+    makeMaze(
+      "maze_container",
+      props.layout,
+      props.width,
+      props.height,
+      props.random
+    );
   }, []);
 
   return <div id="maze_container">{/**/}</div>;

@@ -44,13 +44,18 @@ const Run = (props) => {
     <>
       <div className={Style.buttons}>
         <div className={Style.button}>
-          <Button variant={"contained"} color={"primary"} onClick={runCode}>
+          <Button
+            variant={"contained"}
+            size={"small"}
+            color={"primary"}
+            onClick={runCode}
+          >
             Rodar
           </Button>
         </div>
-        <Button variant={"contained"} color={"primary"} onClick={generateCode}>
+        {/* <Button variant={"contained"} color={"primary"} onClick={generateCode}>
           {show ? "Esconder" : "Mostrar"} JavaScript
-        </Button>
+        </Button> */}
       </div>
     </>
   );

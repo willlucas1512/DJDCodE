@@ -45,7 +45,7 @@ export function Mazing(id) {
   mazeOutputDiv.appendChild(this.mazeMessage);
 
   mazeOutputDiv.style.width = this.mazeContainer.scrollWidth + "px";
-  this.setMessage("first find the key");
+  this.setMessage("encontre a chave");
 
   this.mazeContainer.insertAdjacentElement("afterend", mazeOutputDiv);
 
@@ -72,7 +72,7 @@ Mazing.prototype.setMessage = function (text) {
 Mazing.prototype.heroTakeTreasure = function () {
   this.maze[this.heroPos].classList.remove("nubbin");
   this.heroScore += 10;
-  this.setMessage("yay, treasure!");
+  this.setMessage("uhu, tesouro!");
 };
 
 Mazing.prototype.heroTakeKey = function () {
@@ -80,7 +80,7 @@ Mazing.prototype.heroTakeKey = function () {
   this.heroHasKey = true;
   this.heroScore += 20;
   this.mazeScore.classList.add("has-key");
-  this.setMessage("you now have the key!");
+  this.setMessage("agora você tem a chave!");
 };
 
 Mazing.prototype.gameOver = function (text) {
@@ -94,7 +94,7 @@ Mazing.prototype.heroWins = function () {
   this.mazeScore.classList.remove("has-key");
   this.maze[this.heroPos].classList.remove("door");
   this.heroScore += 50;
-  this.gameOver("you finished !!!");
+  this.gameOver("você completou o labirinto!!!");
 };
 
 Mazing.prototype.tryMoveHero = function (pos) {
@@ -108,9 +108,9 @@ Mazing.prototype.tryMoveHero = function (pos) {
   if (nextStep.match(/sentinel/)) {
     this.heroScore = Math.max(this.heroScore - 5, 0);
     if (!this.childMode && this.heroScore <= 0) {
-      this.gameOver("sorry, you didn't make it");
+      this.gameOver("poxa, não deu");
     } else {
-      this.setMessage("ow, that hurt!");
+      this.setMessage("ai, isso dói!");
     }
     return;
   }
@@ -121,7 +121,7 @@ Mazing.prototype.tryMoveHero = function (pos) {
     if (this.heroHasKey) {
       this.heroWins();
     } else {
-      this.setMessage("you need a key to unlock the door");
+      this.setMessage("você precisa da chave para abrir a porta");
       return;
     }
   }
@@ -148,7 +148,7 @@ Mazing.prototype.tryMoveHero = function (pos) {
       this.heroScore--;
     }
     if (!this.childMode && this.heroScore <= 0) {
-      this.gameOver("sorry, you didn't make it");
+      this.gameOver("poxa, não deu");
     } else {
       this.setMessage("...");
     }
@@ -210,7 +210,7 @@ Mazing.prototype.mazeKeyPressHandler = function (e) {
 Mazing.prototype.setChildMode = function () {
   this.childMode = true;
   this.heroScore = 0;
-  this.setMessage("collect all the treasure");
+  this.setMessage("colete todo o tesouro");
 };
 
 export default Mazing;

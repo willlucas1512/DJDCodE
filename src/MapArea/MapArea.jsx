@@ -23,7 +23,12 @@ const MapArea = (props) => {
 
   return (
     <div className={Style.mapContour} id="mapContour">
-      <Maze />
+      <Maze
+        layout={props.mazeProps.layout}
+        width={props.mazeProps.width}
+        height={props.mazeProps.height}
+        random={props.mazeProps.random}
+      />
       {/* <Typography variant="h6" color="primary">
         {props.code}
       </Typography> */}

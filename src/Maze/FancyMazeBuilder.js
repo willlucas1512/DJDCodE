@@ -1,13 +1,15 @@
 // var MazeBuilder = require("./MazeBuilder.js");
 import MazeBuilder from "./MazeBuilder";
 class FancyMazeBuilder extends MazeBuilder {
-  constructor(width, height) {
-    super(width, height);
+  constructor(layout, width, height, random) {
+    super(layout, width, height, random);
 
     this.removeNubbins();
     this.joinNubbins();
-    this.placeSentinels(100);
-    this.placeKey();
+    if (random) {
+      this.placeSentinels(100);
+      this.placeKey();
+    }
   }
 
   isA(value, ...cells) {

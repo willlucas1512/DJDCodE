@@ -1,48 +1,54 @@
 class MazeBuilder {
-  constructor(width, height) {
+  constructor(layout, width, height, random = false) {
     this.width = width;
     this.height = height;
+    this.layout = layout;
+    console.log(this.layout);
+    console.log(this.width);
+    console.log(this.height);
 
     this.cols = 2 * this.width + 1;
     this.rows = 2 * this.height + 1;
 
-    this.maze = this.initArray([]);
+    this.maze = random ? this.initArray([]) : this.layout;
 
-    // place initial walls
-    this.maze.forEach((row, r) => {
-      row.forEach((cell, c) => {
-        switch (r) {
-          case 0:
-          case this.rows - 1:
-            this.maze[r][c] = ["wall"];
-            break;
+    if (random) {
+      // place initial walls
+      this.maze.forEach((row, r) => {
+        row.forEach((cell, c) => {
+          switch (r) {
+            case 0:
+            case this.rows - 1:
+              this.maze[r][c] = ["wall"];
+              break;
 
-          default:
-            if (r % 2 === 1) {
-              if (c === 0 || c === this.cols - 1) {
+            default:
+              if (r % 2 === 1) {
+                if (c === 0 || c === this.cols - 1) {
+                  this.maze[r][c] = ["wall"];
+                }
+              } else if (c % 2 === 0) {
                 this.maze[r][c] = ["wall"];
               }
-            } else if (c % 2 === 0) {
-              this.maze[r][c] = ["wall"];
-            }
+          }
+        });
+
+        if (r === 0) {
+          // place exit in top row
+          let doorPos = this.posToSpace(this.rand(1, this.width));
+          this.maze[r][doorPos] = ["door", "exit"];
+        }
+
+        if (r === this.rows - 1) {
+          // place entrance in bottom row
+          let doorPos = this.posToSpace(this.rand(1, this.width));
+          this.maze[r][doorPos] = ["door", "entrance"];
         }
       });
 
-      if (r === 0) {
-        // place exit in top row
-        let doorPos = this.posToSpace(this.rand(1, this.width));
-        this.maze[r][doorPos] = ["door", "exit"];
-      }
-
-      if (r === this.rows - 1) {
-        // place entrance in bottom row
-        let doorPos = this.posToSpace(this.rand(1, this.width));
-        this.maze[r][doorPos] = ["door", "entrance"];
-      }
-    });
-
-    // start partitioning
-    this.partition(1, this.height - 1, 1, this.width - 1);
+      // start partitioning
+      this.partition(1, this.height - 1, 1, this.width - 1);
+    }
   }
 
   initArray(value) {

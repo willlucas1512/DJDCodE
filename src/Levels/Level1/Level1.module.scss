@@ -5,6 +5,13 @@
   height: calc(100vh - 64px);
 }
 
+.isMobile {
+  margin: 0 8px;
+  height: calc(100vh - 35px);
+  display: flex;
+  align-items: flex-start;
+}
+
 .map {
   height: 80%;
   width: 50%;

@@ -1,9 +1,13 @@
 #maze_container {
   position: relative;
   display: inline-block;
+  height: 100%;
+  width: 100%;
 }
 #maze {
   position: relative;
+  height: 100%;
+  width: 100%;
   background-color: #a7c53f;
   background-image: radial-gradient(
       circle at 0% 0%,
@@ -22,11 +26,13 @@
 }
 #maze div {
   display: flex;
+  height: calc(100% / 6);
+  width: 100%;
 }
 #maze div div {
   position: relative;
-  width: 1em;
-  height: 1em;
+  /* width: 1em;
+  height: 1em; */
 }
 #maze div div::after {
   position: absolute;
@@ -72,6 +78,8 @@
     ),
     linear-gradient(to bottom, rgba(0, 0, 0, 0.2) 45%, transparent 55%);
   background-size: 0.5em 0.5em;
+  height: 100%;
+  width: 100%;
 }
 #maze div div.nubbin.wall::after {
   content: "";
@@ -90,10 +98,10 @@
 }
 
 #maze div div:nth-child(odd) {
-  width: 1em;
+  width: 100%;
 }
 #maze div:nth-child(odd) div {
-  height: 1em;
+  height: 100%;
 }
 
 #maze.finished::after {
@@ -105,7 +113,7 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
-  content: "Game Over";
+  content: "Fim do jogo";
   background: rgba(0, 0, 0, 0.4);
   text-transform: uppercase;
   font-family: monospace;
@@ -131,7 +139,7 @@
   text-align: left;
 }
 #maze_score::before {
-  content: "Score: ";
+  content: "Pontuação: ";
 }
 #maze_score.has-key::after {
   content: "\00a0\1F511";
