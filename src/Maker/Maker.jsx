@@ -21,7 +21,6 @@ class Maker extends Component {
       this.simpleWorkspace.current.workspace
     );
     this.setState({ code: code });
-    console.log(code);
   };
 
   render() {
