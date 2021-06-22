@@ -1,8 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Level1 from "./Level1";
+import Level2 from "./Level2";
+import LevelContext from "./LevelContext";
 
 const Levels = (props) => {
   const [isMobile, setIsMobile] = useState(false);
+  const { currentLevel } = useContext(LevelContext);
   const IsMobile = () => {
     if (window.innerWidth < 800) {
       setIsMobile(true);
@@ -15,7 +18,12 @@ const Levels = (props) => {
     IsMobile();
   }, []);
 
-  return <Level1 isMobile={isMobile} />;
+  return (
+    <>
+      {currentLevel === 1 && <Level1 isMobile={isMobile} />}
+      {currentLevel === 2 && <Level2 isMobile={isMobile} />}
+    </>
+  );
 };
 
 export default Levels;

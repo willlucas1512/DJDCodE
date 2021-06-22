@@ -4,15 +4,19 @@ import { themePrimary } from "./style/theme";
 // import Maker from "./Maker";
 import Levels from "./Levels/Levels";
 import CodeProvider from "./Run/CodeProvider";
+import LevelProvider from "./Levels/LevelProvider";
 
 function App() {
   return (
     <ThemeProvider theme={themePrimary}>
-      <Navbar />
-      <CodeProvider>
-        {/* <Maker /> */}
-        <Levels />
-      </CodeProvider>
+      <LevelProvider>
+        <Navbar />
+        <CodeProvider>
+          {/* <Maker /> */}
+
+          <Levels />
+        </CodeProvider>
+      </LevelProvider>
     </ThemeProvider>
   );
 }

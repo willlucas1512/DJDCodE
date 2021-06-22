@@ -2,12 +2,35 @@
   margin-left: 12px;
 }
 
+.menu {
+  width: 35%;
+}
 .marca {
   display: flex;
   align-items: center;
   margin-left: 24px;
+  width: 100%;
+}
+
+.restNav {
+  display: flex;
+  align-items: center;
+  width: 40%;
 }
 
 .mobile {
+  display: flex;
+  align-items: center;
+
   padding: 8px 0 0 8px;
+}
+
+.levelName {
+  // width: 90%;
+}
+
+.level {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
