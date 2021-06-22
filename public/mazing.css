@@ -134,18 +134,18 @@
   font-weight: bold;
   font-size: 1em;
 }
-#maze_score {
+/* #maze_score {
   flex: 1;
   white-space: nowrap;
-  text-align: left;
-}
-#maze_score::before {
+  text-align: center;
+} */
+/* #maze_score::before {
   content: "Pontuação: ";
-}
+} */
 #maze_score.has-key::after {
   content: "\00a0\1F511";
 }
 #maze_message {
   flex: 3;
-  text-align: right;
+  text-align: center;
 }

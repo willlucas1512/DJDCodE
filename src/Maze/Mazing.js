@@ -11,13 +11,13 @@ export function Mazing(id) {
   // bind to HTML element
   this.mazeContainer = document.getElementById(id);
 
-  this.mazeScore = document.createElement("div");
-  this.mazeScore.id = "maze_score";
+  // this.mazeScore = document.createElement("div");
+  // this.mazeScore.id = "maze_score";
 
   this.mazeMessage = document.createElement("div");
   this.mazeMessage.id = "maze_message";
 
-  this.heroScore = this.mazeContainer.getAttribute("data-steps") - 2;
+  // this.heroScore = this.mazeContainer.getAttribute("data-steps") - 2;
 
   this.maze = [];
   this.heroPos = {};
@@ -41,7 +41,7 @@ export function Mazing(id) {
   var mazeOutputDiv = document.createElement("div");
   mazeOutputDiv.id = "maze_output";
 
-  mazeOutputDiv.appendChild(this.mazeScore);
+  // mazeOutputDiv.appendChild(this.mazeScore);
   mazeOutputDiv.appendChild(this.mazeMessage);
 
   mazeOutputDiv.style.width = this.mazeContainer.scrollWidth + "px";
@@ -61,7 +61,7 @@ Mazing.prototype.enableSpeech = function () {
 
 Mazing.prototype.setMessage = function (text) {
   this.mazeMessage.innerHTML = text;
-  this.mazeScore.innerHTML = this.heroScore;
+  // this.mazeScore.innerHTML = this.heroScore;
   if (this.utter) {
     this.utter.text = text;
     window.speechSynthesis.cancel();
@@ -71,15 +71,15 @@ Mazing.prototype.setMessage = function (text) {
 
 Mazing.prototype.heroTakeTreasure = function () {
   this.maze[this.heroPos].classList.remove("nubbin");
-  this.heroScore += 10;
+  // this.heroScore += 10;
   this.setMessage("uhu, tesouro!");
 };
 
 Mazing.prototype.heroTakeKey = function () {
   this.maze[this.heroPos].classList.remove("key");
   this.heroHasKey = true;
-  this.heroScore += 20;
-  this.mazeScore.classList.add("has-key");
+  // this.heroScore += 20;
+  // this.mazeScore.classList.add("has-key");
   this.setMessage("agora você tem a chave!");
 };
 
@@ -91,9 +91,9 @@ Mazing.prototype.gameOver = function (text) {
 };
 
 Mazing.prototype.heroWins = function () {
-  this.mazeScore.classList.remove("has-key");
+  // this.mazeScore.classList.remove("has-key");
   this.maze[this.heroPos].classList.remove("door");
-  this.heroScore += 50;
+  // this.heroScore += 50;
   this.gameOver("você completou o labirinto!!!");
 };
 
@@ -106,8 +106,11 @@ Mazing.prototype.tryMoveHero = function (pos) {
 
   // before moving
   if (nextStep.match(/sentinel/)) {
-    this.heroScore = Math.max(this.heroScore - 5, 0);
-    if (!this.childMode && this.heroScore <= 0) {
+    // this.heroScore = Math.max(this.heroScore - 5, 0);
+    if (
+      !this.childMode
+      // && this.heroScore <= 0
+    ) {
       this.gameOver("poxa, não deu");
     } else {
       this.setMessage("ai, isso dói!");
@@ -143,16 +146,16 @@ Mazing.prototype.tryMoveHero = function (pos) {
   if (nextStep.match(/exit/)) {
     return;
   }
-  if (this.heroScore >= 1) {
-    if (!this.childMode) {
-      this.heroScore--;
-    }
-    if (!this.childMode && this.heroScore <= 0) {
-      this.gameOver("poxa, não deu");
-    } else {
-      this.setMessage("...");
-    }
-  }
+  // if (this.heroScore >= 1) {
+  //   if (!this.childMode) {
+  //     this.heroScore--;
+  //   }
+  //   if (!this.childMode && this.heroScore <= 0) {
+  //     this.gameOver("poxa, não deu");
+  //   } else {
+  //     this.setMessage("...");
+  //   }
+  // }
 };
 
 Mazing.prototype.walkUp = function () {
@@ -207,7 +210,7 @@ Mazing.prototype.mazeKeyPressHandler = function (e) {
 
 Mazing.prototype.setChildMode = function () {
   this.childMode = true;
-  this.heroScore = 0;
+  // this.heroScore = 0;
   this.setMessage("colete todo o tesouro");
 };
 
