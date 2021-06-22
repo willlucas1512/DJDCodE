@@ -1,4 +1,5 @@
 import React, { useRef, useState, useEffect, useContext } from "react";
+import Blockly from "blockly/core";
 import BlocklyJS from "blockly/javascript";
 import { Button } from "@material-ui/core";
 import CodeContext from "./CodeContext";
@@ -6,12 +7,12 @@ import PropTypes from "prop-types";
 import Style from "./Run.module.scss";
 
 const Run = (props) => {
-  const { updateCode } = useContext(CodeContext);
-  const demoWorkspace = useRef();
+  const { updateCode, providerWorkspace, updateWalk } = useContext(CodeContext);
+  const [workspace, setWorkspace] = useState({});
   const [show, setShow] = useState(false);
 
   const generateCode = () => {
-    var code = BlocklyJS.workspaceToCode(demoWorkspace.current.workspace);
+    var code = BlocklyJS.workspaceToCode(workspace.workspace);
     updateCode(code);
     setShow(!show);
   };
@@ -21,11 +22,16 @@ const Run = (props) => {
   // };
 
   const runCode = () => {
+    updateWalk();
     // Generate JavaScript code and run it.
     window.LoopTrap = 1000;
     BlocklyJS.INFINITE_LOOP_TRAP =
       'if (--window.LoopTrap == 0) throw "Infinite loop.";\n';
-    const code = BlocklyJS.workspaceToCode(demoWorkspace.current.workspace);
+    // const code = BlocklyJS.workspaceToCode(workspace.workspace);
+    const xWorkspace = Blockly.Workspace.getAll()[0];
+    const code = BlocklyJS.workspaceToCode(xWorkspace.workspace);
+    const xBlocksOnWorkspace = xWorkspace.getAllBlocks();
+    xBlocksOnWorkspace.map((bloco, index) => {});
     updateCode(code);
     BlocklyJS.INFINITE_LOOP_TRAP = null;
     try {
@@ -37,8 +43,8 @@ const Run = (props) => {
   };
 
   useEffect(() => {
-    demoWorkspace.current = props.workspace;
-  }, [props.workspace]);
+    setWorkspace(providerWorkspace);
+  }, [providerWorkspace]);
 
   return (
     <>

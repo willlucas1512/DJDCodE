@@ -1,6 +1,6 @@
 import React from "react";
 import Style from "./BlocklyComponent.module.scss";
-
+import CodeContext from "../Run/CodeContext";
 import Blockly from "blockly/core";
 import locale from "blockly/msg/en";
 import "blockly/blocks";
@@ -8,8 +8,10 @@ import "blockly/blocks";
 Blockly.setLocale(locale);
 
 class BlocklyComponent extends React.Component {
-  constructor(props) {
-    super(props);
+  static contextType = CodeContext;
+
+  constructor(props, context) {
+    super(props, context);
     this.blocklyDiv = React.createRef();
     this.toolbox = React.createRef();
   }
@@ -27,6 +29,7 @@ class BlocklyComponent extends React.Component {
         this.primaryWorkspace
       );
     }
+    this.context.updateWorkspace(this.primaryWorkspace);
   }
 
   get workspace() {

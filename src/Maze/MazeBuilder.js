@@ -3,9 +3,6 @@ class MazeBuilder {
     this.width = width;
     this.height = height;
     this.layout = layout;
-    console.log(this.layout);
-    console.log(this.width);
-    console.log(this.height);
 
     this.cols = 2 * this.width + 1;
     this.rows = 2 * this.height + 1;
