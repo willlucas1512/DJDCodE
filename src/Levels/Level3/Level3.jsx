@@ -6,30 +6,21 @@ import MapArea from "../../MapArea";
 import Run from "../../Run";
 import CodeContext from "../../Run/CodeContext";
 import classNames from "classnames";
-import Style from "./Level2.module.scss";
+import Style from "./Level3.module.scss";
 
-const Level2 = (props) => {
+const Level3 = (props) => {
   const demoWorkspace = useRef();
   const { code } = useContext(CodeContext);
   const levelLayout = [
-    [["wall"], ["wall"], ["wall"], ["wall"], ["wall"], ["wall"], ["wall"]],
-    [["wall"], ["wall"], ["wall"], ["entrance"], ["wall"], ["wall"], ["wall"]],
-    [["wall"], ["wall"], ["wall"], [], ["wall"], ["wall"], ["wall"]],
-    [["wall"], ["wall"], ["wall"], ["key"], ["wall"], ["wall"], ["wall"]],
-    [["wall"], ["wall"], ["wall"], ["nubbin"], ["wall"], ["wall"], ["wall"]],
-    [
-      ["wall"],
-      ["wall"],
-      ["wall"],
-      ["door", "exit"],
-      ["wall"],
-      ["wall"],
-      ["wall"],
-    ],
+    [["wall"], ["wall"], ["wall"], ["wall"], ["wall"], ["wall"]],
+    [["wall"], ["wall"], [], [], [], ["wall"]],
+    [["wall"], ["wall"], ["door", "exit"], ["wall"], [], ["wall"]],
+    [["wall"], ["wall"], ["wall"], ["wall"], ["key"], ["wall"]],
+    [["wall"], ["entrance"], [], [], [], [], ["wall"]],
+    [["wall"], ["wall"], ["wall"], ["wall"], ["wall"], ["wall"]],
   ];
   const levelWidth = levelLayout[0].length;
   const levelHeight = levelLayout.length;
-
   Blockly.Blocks["maze_walk_up"] = {
     init: function () {
       this.appendDummyInput().appendField("andar pra cima");
@@ -88,10 +79,10 @@ const Level2 = (props) => {
             <Block type="maze_walk_left"></Block>
             <Block type="maze_walk_down"></Block>
           </Category>
-          <Category name="Repetições" colour="230">
+          <Category name="Loops" colour="120">
             <Block type="controls_repeat_ext"></Block>
           </Category>
-          <Category name="Números" colour="330">
+          <Category name="Matemática" colour="230">
             <Block type="math_number"></Block>
           </Category>
         </BlocksArea>
@@ -113,4 +104,4 @@ const Level2 = (props) => {
   );
 };
 
-export default Level2;
+export default Level3;
