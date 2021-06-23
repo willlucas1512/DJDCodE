@@ -4,6 +4,8 @@
 
 .menu {
   width: 35%;
+
+  color: white;
 }
 .marca {
   display: flex;
@@ -20,7 +22,7 @@
 
 .mobile {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
 
   padding: 8px 0 0 8px;
 }

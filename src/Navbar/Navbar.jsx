@@ -55,7 +55,11 @@ const Navbar = (props) => {
         </div>
         <div className={Style.level}>
           <div className={Style.levelName}>
-            <Typography variant={"h6"}>Nível {currentLevel}</Typography>
+            <Typography color={"textPrimary"} variant={"h6"}>
+              {currentLevel !== 0
+                ? `Nível ${currentLevel}`
+                : "O Labirinto dos Cogumelos"}
+            </Typography>
           </div>
           <div className={Style.stepper}>
             <MobileStepper
@@ -75,13 +79,15 @@ const Navbar = (props) => {
                 </Button>
               }
               backButton={
-                <Button
-                  size="small"
-                  onClick={handleBack}
-                  disabled={currentLevel === 1}
-                >
-                  Voltar
-                </Button>
+                currentLevel !== 0 && (
+                  <Button
+                    size="small"
+                    onClick={handleBack}
+                    disabled={currentLevel === 0}
+                  >
+                    Voltar
+                  </Button>
+                )
               }
             />
           </div>
