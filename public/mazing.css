@@ -114,7 +114,7 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
-  content: "Fim do jogo";
+  content: "Sucesso!";
   background: rgba(0, 0, 0, 0.4);
   text-transform: uppercase;
   font-family: monospace;
@@ -127,6 +127,7 @@
 #maze_output {
   display: flex;
   margin: 0.5em auto;
+  color: white;
 }
 #maze_score,
 #maze_message {
