@@ -66,17 +66,19 @@ const Navbar = (props) => {
               className={classList(xClassNames)}
               // style={{ backgroundColor: "white" }}
               variant="dots"
-              steps={5}
+              steps={6}
               position="static"
               activeStep={currentLevel}
               nextButton={
-                <Button
-                  size="small"
-                  onClick={handleNext}
-                  disabled={currentLevel === 5}
-                >
-                  Próximo
-                </Button>
+                currentLevel !== 6 && (
+                  <Button
+                    size="small"
+                    onClick={handleNext}
+                    // disabled={currentLevel === 5}
+                  >
+                    Próximo
+                  </Button>
+                )
               }
               backButton={
                 currentLevel !== 0 && (
@@ -110,33 +112,42 @@ const Navbar = (props) => {
             </div>
             <div className={Style.level}>
               <div className={Style.levelName}>
-                <Typography variant={"h6"}>Nível {currentLevel}</Typography>
+                <Typography variant={"h6"}>
+                  {" "}
+                  {currentLevel !== 0
+                    ? `Nível ${currentLevel}`
+                    : "O Labirinto dos Cogumelos"}
+                </Typography>
               </div>
               <div className={Style.stepper}>
                 <MobileStepper
                   className={classList(xClassNames)}
                   // style={{ backgroundColor: "white" }}
                   variant="dots"
-                  steps={5}
+                  steps={6}
                   position="static"
                   activeStep={currentLevel}
                   nextButton={
-                    <Button
-                      size="small"
-                      onClick={handleNext}
-                      disabled={currentLevel === 5}
-                    >
-                      Próximo
-                    </Button>
+                    currentLevel !== 6 && (
+                      <Button
+                        size="small"
+                        onClick={handleNext}
+                        // disabled={currentLevel === 5}
+                      >
+                        Próximo
+                      </Button>
+                    )
                   }
                   backButton={
-                    <Button
-                      size="small"
-                      onClick={handleBack}
-                      disabled={currentLevel === 1}
-                    >
-                      Voltar
-                    </Button>
+                    currentLevel !== 0 && (
+                      <Button
+                        size="small"
+                        onClick={handleBack}
+                        disabled={currentLevel === 0}
+                      >
+                        Voltar
+                      </Button>
+                    )
                   }
                 />
               </div>
