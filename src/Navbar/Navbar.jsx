@@ -6,6 +6,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { MobileStepper, Button } from "@material-ui/core";
 import Logo from "../Logo";
 import LevelContext from "../Levels/LevelContext";
+import Run from "../Run";
 import Style from "./Navbar.module.scss";
 
 const Navbar = (props) => {
@@ -94,6 +95,9 @@ const Navbar = (props) => {
             />
           </div>
         </div>
+        <div className={Style.run}>
+          <Run />
+        </div>
       </div>
     );
   } else {
@@ -101,7 +105,7 @@ const Navbar = (props) => {
       <AppBar position="static">
         <Toolbar>
           <Menu />
-          <div className={Style.marca}>
+          <div className={Style.navPC}>
             <div className={Style.restNav}>
               <Logo />
               <div className={Style.navbarTitle}>
@@ -130,6 +134,7 @@ const Navbar = (props) => {
                   nextButton={
                     currentLevel !== 6 && (
                       <Button
+                        color={"secondary"}
                         size="small"
                         onClick={handleNext}
                         // disabled={currentLevel === 5}
@@ -151,6 +156,9 @@ const Navbar = (props) => {
                   }
                 />
               </div>
+            </div>
+            <div className={Style.run}>
+              <Run />
             </div>
           </div>
         </Toolbar>
