@@ -161,6 +161,7 @@ Mazing.prototype.tryMoveHero = function (pos) {
 Mazing.prototype.walkUp = function () {
   var tryPos = new Position(this.heroPos.x, this.heroPos.y);
   tryPos.x--;
+  console.log(tryPos);
   this.tryMoveHero(tryPos);
 };
 Mazing.prototype.walkLeft = function () {

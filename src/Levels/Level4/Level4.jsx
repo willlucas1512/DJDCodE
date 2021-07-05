@@ -221,9 +221,9 @@ const Level4 = (props) => {
             height: levelHeight,
           }}
         />
-        <div className={Style.run}>
+        {/* <div className={Style.run}>
           <Run workspace={demoWorkspace} />
-        </div>
+        </div> */}
       </div>
     </div>
   );

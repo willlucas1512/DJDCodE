@@ -1,22 +1,20 @@
-import React, { useRef, useContext } from "react";
+import React, { useContext } from "react";
 import Blockly from "blockly/core";
-import { Block, Value, Field, Category } from "../../Blockly";
+import { Block, Category } from "../../Blockly";
 import BlocksArea from "../../BlocksArea";
 import MapArea from "../../MapArea";
-import Run from "../../Run";
 import CodeContext from "../../Run/CodeContext";
 import classNames from "classnames";
 import Style from "./Level3.module.scss";
 
 const Level3 = (props) => {
-  const demoWorkspace = useRef();
   const { code } = useContext(CodeContext);
   const levelLayout = [
     [["wall"], ["wall"], ["wall"], ["wall"], ["wall"], ["wall"]],
     [["wall"], ["wall"], [], [], [], ["wall"]],
     [["wall"], ["wall"], ["door", "exit"], ["wall"], [], ["wall"]],
     [["wall"], ["wall"], ["wall"], ["wall"], ["key"], ["wall"]],
-    [["wall"], ["entrance"], [], [], [], [], ["wall"]],
+    [["wall"], ["entrance"], [], [], [], ["wall"]],
     [["wall"], ["wall"], ["wall"], ["wall"], ["wall"], ["wall"]],
   ];
   const levelWidth = levelLayout[0].length;
@@ -72,18 +70,12 @@ const Level3 = (props) => {
   return (
     <div className={root}>
       <div className={Style.blockArea}>
-        <BlocksArea ref={demoWorkspace}>
+        <BlocksArea>
           <Category name="Labirinto" colour="120">
             <Block type="maze_walk_up"></Block>
             <Block type="maze_walk_right"></Block>
             <Block type="maze_walk_left"></Block>
             <Block type="maze_walk_down"></Block>
-          </Category>
-          <Category name="Loops" colour="120">
-            <Block type="controls_repeat_ext"></Block>
-          </Category>
-          <Category name="Matemática" colour="230">
-            <Block type="math_number"></Block>
           </Category>
         </BlocksArea>
       </div>
@@ -96,9 +88,6 @@ const Level3 = (props) => {
             height: levelHeight,
           }}
         />
-        <div className={Style.run}>
-          <Run workspace={demoWorkspace} />
-        </div>
       </div>
     </div>
   );

@@ -66,7 +66,6 @@ function Maze(props) {
     const xWorkspace = Blockly.Workspace.getAll()[0];
     // const code = BlocklyJS.workspaceToCode(xWorkspace.workspace);
     const xBlocksOnWorkspace = xWorkspace.getAllBlocks();
-    console.log(Blockly.Workspace.getAll());
     const xTypes = {
       maze_walk_up: "up",
       maze_walk_down: "down",
@@ -126,34 +125,25 @@ function Maze(props) {
 
   const blocksLogicLevel3 = () => {
     const xWorkspace = Blockly.Workspace.getAll()[6];
+    // const code = BlocklyJS.workspaceToCode(xWorkspace.workspace);
     const xBlocksOnWorkspace = xWorkspace.getAllBlocks();
-
-    let xBlocks = [];
-    let xRepetitions = 0;
-    let xTypes = {
-      controls_repeat_ext: "repeat",
-      math_number: [xRepetitions],
+    const xTypes = {
       maze_walk_up: "up",
       maze_walk_down: "down",
       maze_walk_left: "left",
       maze_walk_right: "right",
     };
+    let xBlocks = [];
 
     xBlocksOnWorkspace.map((bloco, index) => {
-      if (bloco.type === "math_number") {
-        xTypes[bloco.type] = bloco.getFieldValue("NUM");
-      }
       xBlocks.push(xTypes[bloco.type]);
       return 1;
     });
-
-    const xRepeatArray = Array(xTypes["math_number"]).fill().map(Math.random);
-    xRepeatArray.map((random, index) => {
+    console.log(xBlocks);
+    xBlocks.map((move, index) => {
       setTimeout(() => {
         if (index !== 0) {
-          const xWalkType = `maze_walk_${xBlocks[2]}`;
-          const moveLabel = xTypes[xWalkType];
-          next[moveLabel](maze);
+          next[move](maze);
         }
       }, 1000 * index);
     });

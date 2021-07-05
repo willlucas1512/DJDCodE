@@ -9,7 +9,8 @@
   height: 100%;
   width: 100%;
   background-color: #a7c53f;
-  background-image: radial-gradient(
+  background-image: url("./floor.jpeg");
+  /* radial-gradient(
       circle at 0% 0%,
       transparent 50%,
       rgba(0, 0, 0, 0.1) 50%
@@ -21,7 +22,7 @@
       rgba(0, 0, 0, 0.1) 50%
     ),
     radial-gradient(circle at 0% 100%, transparent 50%, rgba(0, 0, 0, 0.1) 50%),
-    radial-gradient(circle at 100% 0%, transparent 50%, rgba(0, 0, 0, 0.1) 50%);
+    radial-gradient(circle at 100% 0%, transparent 50%, rgba(0, 0, 0, 0.1) 50%); */
   background-size: 8em 8em;
 }
 #maze div {
@@ -114,7 +115,7 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
-  content: "Sucesso!";
+  content: "Escapou dessa. Clique em próximo para continuar.";
   background: rgba(0, 0, 0, 0.4);
   text-transform: uppercase;
   font-family: monospace;

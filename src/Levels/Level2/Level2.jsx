@@ -81,7 +81,7 @@ const Level2 = (props) => {
   return (
     <div className={root}>
       <div className={Style.blockArea}>
-        <BlocksArea ref={demoWorkspace}>
+        <BlocksArea>
           <Category name="Labirinto" colour="120">
             <Block type="maze_walk_up"></Block>
             <Block type="maze_walk_right"></Block>
@@ -105,9 +105,9 @@ const Level2 = (props) => {
             height: levelHeight,
           }}
         />
-        <div className={Style.run}>
+        {/* <div className={Style.run}>
           <Run workspace={demoWorkspace} />
-        </div>
+        </div> */}
       </div>
     </div>
   );

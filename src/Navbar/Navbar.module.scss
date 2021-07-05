@@ -3,13 +3,13 @@
 }
 
 .menu {
-  width: 15%;
+  flex-grow: 1;
   color: white;
 }
 .navPC {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  // justify-content: space-between;
   margin-left: 24px;
   width: 100%;
 }
@@ -17,25 +17,63 @@
 .restNav {
   display: flex;
   align-items: center;
+  flex-grow: 1;
 }
 
 .mobile {
+  background-color: transparent;
   display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  padding: 8px 0 0 8px;
+  align-items: center;
+  // justify-content: space-between;
+  padding: 8px 0 8px 8px;
 }
 
 .levelName {
   // width: 90%;
+  margin-right: 12px;
+  margin-bottom: 4px;
 }
 
 .level {
+  flex-grow: 5;
+}
+
+.levelMobile {
+  flex-grow: 0;
+}
+.level0 {
+  display: flex;
+  justify-content: flex-start;
+  flex-grow: 2;
+}
+
+.level0Mobile {
+  flex-grow: 1;
+}
+
+.subDivLevel {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
+.subDivLevelMobile {
+  flex-direction: row;
+}
+
 .run {
-  margin-right: 16px;
+  // margin-left: 16px;
+  flex-grow: 1;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+}
+
+.buttonsMobile {
+  display: flex;
+  align-items: center;
 }

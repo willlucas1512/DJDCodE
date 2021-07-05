@@ -7,7 +7,7 @@ const BlocksArea = (props) => {
   return (
     <CodeProvider>
       <BlocklyComponent
-        ref={props.ref}
+        // ref={props.ref}
         readOnly={false}
         trashcan={true}
         media={"media/"}

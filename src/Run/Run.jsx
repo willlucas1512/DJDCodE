@@ -1,7 +1,7 @@
-import React, { useRef, useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Blockly from "blockly/core";
 import BlocklyJS from "blockly/javascript";
-import { Button } from "@material-ui/core";
+import { IconButton, Icon } from "@material-ui/core";
 import CodeContext from "./CodeContext";
 import PropTypes from "prop-types";
 import Style from "./Run.module.scss";
@@ -10,6 +10,14 @@ const Run = (props) => {
   const { updateCode, providerWorkspace, updateWalk } = useContext(CodeContext);
   const [workspace, setWorkspace] = useState({});
   const [show, setShow] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  const IsMobile = () => {
+    if (window.innerWidth < 800) {
+      setIsMobile(true);
+    } else {
+      setIsMobile(false);
+    }
+  };
 
   const generateCode = () => {
     var code = BlocklyJS.workspaceToCode(workspace.workspace);
@@ -46,18 +54,28 @@ const Run = (props) => {
     setWorkspace(providerWorkspace);
   }, [providerWorkspace]);
 
+  useEffect(() => {
+    IsMobile();
+  }, []);
+
   return (
     <>
       <div className={Style.buttons}>
         <div className={Style.button}>
-          <Button
+          {/* <Button
             variant={"contained"}
             size={"small"}
-            color={"primary"}
+            color={isMobile ? "primary" : "secondary"}
             onClick={runCode}
           >
             Rodar
-          </Button>
+          </Button> */}
+          <IconButton
+            color={isMobile ? "primary" : "secondary"}
+            onClick={runCode}
+          >
+            <Icon>play_arrow</Icon>
+          </IconButton>
         </div>
         {/* <Button variant={"contained"} color={"primary"} onClick={generateCode}>
           {show ? "Esconder" : "Mostrar"} JavaScript

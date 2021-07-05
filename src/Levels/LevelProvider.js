@@ -2,7 +2,7 @@ import React, { memo, useState } from "react";
 import LevelContext from "./LevelContext";
 
 const LevelProvider = memo((props) => {
-  const [currentLevel, setCurrentLevel] = useState(1);
+  const [currentLevel, setCurrentLevel] = useState(0);
 
   const state = {
     ...props.state,

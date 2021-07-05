@@ -89,10 +89,20 @@ const Level1 = (props) => {
     [Style.categoryMobile]: props.isMobile,
   });
 
+  const map = classNames({
+    [Style.map]: !props.isMobile,
+    [Style.mapMobile]: props.isMobile,
+  });
+
+  const blockArea = classNames({
+    [Style.blockArea]: !props.isMobile,
+    [Style.blockAreaMobile]: props.isMobile,
+  });
+
   return (
     <div className={root}>
-      <div className={Style.blockArea}>
-        <BlocksArea ref={demoWorkspace}>
+      <div className={blockArea}>
+        <BlocksArea>
           <Category css-container={category} name="Labirinto" colour="120">
             <Block type="maze_walk_up"></Block>
             <Block type="maze_walk_right"></Block>
@@ -101,7 +111,7 @@ const Level1 = (props) => {
           </Category>
         </BlocksArea>
       </div>
-      <div className={Style.map}>
+      <div className={map}>
         <MapArea
           code={code}
           mazeProps={{
@@ -110,9 +120,9 @@ const Level1 = (props) => {
             height: levelHeight,
           }}
         />
-        <div className={Style.run}>
+        {/* <div className={Style.run}>
           <Run workspace={demoWorkspace} />
-        </div>
+        </div> */}
       </div>
     </div>
   );
