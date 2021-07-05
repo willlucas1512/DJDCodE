@@ -3,6 +3,8 @@ import Level0 from "./Level0";
 import Level1 from "./Level1";
 import Level2 from "./Level2";
 import Level3 from "./Level3";
+import Level4 from "./Level4";
+import Level5 from "./Level5";
 import LevelContext from "./LevelContext";
 
 const Levels = (props) => {
@@ -28,6 +30,8 @@ const Levels = (props) => {
       {currentLevel === 1 && <Level1 isMobile={isMobile} />}
       {currentLevel === 2 && <Level2 isMobile={isMobile} />}
       {currentLevel === 3 && <Level3 isMobile={isMobile} />}
+      {currentLevel === 4 && <Level4 isMobile={isMobile} />}
+      {currentLevel === 5 && <Level5 isMobile={isMobile} />}
     </>
   );
 };
