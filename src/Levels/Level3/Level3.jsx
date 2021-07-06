@@ -1,14 +1,16 @@
-import React, { useContext } from "react";
+import React, { useState, useContext } from "react";
 import Blockly from "blockly/core";
 import { Block, Category } from "../../Blockly";
 import BlocksArea from "../../BlocksArea";
 import MapArea from "../../MapArea";
 import CodeContext from "../../Run/CodeContext";
+import { Modal, Typography } from "@material-ui/core";
 import classNames from "classnames";
 import Style from "./Level3.module.scss";
 
 const Level3 = (props) => {
   const { code } = useContext(CodeContext);
+  const [showHint, setShowHint] = useState(true);
   const levelLayout = [
     [["wall"], ["wall"], ["wall"], ["wall"], ["wall"], ["wall"]],
     [["wall"], ["wall"], [], [], [], ["wall"]],
@@ -67,29 +69,50 @@ const Level3 = (props) => {
     [Style.isMobile]: props.isMobile,
   });
 
+  const handleClose = () => {
+    setShowHint(false);
+  };
+
   return (
-    <div className={root}>
-      <div className={Style.blockArea}>
-        <BlocksArea>
-          <Category name="Labirinto" colour="120">
-            <Block type="maze_walk_up"></Block>
-            <Block type="maze_walk_right"></Block>
-            <Block type="maze_walk_left"></Block>
-            <Block type="maze_walk_down"></Block>
-          </Category>
-        </BlocksArea>
+    <>
+      <Modal
+        open={showHint}
+        onClose={handleClose}
+        aria-labelledby="simple-modal-title"
+        aria-describedby="simple-modal-description"
+      >
+        {
+          <div className={Style.modal}>
+            <Typography id="simple-modal-description">
+              Encontrei um rascunho com 3D 3C 2E 1B escrito. Você sabe o que
+              significa?
+            </Typography>
+          </div>
+        }
+      </Modal>
+      <div className={root}>
+        <div className={Style.blockArea}>
+          <BlocksArea>
+            <Category name="Labirinto" colour="120">
+              <Block type="maze_walk_up"></Block>
+              <Block type="maze_walk_right"></Block>
+              <Block type="maze_walk_left"></Block>
+              <Block type="maze_walk_down"></Block>
+            </Category>
+          </BlocksArea>
+        </div>
+        <div className={Style.map}>
+          <MapArea
+            code={code}
+            mazeProps={{
+              layout: levelLayout,
+              width: levelWidth,
+              height: levelHeight,
+            }}
+          />
+        </div>
       </div>
-      <div className={Style.map}>
-        <MapArea
-          code={code}
-          mazeProps={{
-            layout: levelLayout,
-            width: levelWidth,
-            height: levelHeight,
-          }}
-        />
-      </div>
-    </div>
+    </>
   );
 };
 

@@ -7,12 +7,14 @@ import { MobileStepper, Button } from "@material-ui/core";
 import classNames from "classnames";
 import Logo from "../Logo";
 import LevelContext from "../Levels/LevelContext";
+import CodeContext from "../Run/CodeContext";
 import Run from "../Run";
 import Restart from "../Run/Restart";
 import Style from "./Navbar.module.scss";
 
 const Navbar = (props) => {
   const { currentLevel, updateLevel } = useContext(LevelContext);
+  const { maze } = useContext(CodeContext);
   const [isMobile, setIsMobile] = useState(false);
   const IsMobile = () => {
     if (window.innerWidth < 800) {
@@ -109,7 +111,7 @@ const Navbar = (props) => {
         </div>
         {currentLevel !== 0 && (
           <div className={Style.buttons}>
-            <Restart currentLevel={currentLevel} />
+            <Restart maze={maze} />
             <div className={Style.run}>
               <Run />
             </div>
@@ -178,7 +180,7 @@ const Navbar = (props) => {
             </div>
             {currentLevel !== 0 && (
               <div className={Style.buttonsMobile}>
-                <Restart />
+                <Restart maze={maze} />
                 <div className={Style.run}>
                   <Run />
                 </div>

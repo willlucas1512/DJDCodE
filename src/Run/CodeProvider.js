@@ -4,12 +4,14 @@ import CodeContext from "./CodeContext";
 const CodeProvider = memo((props) => {
   const [code, setCode] = useState("");
   const [walk, setWalk] = useState(false);
+  const [maze, setMaze] = useState();
   const providerWorkspace = React.createRef();
 
   const state = {
     ...props.state,
     code,
     walk,
+    maze,
   };
 
   const refs = {
@@ -18,6 +20,10 @@ const CodeProvider = memo((props) => {
 
   const updateCode = (code) => {
     setCode(code);
+  };
+
+  const updateMaze = (pMaze) => {
+    setMaze(pMaze);
   };
 
   const updateWalk = () => {
@@ -30,7 +36,7 @@ const CodeProvider = memo((props) => {
   const updateWorkspace = (pWkspc) => {
     providerWorkspace.current = pWkspc;
   };
-  const actions = { updateCode, updateWorkspace, updateWalk };
+  const actions = { updateCode, updateWorkspace, updateWalk, updateMaze };
 
   return (
     <CodeContext.Provider value={{ ...state, ...actions, ...refs }}>

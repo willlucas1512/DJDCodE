@@ -23,6 +23,7 @@ export function Mazing(id) {
   this.heroPos = {};
   this.heroHasKey = false;
   this.childMode = false;
+  this.initialHeroPos = {};
 
   this.utter = null;
 
@@ -33,6 +34,7 @@ export function Mazing(id) {
       if (el.classList.contains("entrance")) {
         // place hero at entrance
         this.heroPos = new Position(i, j);
+        this.initialHeroPos = new Position(i, j);
         this.maze[this.heroPos].classList.add("hero");
       }
     }
@@ -97,10 +99,16 @@ Mazing.prototype.heroWins = function () {
   this.gameOver("você completou o labirinto!!!");
 };
 
+Mazing.prototype.heroBackToStart = function () {
+  this.maze[this.heroPos].classList.remove("hero");
+  this.maze[this.initialHeroPos].classList.add("hero");
+  this.heroPos = this.initialHeroPos;
+};
+
 Mazing.prototype.tryMoveHero = function (pos) {
-  if ("object" !== typeof this.maze[pos]) {
-    return;
-  }
+  // if ("object" !== typeof this.maze[pos]) {
+  //   return;
+  // }
 
   var nextStep = this.maze[pos].className;
 
@@ -161,7 +169,6 @@ Mazing.prototype.tryMoveHero = function (pos) {
 Mazing.prototype.walkUp = function () {
   var tryPos = new Position(this.heroPos.x, this.heroPos.y);
   tryPos.x--;
-  console.log(tryPos);
   this.tryMoveHero(tryPos);
 };
 Mazing.prototype.walkLeft = function () {

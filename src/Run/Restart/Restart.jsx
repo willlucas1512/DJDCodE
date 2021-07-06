@@ -22,6 +22,7 @@ const Restart = (props) => {
     xWorkspaces.map((pWorkspace) => {
       pWorkspace.clear();
     });
+    props.maze.heroBackToStart();
   };
 
   useEffect(() => {
