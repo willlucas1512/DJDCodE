@@ -3,6 +3,7 @@ import Navbar from "../Navbar";
 import ThemeProvider from "../ThemeProvider";
 import { themePrimary } from "../style/theme";
 // import Maker from "./Maker";
+import { Typography } from "@material-ui/core";
 import turningphone from "../turningphone.png";
 import Levels from "../Levels/Levels";
 import CodeProvider from "../Run/CodeProvider";
@@ -33,7 +34,7 @@ const ScreenOrientation = (props) => {
   return orientation === "portrait" && isMobile ? (
     <div
       style={{
-        backgroundColor: "white",
+        backgroundColor: "#F5F5F5",
         height: "100%",
         display: "flex",
         justifyContent: "center",
@@ -48,8 +49,27 @@ const ScreenOrientation = (props) => {
           flexDirection: "column",
         }}
       >
-        <img src={turningphone} />
-        <p>Vire o celular para o modo paisagem :)</p>
+        <img height="100px" width="100px" src={turningphone} />
+
+        <div
+          style={{
+            marginTop: "32px",
+            width: "250px",
+          }}
+        >
+          <div
+            style={{
+              marginBottom: "8px",
+            }}
+          >
+            <Typography variant={"h6"} align={"center"}>
+              <b> Pera aí, não precisa alongar o pescoço! </b>
+            </Typography>
+          </div>
+          <Typography variant={"body1"} align={"center"}>
+            Pode virar a tela sem medo para o modo paisagem.
+          </Typography>
+        </div>
       </div>
     </div>
   ) : (

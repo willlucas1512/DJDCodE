@@ -70,6 +70,16 @@ const Level2 = (props) => {
     [Style.isMobile]: props.isMobile,
   });
 
+  const map = classNames({
+    [Style.map]: !props.isMobile,
+    [Style.mapMobile]: props.isMobile,
+  });
+
+  const blockArea = classNames({
+    [Style.blockArea]: !props.isMobile,
+    [Style.blockAreaMobile]: props.isMobile,
+  });
+
   const handleClose = () => {
     setShowHint(false);
   };
@@ -92,7 +102,7 @@ const Level2 = (props) => {
         }
       </Modal>
       <div className={root}>
-        <div className={Style.blockArea}>
+        <div className={blockArea}>
           <BlocksArea>
             <Category name="Labirinto" colour="120">
               <Block type="maze_walk_up"></Block>
@@ -108,7 +118,7 @@ const Level2 = (props) => {
             </Category>
           </BlocksArea>
         </div>
-        <div className={Style.map}>
+        <div className={map}>
           <MapArea
             code={code}
             mazeProps={{
