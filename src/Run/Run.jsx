@@ -60,9 +60,7 @@ const Run = (props) => {
 
   return (
     <>
-      <div className={Style.buttons}>
-        <div className={Style.button}>
-          {/* <Button
+      {/* <Button
             variant={"contained"}
             size={"small"}
             color={isMobile ? "primary" : "secondary"}
@@ -70,17 +68,13 @@ const Run = (props) => {
           >
             Rodar
           </Button> */}
-          <IconButton
-            color={isMobile ? "primary" : "secondary"}
-            onClick={runCode}
-          >
-            <Icon>play_arrow</Icon>
-          </IconButton>
-        </div>
-        {/* <Button variant={"contained"} color={"primary"} onClick={generateCode}>
+      <IconButton color={isMobile ? "primary" : "secondary"} onClick={runCode}>
+        <Icon>play_arrow</Icon>
+      </IconButton>
+
+      {/* <Button variant={"contained"} color={"primary"} onClick={generateCode}>
           {show ? "Esconder" : "Mostrar"} JavaScript
         </Button> */}
-      </div>
     </>
   );
 };

@@ -1,15 +1,17 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import Blockly from "blockly/core";
 import { Block, Category } from "../../Blockly";
 import BlocksArea from "../../BlocksArea";
 import MapArea from "../../MapArea";
 import CodeContext from "../../Run/CodeContext";
+import LevelContext from "../LevelContext";
 import { Modal, Typography } from "@material-ui/core";
 import classNames from "classnames";
 import Style from "./Level5.module.scss";
 
 const Level5 = (props) => {
   const { code } = useContext(CodeContext);
+  const { showHintLevel, updateHintLevel } = useContext(LevelContext);
   const [showHint, setShowHint] = useState(true);
   const levelLayout = [
     [
@@ -162,7 +164,14 @@ const Level5 = (props) => {
 
   const handleClose = () => {
     setShowHint(false);
+    updateHintLevel(0);
   };
+
+  useEffect(() => {
+    if (showHintLevel === 5) {
+      setShowHint(true);
+    }
+  }, [showHintLevel]);
 
   return (
     <>

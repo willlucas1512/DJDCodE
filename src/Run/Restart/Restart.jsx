@@ -31,9 +31,7 @@ const Restart = (props) => {
 
   return (
     <>
-      <div className={Style.buttons}>
-        <div className={Style.button}>
-          {/* <Button
+      {/* <Button
             variant={"contained"}
             size={"small"}
             color={isMobile ? "primary" : "secondary"}
@@ -41,17 +39,16 @@ const Restart = (props) => {
           >
             Limpar
           </Button> */}
-          <IconButton
-            color={isMobile ? "primary" : "secondary"}
-            onClick={resetWorkspace}
-          >
-            <Icon>replay</Icon>
-          </IconButton>
-        </div>
-        {/* <Button variant={"contained"} color={"primary"} onClick={generateCode}>
+      <IconButton
+        color={isMobile ? "primary" : "secondary"}
+        onClick={resetWorkspace}
+      >
+        <Icon>replay</Icon>
+      </IconButton>
+
+      {/* <Button variant={"contained"} color={"primary"} onClick={generateCode}>
           {show ? "Esconder" : "Mostrar"} JavaScript
         </Button> */}
-      </div>
     </>
   );
 };

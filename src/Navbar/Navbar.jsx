@@ -3,7 +3,7 @@ import { AppBar, Toolbar, Typography } from "@material-ui/core";
 import { Menu } from "@material-ui/icons";
 import { classList } from "../utils/helpers";
 import { makeStyles } from "@material-ui/core/styles";
-import { MobileStepper, Button } from "@material-ui/core";
+import { MobileStepper, Button, Icon, IconButton } from "@material-ui/core";
 import classNames from "classnames";
 import Logo from "../Logo";
 import LevelContext from "../Levels/LevelContext";
@@ -13,7 +13,8 @@ import Restart from "../Run/Restart";
 import Style from "./Navbar.module.scss";
 
 const Navbar = (props) => {
-  const { currentLevel, updateLevel } = useContext(LevelContext);
+  const { currentLevel, updateLevel, updateHintLevel } =
+    useContext(LevelContext);
   const { maze } = useContext(CodeContext);
   const [isMobile, setIsMobile] = useState(false);
   const IsMobile = () => {
@@ -46,6 +47,21 @@ const Navbar = (props) => {
 
   const handleBack = () => {
     updateLevel((prevActiveStep) => prevActiveStep - 1);
+  };
+
+  const handleHint = () => {
+    updateHintLevel(currentLevel);
+  };
+
+  const Hint = () => {
+    return (
+      <IconButton
+        color={isMobile ? "primary" : "secondary"}
+        onClick={handleHint}
+      >
+        <Icon>tips_and_updates</Icon>
+      </IconButton>
+    );
   };
 
   useEffect(() => {
@@ -111,6 +127,7 @@ const Navbar = (props) => {
         </div>
         {currentLevel !== 0 && (
           <div className={Style.buttons}>
+            <Hint />
             <Restart maze={maze} />
             <div className={Style.run}>
               <Run />
@@ -180,6 +197,7 @@ const Navbar = (props) => {
             </div>
             {currentLevel !== 0 && (
               <div className={Style.buttonsMobile}>
+                <Hint />
                 <Restart maze={maze} />
                 <div className={Style.run}>
                   <Run />

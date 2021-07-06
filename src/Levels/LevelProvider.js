@@ -3,17 +3,23 @@ import LevelContext from "./LevelContext";
 
 const LevelProvider = memo((props) => {
   const [currentLevel, setCurrentLevel] = useState(0);
+  const [showHintLevel, setShowHintLevel] = useState(0);
 
   const state = {
     ...props.state,
     currentLevel,
+    showHintLevel,
   };
 
   const updateLevel = (pLevel) => {
     setCurrentLevel(pLevel);
   };
 
-  const actions = { updateLevel };
+  const updateHintLevel = (pLevel) => {
+    setShowHintLevel(pLevel);
+  };
+
+  const actions = { updateLevel, updateHintLevel };
 
   return (
     <LevelContext.Provider value={{ ...state, ...actions }}>
