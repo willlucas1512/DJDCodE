@@ -6,8 +6,10 @@ import { themePrimary } from "../style/theme";
 import { Typography } from "@material-ui/core";
 import turningphone from "../turningphone.png";
 import Levels from "../Levels/Levels";
+import SwitchPages from "../SwitchPages";
 import CodeProvider from "../Run/CodeProvider";
 import LevelProvider from "../Levels/LevelProvider";
+import NavbarProvider from "../Navbar/NavbarProvider";
 
 const ScreenOrientation = (props) => {
   const [orientation, setOrientation] = useState("portrait");
@@ -74,13 +76,14 @@ const ScreenOrientation = (props) => {
     </div>
   ) : (
     <ThemeProvider theme={themePrimary}>
-      <LevelProvider>
-        <CodeProvider>
-          <Navbar />
-          {/* <Maker /> */}
-          <Levels />
-        </CodeProvider>
-      </LevelProvider>
+      <NavbarProvider>
+        <LevelProvider>
+          <CodeProvider>
+            <Navbar />
+            <SwitchPages />
+          </CodeProvider>
+        </LevelProvider>
+      </NavbarProvider>
     </ThemeProvider>
   );
 };

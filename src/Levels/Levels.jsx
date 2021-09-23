@@ -1,15 +1,16 @@
 import React, { useState, useEffect, useContext } from "react";
-import Level0 from "./Level0";
-import Level1 from "./Level1";
-import Level2 from "./Level2";
-import Level3 from "./Level3";
-import Level4 from "./Level4";
-import Level5 from "./Level5";
-import Level6 from "./Level6";
+import Level from "./Level";
+import Intro from "./Intro";
+import Ending from "./Ending";
 import LevelContext from "./LevelContext";
 
 const Levels = (props) => {
   const [isMobile, setIsMobile] = useState(false);
+  const [currentLevelState, setCurrentLevelState] = useState({
+    level: 0,
+    layout: [[]],
+    hint: "",
+  });
   const { currentLevel, updateLevel } = useContext(LevelContext);
   const IsMobile = () => {
     if (window.innerWidth < 800) {
@@ -19,24 +20,158 @@ const Levels = (props) => {
     }
   };
 
+  const layouts = [
+    [[]],
+    [
+      [["wall"], ["wall"], ["wall"], ["wall"], ["wall"]],
+      [["wall"], ["wall"], ["entrance"], ["wall"], ["wall"]],
+      [["wall"], ["wall"], [], ["wall"], ["wall"]],
+      [["wall"], ["wall"], ["key"], ["wall"], ["wall"]],
+      [["wall"], ["wall"], ["nubbin"], ["wall"], ["wall"]],
+      [["wall"], ["wall"], ["door", "exit"], ["wall"], ["wall"]],
+    ],
+    [
+      [["wall"], ["wall"], ["wall"], ["wall"], ["wall"]],
+      [["wall"], ["wall"], ["entrance"], ["wall"], ["wall"]],
+      [["wall"], ["wall"], [], ["wall"], ["wall"]],
+      [["wall"], ["wall"], ["key"], ["wall"], ["wall"]],
+      [["wall"], ["wall"], ["nubbin"], ["wall"], ["wall"]],
+      [["wall"], ["wall"], ["door", "exit"], ["wall"], ["wall"]],
+    ],
+    [
+      [["wall"], ["wall"], ["wall"], ["wall"], ["wall"], ["wall"]],
+      [["wall"], ["wall"], [], [], [], ["wall"]],
+      [["wall"], ["wall"], ["door", "exit"], ["wall"], [], ["wall"]],
+      [["wall"], ["wall"], ["wall"], ["wall"], ["key"], ["wall"]],
+      [["wall"], ["entrance"], [], [], [], ["wall"]],
+      [["wall"], ["wall"], ["wall"], ["wall"], ["wall"], ["wall"]],
+    ],
+    [
+      [["wall"], ["wall"], ["wall"], ["wall"], ["wall"], ["wall"]],
+      [["wall"], ["wall"], [], [], [], ["wall"]],
+      [["wall"], ["wall"], ["door", "exit"], ["wall"], [], ["wall"]],
+      [["wall"], ["wall"], ["wall"], ["wall"], ["key"], ["wall"]],
+      [["wall"], ["entrance"], [], [], [], ["wall"]],
+      [["wall"], ["wall"], ["wall"], ["wall"], ["wall"], ["wall"]],
+    ],
+    [
+      [
+        ["wall"],
+        ["wall"],
+        ["wall"],
+        ["wall"],
+        ["wall"],
+        ["wall"],
+        ["door, exit"],
+        ["wall"],
+        ["wall"],
+        ["wall"],
+      ],
+      [["wall"], [], ["wall"], [], ["wall"], [], [], [], [], ["wall"]],
+      [
+        ["wall"],
+        [],
+        ["wall"],
+        [],
+        ["wall"],
+        ["wall"],
+        ["wall"],
+        ["wall"],
+        [],
+        ["wall"],
+      ],
+
+      [["wall"], [], [], [], [], [], [], [], [], ["wall"]],
+      [
+        ["wall"],
+        ["wall"],
+        ["wall"],
+        [],
+        ["wall"],
+        [],
+        ["wall"],
+        ["wall"],
+        ["wall"],
+        ["wall"],
+      ],
+      [["wall"], [], [], [], ["wall"], [], [], [], [], ["wall"]],
+      [
+        ["wall"],
+        [],
+        ["wall"],
+        ["wall"],
+        ["wall"],
+        [],
+        ["wall"],
+        ["wall"],
+        ["wall"],
+        ["wall"],
+      ],
+      [["wall"], [], [], [], ["wall"], [], [], [], [], ["wall"]],
+      [
+        ["wall"],
+        [],
+        ["wall"],
+        ["wall"],
+        ["wall"],
+        [],
+        ["wall"],
+        ["wall"],
+        [],
+        ["wall"],
+      ],
+      [["wall"], [], [], [], ["wall"], [], [], ["wall"], ["key"], ["wall"]],
+      [
+        ["wall"],
+        ["wall"],
+        ["entrance"],
+        ["wall"],
+        ["wall"],
+        ["wall"],
+        ["wall"],
+        ["wall"],
+        ["wall"],
+        ["wall"],
+      ],
+    ],
+    [[]],
+  ];
+
+  const hints = [
+    "",
+    "Começando iniciante... como sair usando 4 blocos?",
+    "Agora faça a mesma coisa usando 3 blocos. A distância continua sendo 4.",
+    "Encontrei um rascunho com 3D 3C 2E 1B escrito. Você sabe o que significa?",
+    "Agora que descobriu o que é, faça o mesmo com 3 blocos.",
+    "Eu estava brincando com você. O teste real vem agora. Quero ver você sair dessa.",
+  ];
+
+  const updateLocalLevel = (level) => {
+    setCurrentLevelState({
+      level: level,
+      layout: layouts[level],
+      hint: hints[level],
+    });
+  };
+
   useEffect(() => {
     IsMobile();
   }, []);
 
-  return (
-    <>
-      {currentLevel === 0 && (
-        <Level0 isMobile={isMobile} updateLevel={updateLevel} />
-      )}
-      {currentLevel === 1 && <Level1 isMobile={isMobile} />}
-      {currentLevel === 2 && <Level2 isMobile={isMobile} />}
-      {currentLevel === 3 && <Level3 isMobile={isMobile} />}
-      {currentLevel === 4 && <Level4 isMobile={isMobile} />}
-      {currentLevel === 5 && <Level5 isMobile={isMobile} />}
-      {currentLevel === 6 && (
-        <Level6 isMobile={isMobile} updateLevel={updateLevel} />
-      )}
-    </>
+  useEffect(() => {
+    updateLocalLevel(currentLevel);
+  }, [currentLevel]);
+
+  return currentLevel === 0 ? (
+    <Intro isMobile={isMobile} updateLevel={updateLevel} />
+  ) : currentLevel === 6 ? (
+    <Ending isMobile={isMobile} updateLevel={updateLevel} />
+  ) : (
+    <Level
+      isMobile={isMobile}
+      level={currentLevelState}
+      updateLevel={updateLevel}
+    />
   );
 };
 

@@ -1,13 +1,21 @@
 import React, { useState, useEffect, useContext } from "react";
 import { AppBar, Toolbar, Typography } from "@material-ui/core";
-import { Menu } from "@material-ui/icons";
+import MenuIcon from "@material-ui/icons/Menu";
 import { classList } from "../utils/helpers";
 import { makeStyles } from "@material-ui/core/styles";
-import { MobileStepper, Button, Icon, IconButton } from "@material-ui/core";
+import {
+  MobileStepper,
+  Button,
+  Icon,
+  IconButton,
+  Drawer,
+} from "@material-ui/core";
 import classNames from "classnames";
+import SideMenu from "./SideMenu";
 import Logo from "../Logo";
 import LevelContext from "../Levels/LevelContext";
 import CodeContext from "../Run/CodeContext";
+import NavbarContext from "./NavbarContext";
 import Run from "../Run";
 import Restart from "../Run/Restart";
 import Style from "./Navbar.module.scss";
@@ -17,6 +25,17 @@ const Navbar = (props) => {
     useContext(LevelContext);
   const { maze } = useContext(CodeContext);
   const [isMobile, setIsMobile] = useState(false);
+  const [open, setOpen] = useState(false);
+  const { updatePage, page } = useContext(NavbarContext);
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   const IsMobile = () => {
     if (window.innerWidth < 800) {
       setIsMobile(true);
@@ -82,49 +101,58 @@ const Navbar = (props) => {
     return (
       <div className={Style.mobile}>
         <div className={Style.menu}>
-          <Menu />
+          <IconButton
+            onClick={handleOpen}
+            edge="start"
+            color="inherit"
+            aria-label="menu"
+          >
+            <MenuIcon />
+          </IconButton>
         </div>
-        <div className={level0}>
-          <div className={subDivLevel}>
-            <div className={Style.levelName}>
-              <Typography color={"textPrimary"} variant={"h6"}>
-                {currentLevel !== 0 ? `Nível ${currentLevel}` : "O Labirinto"}
-              </Typography>
-            </div>
-            <div className={Style.stepper}>
-              <MobileStepper
-                className={classList(xClassNames)}
-                // style={{ backgroundColor: "white" }}
-                variant="dots"
-                steps={6}
-                position="static"
-                activeStep={currentLevel}
-                nextButton={
-                  currentLevel !== 6 && (
-                    <Button
-                      size="small"
-                      onClick={handleNext}
-                      // disabled={currentLevel === 5}
-                    >
-                      Próximo
-                    </Button>
-                  )
-                }
-                backButton={
-                  currentLevel !== 0 && (
-                    <Button
-                      size="small"
-                      onClick={handleBack}
-                      disabled={currentLevel === 0}
-                    >
-                      Voltar
-                    </Button>
-                  )
-                }
-              />
+        {page === "Cursos" && (
+          <div className={level0}>
+            <div className={subDivLevel}>
+              <div className={Style.levelName}>
+                <Typography color={"textPrimary"} variant={"h6"}>
+                  {currentLevel !== 0 ? `Nível ${currentLevel}` : "O Labirinto"}
+                </Typography>
+              </div>
+              <div className={Style.stepper}>
+                <MobileStepper
+                  className={classList(xClassNames)}
+                  // style={{ backgroundColor: "white" }}
+                  variant="dots"
+                  steps={6}
+                  position="static"
+                  activeStep={currentLevel}
+                  nextButton={
+                    currentLevel !== 6 && (
+                      <Button
+                        size="small"
+                        onClick={handleNext}
+                        // disabled={currentLevel === 5}
+                      >
+                        Próximo
+                      </Button>
+                    )
+                  }
+                  backButton={
+                    currentLevel !== 0 && (
+                      <Button
+                        size="small"
+                        onClick={handleBack}
+                        disabled={currentLevel === 0}
+                      >
+                        Voltar
+                      </Button>
+                    )
+                  }
+                />
+              </div>
             </div>
           </div>
-        </div>
+        )}
         {currentLevel !== 0 && (
           <div className={Style.buttons}>
             <Hint />
@@ -134,13 +162,33 @@ const Navbar = (props) => {
             </div>
           </div>
         )}
+        {page === "Home" && (
+          <Button
+            color="inherit"
+            // onClick={handleOpen}
+          >
+            Login
+          </Button>
+        )}
+        <Drawer anchor={"left"} open={open} onClose={handleClose}>
+          <div className={Style.sideMenu}>
+            <SideMenu handleClick={updatePage} />
+          </div>
+        </Drawer>
       </div>
     );
   } else {
     return (
       <AppBar position="static">
         <Toolbar>
-          <Menu />
+          <IconButton
+            onClick={handleOpen}
+            edge="start"
+            color="inherit"
+            aria-label="menu"
+          >
+            <MenuIcon />
+          </IconButton>
           <div className={Style.navPC}>
             <div className={Style.restNav}>
               <Logo />
@@ -150,51 +198,53 @@ const Navbar = (props) => {
                 </Typography>
               </div>
             </div>
-            <div className={level0}>
-              <div className={Style.subDivLevel}>
-                <div className={Style.levelName}>
-                  <Typography variant={"h6"}>
-                    {" "}
-                    {currentLevel !== 0
-                      ? `Nível ${currentLevel}`
-                      : "O Labirinto"}
-                  </Typography>
-                </div>
-                <div className={Style.stepper}>
-                  <MobileStepper
-                    className={classList(xClassNames)}
-                    // style={{ backgroundColor: "white" }}
-                    variant="dots"
-                    steps={6}
-                    position="static"
-                    activeStep={currentLevel}
-                    nextButton={
-                      currentLevel !== 6 && (
-                        <Button
-                          // color={"textPrimary"}
-                          size="small"
-                          onClick={handleNext}
-                          // disabled={currentLevel === 5}
-                        >
-                          Próximo
-                        </Button>
-                      )
-                    }
-                    backButton={
-                      currentLevel !== 0 && (
-                        <Button
-                          size="small"
-                          onClick={handleBack}
-                          disabled={currentLevel === 0}
-                        >
-                          Voltar
-                        </Button>
-                      )
-                    }
-                  />
+            {page === "Cursos" && (
+              <div className={level0}>
+                <div className={Style.subDivLevel}>
+                  <div className={Style.levelName}>
+                    <Typography variant={"h6"}>
+                      {" "}
+                      {currentLevel !== 0
+                        ? `Nível ${currentLevel}`
+                        : "O Labirinto"}
+                    </Typography>
+                  </div>
+                  <div className={Style.stepper}>
+                    <MobileStepper
+                      className={classList(xClassNames)}
+                      // style={{ backgroundColor: "white" }}
+                      variant="dots"
+                      steps={6}
+                      position="static"
+                      activeStep={currentLevel}
+                      nextButton={
+                        currentLevel !== 6 && (
+                          <Button
+                            // color={"textPrimary"}
+                            size="small"
+                            onClick={handleNext}
+                            // disabled={currentLevel === 5}
+                          >
+                            Próximo
+                          </Button>
+                        )
+                      }
+                      backButton={
+                        currentLevel !== 0 && (
+                          <Button
+                            size="small"
+                            onClick={handleBack}
+                            disabled={currentLevel === 0}
+                          >
+                            Voltar
+                          </Button>
+                        )
+                      }
+                    />
+                  </div>
                 </div>
               </div>
-            </div>
+            )}
             {currentLevel !== 0 && (
               <div className={Style.buttonsMobile}>
                 <Hint />
@@ -205,7 +255,20 @@ const Navbar = (props) => {
               </div>
             )}
           </div>
+          {page === "Home" && (
+            <Button
+              color="inherit"
+              // onClick={handleOpen}
+            >
+              Login
+            </Button>
+          )}
         </Toolbar>
+        <Drawer anchor={"left"} open={open} onClose={handleClose}>
+          <div className={Style.sideMenu}>
+            <SideMenu handleClick={updatePage} />
+          </div>
+        </Drawer>
       </AppBar>
     );
   }
