@@ -1,0 +1,9 @@
+.root {
+  padding: 5% 10%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  row-gap: 80px;
+  column-gap: 48px;
+  background-color: #5368a6;
+}

@@ -1,11 +1,11 @@
 import React, { useState, useContext, useEffect } from "react";
 
 import Blockly from "blockly/core";
-import { Block, Category } from "../../Blockly";
+import { Block, Category } from "../../../../../Blockly";
 
-import BlocksArea from "../../BlocksArea";
-import MapArea from "../../MapArea";
-import CodeContext from "../../Run/CodeContext";
+import BlocksArea from "../../../../../BlocksArea";
+import MapArea from "../../../../../MapArea";
+import CodeContext from "../../../../../Run/CodeContext";
 import LevelContext from "../LevelContext";
 import { Modal, Typography } from "@material-ui/core";
 import classNames from "classnames";

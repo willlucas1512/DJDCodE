@@ -13,7 +13,7 @@ import {
 import classNames from "classnames";
 import SideMenu from "./SideMenu";
 import Logo from "../Logo";
-import LevelContext from "../Levels/LevelContext";
+import LevelContext from "../views/Cursos/Labirinto/Levels/LevelContext";
 import CodeContext from "../Run/CodeContext";
 import NavbarContext from "./NavbarContext";
 import Run from "../Run";
@@ -26,7 +26,7 @@ const Navbar = (props) => {
   const { maze } = useContext(CodeContext);
   const [isMobile, setIsMobile] = useState(false);
   const [open, setOpen] = useState(false);
-  const { updatePage, page } = useContext(NavbarContext);
+  const { updatePage, page, course } = useContext(NavbarContext);
 
   const handleOpen = () => {
     setOpen(true);
@@ -97,71 +97,164 @@ const Navbar = (props) => {
     [Style.subDivLevelMobile]: isMobile,
   });
 
-  if (isMobile) {
-    return (
-      <div className={Style.mobile}>
-        <div className={Style.menu}>
-          <IconButton
-            onClick={handleOpen}
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-          >
-            <MenuIcon />
-          </IconButton>
+  // if (isMobile) {
+  //   return (
+  //     <div className={Style.mobile}>
+  //       <div className={Style.menu}>
+  //         <IconButton
+  //           onClick={handleOpen}
+  //           edge="start"
+  //           color="inherit"
+  //           aria-label="menu"
+  //         >
+  //           <MenuIcon />
+  //         </IconButton>
+  //       </div>
+  //       {course === "Labirinto" && (
+  //         <div className={level0}>
+  //           <div className={subDivLevel}>
+  //             <div className={Style.levelName}>
+  //               <Typography color={"textPrimary"} variant={"h6"}>
+  //                 {currentLevel !== 0 ? `Nível ${currentLevel}` : "O Labirinto"}
+  //               </Typography>
+  //             </div>
+  //             <div className={Style.stepper}>
+  //               <MobileStepper
+  //                 className={classList(xClassNames)}
+  //                 // style={{ backgroundColor: "white" }}
+  //                 variant="dots"
+  //                 steps={6}
+  //                 position="static"
+  //                 activeStep={currentLevel}
+  //                 nextButton={
+  //                   currentLevel !== 6 && (
+  //                     <Button
+  //                       size="small"
+  //                       onClick={handleNext}
+  //                       // disabled={currentLevel === 5}
+  //                     >
+  //                       Próximo
+  //                     </Button>
+  //                   )
+  //                 }
+  //                 backButton={
+  //                   currentLevel !== 0 && (
+  //                     <Button
+  //                       size="small"
+  //                       onClick={handleBack}
+  //                       disabled={currentLevel === 0}
+  //                     >
+  //                       Voltar
+  //                     </Button>
+  //                   )
+  //                 }
+  //               />
+  //             </div>
+  //           </div>
+  //         </div>
+  //       )}
+  //       {currentLevel !== 0 && (
+  //         <div className={Style.buttons}>
+  //           <Hint />
+  //           <Restart maze={maze} />
+  //           <div className={Style.run}>
+  //             <Run />
+  //           </div>
+  //         </div>
+  //       )}
+  //       {page === "Home" && (
+  //         <Button
+  //           color="inherit"
+  //           // onClick={handleOpen}
+  //         >
+  //           Login
+  //         </Button>
+  //       )}
+  //       <Drawer anchor={"left"} open={open} onClose={handleClose}>
+  //         <div className={Style.sideMenu}>
+  //           <SideMenu handleClick={updatePage} />
+  //         </div>
+  //       </Drawer>
+  //     </div>
+  //   );
+  // } else {
+  return (
+    <AppBar position="static">
+      <Toolbar>
+        <IconButton
+          onClick={handleOpen}
+          edge="start"
+          color="inherit"
+          aria-label="menu"
+        >
+          <MenuIcon />
+        </IconButton>
+        <div className={Style.navPC}>
+          <div className={Style.restNav}>
+            <Logo />
+            <div className={Style.navbarTitle}>
+              <Typography variant="h6" className={Style.title}>
+                DJDCodE
+              </Typography>
+            </div>
+          </div>
+          {course === "Labirinto" && (
+            <div className={level0}>
+              <div className={Style.subDivLevel}>
+                <div className={Style.levelName}>
+                  <Typography variant={"h6"}>
+                    {" "}
+                    {currentLevel !== 0
+                      ? `Nível ${currentLevel}`
+                      : "O Labirinto"}
+                  </Typography>
+                </div>
+                <div className={Style.stepper}>
+                  <MobileStepper
+                    className={classList(xClassNames)}
+                    // style={{ backgroundColor: "white" }}
+                    variant="dots"
+                    steps={6}
+                    position="static"
+                    activeStep={currentLevel}
+                    nextButton={
+                      currentLevel !== 6 && (
+                        <Button
+                          // color={"textPrimary"}
+                          size="small"
+                          onClick={handleNext}
+                          // disabled={currentLevel === 5}
+                        >
+                          Próximo
+                        </Button>
+                      )
+                    }
+                    backButton={
+                      currentLevel !== 0 && (
+                        <Button
+                          size="small"
+                          onClick={handleBack}
+                          disabled={currentLevel === 0}
+                        >
+                          Voltar
+                        </Button>
+                      )
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          )}
+          {currentLevel !== 0 && (
+            <div className={Style.buttonsMobile}>
+              <Hint />
+              <Restart maze={maze} />
+              <div className={Style.run}>
+                <Run />
+              </div>
+            </div>
+          )}
         </div>
-        {page === "Cursos" && (
-          <div className={level0}>
-            <div className={subDivLevel}>
-              <div className={Style.levelName}>
-                <Typography color={"textPrimary"} variant={"h6"}>
-                  {currentLevel !== 0 ? `Nível ${currentLevel}` : "O Labirinto"}
-                </Typography>
-              </div>
-              <div className={Style.stepper}>
-                <MobileStepper
-                  className={classList(xClassNames)}
-                  // style={{ backgroundColor: "white" }}
-                  variant="dots"
-                  steps={6}
-                  position="static"
-                  activeStep={currentLevel}
-                  nextButton={
-                    currentLevel !== 6 && (
-                      <Button
-                        size="small"
-                        onClick={handleNext}
-                        // disabled={currentLevel === 5}
-                      >
-                        Próximo
-                      </Button>
-                    )
-                  }
-                  backButton={
-                    currentLevel !== 0 && (
-                      <Button
-                        size="small"
-                        onClick={handleBack}
-                        disabled={currentLevel === 0}
-                      >
-                        Voltar
-                      </Button>
-                    )
-                  }
-                />
-              </div>
-            </div>
-          </div>
-        )}
-        {currentLevel !== 0 && (
-          <div className={Style.buttons}>
-            <Hint />
-            <Restart maze={maze} />
-            <div className={Style.run}>
-              <Run />
-            </div>
-          </div>
-        )}
         {page === "Home" && (
           <Button
             color="inherit"
@@ -170,108 +263,15 @@ const Navbar = (props) => {
             Login
           </Button>
         )}
-        <Drawer anchor={"left"} open={open} onClose={handleClose}>
-          <div className={Style.sideMenu}>
-            <SideMenu handleClick={updatePage} />
-          </div>
-        </Drawer>
-      </div>
-    );
-  } else {
-    return (
-      <AppBar position="static">
-        <Toolbar>
-          <IconButton
-            onClick={handleOpen}
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-          >
-            <MenuIcon />
-          </IconButton>
-          <div className={Style.navPC}>
-            <div className={Style.restNav}>
-              <Logo />
-              <div className={Style.navbarTitle}>
-                <Typography variant="h6" className={Style.title}>
-                  DJDCodE
-                </Typography>
-              </div>
-            </div>
-            {page === "Cursos" && (
-              <div className={level0}>
-                <div className={Style.subDivLevel}>
-                  <div className={Style.levelName}>
-                    <Typography variant={"h6"}>
-                      {" "}
-                      {currentLevel !== 0
-                        ? `Nível ${currentLevel}`
-                        : "O Labirinto"}
-                    </Typography>
-                  </div>
-                  <div className={Style.stepper}>
-                    <MobileStepper
-                      className={classList(xClassNames)}
-                      // style={{ backgroundColor: "white" }}
-                      variant="dots"
-                      steps={6}
-                      position="static"
-                      activeStep={currentLevel}
-                      nextButton={
-                        currentLevel !== 6 && (
-                          <Button
-                            // color={"textPrimary"}
-                            size="small"
-                            onClick={handleNext}
-                            // disabled={currentLevel === 5}
-                          >
-                            Próximo
-                          </Button>
-                        )
-                      }
-                      backButton={
-                        currentLevel !== 0 && (
-                          <Button
-                            size="small"
-                            onClick={handleBack}
-                            disabled={currentLevel === 0}
-                          >
-                            Voltar
-                          </Button>
-                        )
-                      }
-                    />
-                  </div>
-                </div>
-              </div>
-            )}
-            {currentLevel !== 0 && (
-              <div className={Style.buttonsMobile}>
-                <Hint />
-                <Restart maze={maze} />
-                <div className={Style.run}>
-                  <Run />
-                </div>
-              </div>
-            )}
-          </div>
-          {page === "Home" && (
-            <Button
-              color="inherit"
-              // onClick={handleOpen}
-            >
-              Login
-            </Button>
-          )}
-        </Toolbar>
-        <Drawer anchor={"left"} open={open} onClose={handleClose}>
-          <div className={Style.sideMenu}>
-            <SideMenu handleClick={updatePage} />
-          </div>
-        </Drawer>
-      </AppBar>
-    );
-  }
+      </Toolbar>
+      <Drawer anchor={"left"} open={open} onClose={handleClose}>
+        <div className={Style.sideMenu}>
+          <SideMenu handleClick={updatePage} />
+        </div>
+      </Drawer>
+    </AppBar>
+  );
+  // }
 };
 
 export default Navbar;

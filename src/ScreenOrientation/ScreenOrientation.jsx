@@ -8,7 +8,7 @@ import turningphone from "../turningphone.png";
 import Levels from "../Levels/Levels";
 import SwitchPages from "../SwitchPages";
 import CodeProvider from "../Run/CodeProvider";
-import LevelProvider from "../Levels/LevelProvider";
+import LevelProvider from "../views/Cursos/Labirinto/Levels/LevelProvider";
 import NavbarProvider from "../Navbar/NavbarProvider";
 
 const ScreenOrientation = (props) => {

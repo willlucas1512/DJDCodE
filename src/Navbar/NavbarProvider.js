@@ -3,17 +3,26 @@ import NavbarContext from "./NavbarContext";
 
 const NavbarProvider = memo((props) => {
   const [page, setPage] = useState("Home");
+  const [course, setCourse] = useState("");
 
   const state = {
     ...props.state,
     page,
+    course,
   };
 
-  const updatePage = (code) => {
-    setPage(code);
+  const updatePage = (pPage) => {
+    if (pPage === page && pPage === "Cursos") {
+      setCourse("");
+    }
+    setPage(pPage);
   };
 
-  const actions = { updatePage };
+  const updateCourse = (course) => {
+    setCourse(course);
+  };
+
+  const actions = { updatePage, updateCourse };
 
   return (
     <NavbarContext.Provider value={{ ...state, ...actions }}>

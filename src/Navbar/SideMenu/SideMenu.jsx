@@ -1,12 +1,6 @@
 import React from "react";
-import {
-  ListItem,
-  List,
-  ListItemIcon,
-  ListItemText,
-  Divider,
-} from "@material-ui/core";
-
+import { ListItem, List, ListItemIcon, ListItemText } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
 import HomeIcon from "@material-ui/icons/Home";
 import SchoolIcon from "@material-ui/icons/School";
 import BorderColorIcon from "@material-ui/icons/BorderColor";
@@ -14,13 +8,23 @@ import MenuBookIcon from "@material-ui/icons/MenuBook";
 import LibraryBooksIcon from "@material-ui/icons/LibraryBooks";
 import Style from "./SideMenu.module.scss";
 
+const useStyles = makeStyles({
+  root: {
+    backgroundColor: "#212427",
+    width: "100%",
+    height: "100%",
+    padding: "12px",
+  },
+});
+
 const SideMenu = (props) => {
+  const classes = useStyles();
   const handleClick = (pText) => {
     props.handleClick(pText);
   };
 
   return (
-    <div className={Style.root} role="presentation">
+    <div className={classes.root} role="presentation">
       <List>
         {[
           "Home",
