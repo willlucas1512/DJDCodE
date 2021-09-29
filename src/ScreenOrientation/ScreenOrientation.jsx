@@ -5,7 +5,6 @@ import { themePrimary } from "../style/theme";
 // import Maker from "./Maker";
 import { Typography } from "@material-ui/core";
 import turningphone from "../turningphone.png";
-import Levels from "../Levels/Levels";
 import SwitchPages from "../SwitchPages";
 import CodeProvider from "../Run/CodeProvider";
 import LevelProvider from "../views/Cursos/Labirinto/Levels/LevelProvider";
