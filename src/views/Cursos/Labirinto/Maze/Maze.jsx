@@ -3,7 +3,7 @@ import Blockly from "blockly/core";
 import BlocklyJS from "blockly/javascript";
 import FancyMazeBuilder from "./FancyMazeBuilder";
 import Mazing from "./Mazing";
-import CodeContext from "../Run/CodeContext";
+import CodeContext from "../../../../Run/CodeContext";
 import LevelContext from "../Levels/LevelContext";
 
 function Maze(props) {

@@ -14,6 +14,8 @@ const NavbarProvider = memo((props) => {
   const updatePage = (pPage) => {
     if (pPage === page && pPage === "Cursos") {
       setCourse("");
+    } else if (pPage !== "Cursos") {
+      setCourse("");
     }
     setPage(pPage);
   };

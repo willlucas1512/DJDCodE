@@ -40,7 +40,7 @@ function Dados() {
                   <Typography
                     color={"textPrimary"}
                     align={"center"}
-                    variant="h6"
+                    variant="body1"
                   >
                     <b>
                       {"Aprenda a programar no conforto da sua casa,"}
@@ -62,7 +62,7 @@ function Dados() {
                   <Typography
                     color={"textPrimary"}
                     align={"center"}
-                    variant="h6"
+                    variant="body1"
                   >
                     <b>
                       {
@@ -85,7 +85,7 @@ function Dados() {
                   <Typography
                     color={"textPrimary"}
                     align={"center"}
-                    variant="h6"
+                    variant="body1"
                   >
                     <b>
                       {

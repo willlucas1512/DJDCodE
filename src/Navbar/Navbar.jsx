@@ -198,7 +198,7 @@ const Navbar = (props) => {
               </Typography>
             </div>
           </div>
-          {course === "Labirinto" && (
+          {course === "labirinto" && (
             <div className={level0}>
               <div className={Style.subDivLevel}>
                 <div className={Style.levelName}>
@@ -245,7 +245,7 @@ const Navbar = (props) => {
               </div>
             </div>
           )}
-          {currentLevel !== 0 && (
+          {currentLevel !== 0 && course === "labirinto" && currentLevel !== 6 && (
             <div className={Style.buttonsMobile}>
               <Hint />
               <Restart maze={maze} />
