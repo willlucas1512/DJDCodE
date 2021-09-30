@@ -164,12 +164,12 @@ a {
 
 a:hover {
   border-bottom: 1px solid #ffff;
-  background: #00bfa5;
+  background: #f25e5e;
   padding: 8px;
 }
 
 a:focus {
   border-bottom: 1px solid #ffff;
-  background: #00bfa5;
+  background: #f25e5e;
   padding: 8px;
 }
