@@ -1,10 +1,8 @@
 import React from "react";
-import PropTypes from "prop-types";
+import Building from "../Cursos/Building";
 
 const MaterialApoio = (props) => {
-  return <div>Material de apoio</div>;
+  return <Building />;
 };
-
-MaterialApoio.propTypes = {};
 
 export default MaterialApoio;

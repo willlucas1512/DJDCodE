@@ -1,9 +1,10 @@
-import * as React from "react";
+import React, { useContext } from "react";
 
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
 import Typography from "../Typography";
+import NavbarContext from "../../../Navbar/NavbarContext";
 import Style from "./Dados.module.scss";
 
 const item = {
@@ -14,20 +15,21 @@ const item = {
 };
 
 function Dados() {
+  const { updatePage } = useContext(NavbarContext);
   return (
     <Box
       component="section"
       sx={{
-        display: "flex",
-        overflow: "hidden",
+        // display: "flex",
+        // overflow: "hidden",
         bgcolor: "rgba(45,191,165,255)",
       }}
     >
       <div className={Style.root}>
-        <Container
-          sx={{ mt: 5, mb: 10, display: "flex", position: "relative" }}
-        >
-          <div className={Style.content}>
+        <div className={Style.content}>
+          <Container
+            sx={{ mt: 5, mb: 10, display: "flex", position: "relative" }}
+          >
             <Grid container spacing={2}>
               <Grid item xs={12} md={4}>
                 <Box sx={item}>
@@ -88,18 +90,22 @@ function Dados() {
                     variant="body1"
                   >
                     <b>
-                      {
-                        "Precisa de conteúdo explicativo ou quer se aprofundar mais?"
-                      }
-
-                      {" Clique aqui para dar uma olhada."}
+                      Precisa de conteúdo explicativo ou quer se aprofundar
+                      mais? Clique{" "}
+                      <a
+                        className={Style.clickHere}
+                        onClick={() => updatePage("Material de apoio")}
+                      >
+                        aqui
+                      </a>{" "}
+                      para dar uma olhada.
                     </b>
                   </Typography>
                 </Box>
               </Grid>
             </Grid>
-          </div>
-        </Container>
+          </Container>
+        </div>
       </div>
     </Box>
   );

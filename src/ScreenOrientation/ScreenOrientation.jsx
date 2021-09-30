@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../Navbar";
+import Footer from "../views/Home/Footer";
 import ThemeProvider from "../ThemeProvider";
 import { themePrimary } from "../style/theme";
 // import Maker from "./Maker";
@@ -80,6 +81,7 @@ const ScreenOrientation = (props) => {
           <CodeProvider>
             <Navbar />
             <SwitchPages />
+            <Footer />
           </CodeProvider>
         </LevelProvider>
       </NavbarProvider>

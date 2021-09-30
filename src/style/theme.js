@@ -46,7 +46,7 @@ export const themePrimary = {
       },
       text: {
         primary: "rgba(255, 255, 255, .87)",
-        secondary: "rgba(0, 0, 0, 1)",
+        secondary: "#212427",
         disabled: "rgba(122, 129, 171, 1)",
         disabledInvert: "rgba(255, 255, 255, 0.48)",
         hint: "rgba(155, 155, 155, 1)",

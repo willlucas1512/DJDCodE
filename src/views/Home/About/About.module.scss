@@ -1,0 +1,57 @@
+.root {
+  background-color: lightgrey;
+
+  background-image: url(./debut-dark.png);
+  width: 100%;
+}
+
+.grid {
+  display: grid;
+  padding: 24px 10%;
+  grid-template-columns: 25% 25% 25% 25%;
+  align-items: flex-start;
+  row-gap: 12px;
+}
+
+.links {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.col {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.linkText {
+  max-width: 200px;
+}
+
+.linkTextYt {
+  display: flex;
+  align-items: center;
+}
+
+.hSpacer {
+  width: 12px;
+}
+
+.vSpacer {
+  height: 12px;
+}
+
+.titleRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.socials {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}

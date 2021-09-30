@@ -1,12 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import { withStyles } from "@material-ui/core/styles";
 import Button from "./Button";
 import Typography from "./Typography";
 import ApresentacaoLayout from "./ApresentacaoLayout";
 import Style from "./Home.module.scss";
 import Dados from "./Dados/Dados";
-
-const backgroundImage = "bg.jpeg";
+import About from "./About";
+import NavbarContext from "../../Navbar/NavbarContext";
 
 const styles = (theme) => ({
   background: {
@@ -31,6 +31,8 @@ const styles = (theme) => ({
 
 const Home = (props) => {
   const { classes } = props;
+  const { updatePage } = useContext(NavbarContext);
+
   return (
     <div className={Style.root}>
       <div className={Style.fade}>
@@ -56,16 +58,13 @@ const Home = (props) => {
             variant="contained"
             size="large"
             className={classes.button}
-            component="a"
-            href="/premium-themes/onepirate/sign-up/"
+            onClick={() => updatePage("Cursos")}
           >
             Quero aprender
           </Button>
-          <Typography variant="body2" color="inherit" className={classes.more}>
-            Assistir o vídeo
-          </Typography>
         </ApresentacaoLayout>
         <Dados />
+        <About />
       </div>
     </div>
   );

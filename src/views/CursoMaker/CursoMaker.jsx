@@ -1,10 +1,8 @@
 import React from "react";
-import PropTypes from "prop-types";
+import Building from "../Cursos/Building";
 
 const CursoMaker = (props) => {
-  return <div>Curso Maker</div>;
+  return <Building />;
 };
-
-CursoMaker.propTypes = {};
 
 export default CursoMaker;

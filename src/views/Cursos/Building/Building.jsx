@@ -35,11 +35,11 @@ const Building = (props) => {
             }}
           >
             <Typography variant={"h6"} align={"center"}>
-              <b> Curso em construção </b>
+              <b> Em construção </b>
             </Typography>
           </div>
           <Typography variant={"body1"} align={"center"}>
-            Ainda estamos fazendo esse, tente outros!
+            Ainda estamos fazendo, tente outra coisa!
           </Typography>
         </div>
       </div>

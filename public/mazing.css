@@ -157,3 +157,19 @@
   flex: 3;
   text-align: center;
 }
+
+a {
+  color: #fff;
+}
+
+a:hover {
+  border-bottom: 1px solid #ffff;
+  background: #00bfa5;
+  padding: 8px;
+}
+
+a:focus {
+  border-bottom: 1px solid #ffff;
+  background: #00bfa5;
+  padding: 8px;
+}

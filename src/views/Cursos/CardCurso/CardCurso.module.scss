@@ -2,16 +2,17 @@
   max-width: 345px;
 }
 
-.image {
-  padding-bottom: 16px;
-  background-repeat: no-repeat;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+@media (max-width: 737px) {
+  .rowGap {
+    margin-bottom: 15%;
+  }
 }
-
 .text {
   padding: 0px 12px;
+}
+
+.vSpacer {
+  height: 12px;
 }
 
 .problemSolving {

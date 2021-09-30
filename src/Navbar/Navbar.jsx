@@ -179,7 +179,7 @@ const Navbar = (props) => {
   //   );
   // } else {
   return (
-    <AppBar position="static">
+    <AppBar elevation={24} position="static">
       <Toolbar>
         <IconButton
           onClick={handleOpen}

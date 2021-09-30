@@ -17,50 +17,53 @@ const Cursos = (props) => {
     puzzle: {
       slug: "puzzle",
       title: "Quebra-cabeça",
-      description:
-        "Aprenda a programar resolvendo um quebra-cabeça sobre animais!",
+      description: "Aprenda a programar resolvendo um quebra-cabeça!",
       icon: "puzzle",
     },
     bird: {
       slug: "bird",
       title: "Pássaro",
       description:
-        "Aprenda a programar ajudando o passáro a capturar sua presa e retornar ao ninho!",
+        "Aprenda a programar ajudando o passáro a capturar sua presa!",
       icon: "bird",
     },
     movie: {
       slug: "movie",
       title: "Filme",
       description:
-        "Aprenda a programar fazendo um filme de animação, desenhando os personagens!",
+        "Aprenda a programar fazendo um filme e desenhando personagens!",
       icon: "movie",
     },
     geometric: {
       slug: "geometric",
-      title: "Formas geométricas",
+      title: "Formas",
       description: "Aprenda a programar desenhando formas geométricas!",
       icon: "shapes",
     },
     music: {
       slug: "music",
       title: "Música",
-      description:
-        "Aprenda a programar compondo músicas que você conhece e gosta de ouvir!",
+      description: "Aprenda a programar compondo músicas que você conhece!",
       icon: "music",
     },
   };
 
   return course === "" ? (
     <div className={Style.root}>
-      {Object.keys(courses).map((value, index) => {
-        return (
-          <CardCurso
-            onClick={updateCourse}
-            key={index}
-            course={courses[value]}
-          />
-        );
-      })}
+      <div className={Style.fade}>
+        <div className={Style.grid}>
+          {Object.keys(courses).map((value, index) => {
+            return (
+              <CardCurso
+                onClick={updateCourse}
+                index={index}
+                key={index}
+                course={courses[value]}
+              />
+            );
+          })}
+        </div>
+      </div>
     </div>
   ) : (
     <SwitchCourses />
