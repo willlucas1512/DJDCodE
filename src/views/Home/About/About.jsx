@@ -68,9 +68,7 @@ const About = (props) => {
                         <div className={Style.vSpacer}></div>
                         <div className={Style.linkText}>
                           <Typography color={"textPrimary"} align={"center"}>
-                            <b>
-                              Desenvolvimento de Jogos Digitais para a Educação
-                            </b>
+                            <b>Desenvolvimento de Jogos Digitais na Educação</b>
                           </Typography>
                         </div>
                       </div>

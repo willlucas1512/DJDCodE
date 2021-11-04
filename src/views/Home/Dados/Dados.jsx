@@ -35,11 +35,21 @@ function Dados() {
                 <Box sx={item}>
                   <span className={Style.learnHome}></span>
                   <span className={Style.spacer}></span>
-                  <Typography color={"textPrimary"} variant="h5" sx={{ my: 5 }}>
+                  <Typography
+                    style={{
+                      textShadow: "1px 1px 1px red, 2px 2px 1px blue",
+                    }}
+                    color={"textPrimary"}
+                    variant="h5"
+                    sx={{ my: 5 }}
+                  >
                     <b>Aprenda em casa!</b>
                   </Typography>
                   <span className={Style.spacer}></span>
                   <Typography
+                    style={{
+                      textShadow: "1px 1px 1px red, 2px 2px 1px blue",
+                    }}
                     color={"textPrimary"}
                     align={"center"}
                     variant="body1"
@@ -57,11 +67,21 @@ function Dados() {
                 <Box sx={item}>
                   <span className={Style.brain}></span>
                   <span className={Style.spacer}></span>
-                  <Typography color={"textPrimary"} variant="h5" sx={{ my: 5 }}>
+                  <Typography
+                    style={{
+                      textShadow: "1px 1px 1px red, 2px 2px 1px blue",
+                    }}
+                    color={"textPrimary"}
+                    variant="h5"
+                    sx={{ my: 5 }}
+                  >
                     <b>Crie o seu!</b>
                   </Typography>
                   <span className={Style.spacer}></span>
                   <Typography
+                    style={{
+                      textShadow: "1px 1px 1px red, 2px 2px 1px blue",
+                    }}
                     color={"textPrimary"}
                     align={"center"}
                     variant="body1"
@@ -80,11 +100,21 @@ function Dados() {
                 <Box sx={item}>
                   <span className={Style.documents}></span>
                   <span className={Style.biggerSpacer}></span>
-                  <Typography color={"textPrimary"} variant="h5" sx={{ my: 5 }}>
+                  <Typography
+                    style={{
+                      textShadow: "1px 1px 1px red, 2px 2px 1px blue",
+                    }}
+                    color={"textPrimary"}
+                    variant="h5"
+                    sx={{ my: 5 }}
+                  >
                     <b>Tenha apoio!</b>
                   </Typography>
                   <span className={Style.spacer}></span>
                   <Typography
+                    style={{
+                      textShadow: "1px 1px 1px red, 2px 2px 1px blue",
+                    }}
                     color={"textPrimary"}
                     align={"center"}
                     variant="body1"
