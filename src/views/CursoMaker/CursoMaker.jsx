@@ -204,7 +204,7 @@ const CursoMaker = (props) => {
                 color={"textPrimary"}
                 id="simple-modal-description"
               >
-                <b>Atenção:</b> Editar estes valores no meio da edição do mapa
+                <b>Atenção:</b> Editar estes valores no meio da edição do mapa,
                 apagará seu progresso atual.
               </Typography>
               <div className={Style.verticalSpacer}></div>
