@@ -1,5 +1,4 @@
 import React, { useRef, useState, useEffect } from "react";
-import { Typography } from "@material-ui/core";
 import tilestiles from "./Tiles_32x32.png";
 import Style from "./CursoMaker.module.scss";
 
@@ -18,7 +17,7 @@ const CursoMaker = (props) => {
   image.src = tilestiles;
   const tileWidth = 32;
   const tileHeight = 32;
-  const mapRows = 8;
+  const mapRows = 10;
   const mapColumns = 18;
   const sourceWidth = 256;
   const sourceHeight = 256;
@@ -27,6 +26,7 @@ const CursoMaker = (props) => {
   const mapWidth = mapColumns * tileWidth;
 
   function redrawSource() {
+    context.current.clearRect(0, 0, sourceWidth, sourceHeight);
     context.current.drawImage(
       image,
       0,
@@ -34,7 +34,7 @@ const CursoMaker = (props) => {
       sourceWidth,
       sourceHeight,
       0,
-      mapHeight,
+      0,
       sourceWidth,
       sourceHeight
     );
@@ -46,22 +46,22 @@ const CursoMaker = (props) => {
     y.current = e.clientY - bounding.top;
     let gridX = Math.floor(x.current / tileWidth) * tileWidth;
     let gridY = Math.floor(y.current / tileHeight) * tileHeight;
-    if (
-      y.current > mapHeight &&
-      y.current < mapHeight + sourceHeight &&
-      x.current < sourceWidth
-    ) {
+    if (y.current < sourceHeight && x.current < sourceWidth) {
       // source
       let tileX = Math.floor(x.current / tileWidth);
-      let tileY = Math.floor((y.current - mapHeight) / tileHeight);
+      let tileY = Math.floor(y.current / tileHeight);
       sourceTile.current = tileY * (sourceWidth / tileWidth) + tileX;
       sourceX.current = gridX;
-      sourceY.current = gridY - mapHeight;
+      sourceY.current = gridY;
       redrawSource();
       drawBox();
     }
 
-    if (y.current < mapHeight && x.current < mapWidth) {
+    if (
+      y.current < mapHeight &&
+      x.current < mapWidth + sourceWidth &&
+      x.current > sourceWidth
+    ) {
       // target
       context.current.clearRect(gridX, gridY, tileWidth, tileHeight);
       context.current.drawImage(
@@ -75,7 +75,7 @@ const CursoMaker = (props) => {
         tileWidth,
         tileHeight
       );
-      let tileX = Math.floor(x.current / tileWidth);
+      let tileX = Math.floor(x.current + sourceWidth / tileWidth);
       let tileY = Math.floor(y.current / tileHeight);
       let targetTile = tileY * mapColumns + tileX;
       tiles.current[targetTile] = sourceTile.current;
@@ -98,7 +98,7 @@ const CursoMaker = (props) => {
     context.current.strokeStyle = "red";
     context.current.rect(
       sourceX.current,
-      sourceY.current + mapHeight,
+      sourceY.current,
       tileWidth,
       tileHeight
     );
@@ -107,17 +107,21 @@ const CursoMaker = (props) => {
 
   useEffect(() => {
     context.current = canvas.current.getContext("2d");
+    image.onload = function () {
+      context.current.drawImage(image, 0, 0);
+    };
+    context.current.canvas.width = window.innerWidth;
+    context.current.canvas.height = window.innerHeight;
     for (let i = 0; i <= mapColumns; i++) {
-      context.current.moveTo(i * tileWidth, 0);
-      context.current.lineTo(i * tileWidth, mapHeight);
+      context.current.moveTo(i * tileWidth + sourceWidth, 0);
+      context.current.lineTo(i * tileWidth + sourceWidth, mapHeight);
     }
     context.current.stroke();
     for (let i = 0; i <= mapRows; i++) {
-      context.current.moveTo(0, i * tileHeight);
-      context.current.lineTo(mapWidth, i * tileHeight);
+      context.current.moveTo(sourceWidth, i * tileHeight);
+      context.current.lineTo(mapWidth + sourceWidth, i * tileHeight);
     }
     context.current.stroke();
-    redrawSource();
     canvas.current.addEventListener("click", doMouseClick);
   }, []);
 
@@ -126,8 +130,6 @@ const CursoMaker = (props) => {
       <canvas
         ref={canvas}
         id="myCanvas"
-        width="1000"
-        height="700"
         style={{ backgroundColor: "white" }}
       ></canvas>
     </div>
