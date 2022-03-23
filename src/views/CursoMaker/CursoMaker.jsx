@@ -1,9 +1,19 @@
 import React, { useRef, useState, useEffect } from "react";
+import { Modal, Typography, TextField, Button } from "@material-ui/core";
+import Toolbar from "./Toolbar";
 import tilestiles from "./Tiles_32x32.png";
 import Style from "./CursoMaker.module.scss";
 
 const CursoMaker = (props) => {
+  const defaultValues = {
+    colunas: 12,
+    linhas: 8,
+  };
   const [string, setString] = useState("[]");
+  const [mapRows, setMapRows] = useState(10);
+  const [mapColumns, setMapColumns] = useState(18);
+  const [askColsRows, setAskColsRows] = useState(true);
+  const [formValues, setFormValues] = useState(defaultValues);
   let x = useRef(0);
   let y = useRef(0);
   let sourceX = useRef(0);
@@ -17,13 +27,12 @@ const CursoMaker = (props) => {
   image.src = tilestiles;
   const tileWidth = 32;
   const tileHeight = 32;
-  const mapRows = 10;
-  const mapColumns = 18;
+
   const sourceWidth = 256;
   const sourceHeight = 256;
   let tiles = useRef(new Array(mapColumns * mapRows));
-  const mapHeight = mapRows * tileHeight;
-  const mapWidth = mapColumns * tileWidth;
+  let mapHeight = useRef(mapRows * tileHeight);
+  let mapWidth = useRef(mapColumns * tileWidth);
 
   function redrawSource() {
     context.current.clearRect(0, 0, sourceWidth, sourceHeight);
@@ -58,8 +67,8 @@ const CursoMaker = (props) => {
     }
 
     if (
-      y.current < mapHeight &&
-      x.current < mapWidth + sourceWidth &&
+      y.current < mapHeight.current &&
+      x.current < mapWidth.current + sourceWidth &&
       x.current > sourceWidth
     ) {
       // target
@@ -105,34 +114,151 @@ const CursoMaker = (props) => {
     context.current.stroke();
   }
 
+  function reDrawMap() {
+    for (let i = 0; i <= mapColumns; i++) {
+      context.current.moveTo(i * tileWidth + sourceWidth, 0);
+      context.current.lineTo(i * tileWidth + sourceWidth, mapHeight.current);
+    }
+    context.current.stroke();
+    for (let i = 0; i <= mapRows; i++) {
+      context.current.moveTo(sourceWidth, i * tileHeight);
+      context.current.lineTo(mapWidth.current + sourceWidth, i * tileHeight);
+    }
+    context.current.stroke();
+  }
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormValues({
+      ...formValues,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    setMapRows(Number(formValues.linhas));
+    setMapColumns(Number(formValues.colunas));
+    handleClose();
+  };
+
+  const handleClose = () => {
+    setAskColsRows(false);
+  };
+
+  const handleOpen = () => {
+    setAskColsRows(true);
+  };
+
   useEffect(() => {
     context.current = canvas.current.getContext("2d");
     image.onload = function () {
       context.current.drawImage(image, 0, 0);
     };
-    context.current.canvas.width = window.innerWidth;
-    context.current.canvas.height = window.innerHeight;
-    for (let i = 0; i <= mapColumns; i++) {
-      context.current.moveTo(i * tileWidth + sourceWidth, 0);
-      context.current.lineTo(i * tileWidth + sourceWidth, mapHeight);
-    }
-    context.current.stroke();
-    for (let i = 0; i <= mapRows; i++) {
-      context.current.moveTo(sourceWidth, i * tileHeight);
-      context.current.lineTo(mapWidth + sourceWidth, i * tileHeight);
-    }
-    context.current.stroke();
+    context.current.canvas.width = mapWidth.current + sourceWidth + 16;
+    context.current.canvas.height =
+      Math.max(mapHeight.current, sourceHeight) + 16;
+    reDrawMap();
     canvas.current.addEventListener("click", doMouseClick);
   }, []);
 
+  useEffect(() => {
+    mapHeight.current = mapRows * tileHeight;
+    mapWidth.current = mapColumns * tileWidth;
+    context.current.canvas.width = mapWidth.current + sourceWidth + 16;
+    context.current.canvas.height =
+      Math.max(mapHeight.current, sourceHeight) + 16;
+    context.current.clearRect(
+      sourceWidth,
+      0,
+      mapWidth.current,
+      mapHeight.current
+    );
+    reDrawMap();
+    image.onload = function () {
+      context.current.drawImage(image, 0, 0);
+    };
+  }, [mapRows, mapColumns]);
+
   return (
-    <div className={Style.root}>
-      <canvas
-        ref={canvas}
-        id="myCanvas"
-        style={{ backgroundColor: "white" }}
-      ></canvas>
-    </div>
+    <>
+      <Modal
+        open={askColsRows}
+        onClose={handleClose}
+        aria-labelledby="simple-modal-title"
+        aria-describedby="simple-modal-description"
+      >
+        {
+          <div className={Style.modal}>
+            <form onSubmit={handleSubmit}>
+              <Typography
+                color={"textPrimary"}
+                variant={"h5"}
+                id="simple-modal-description"
+              >
+                <b> Insira a quantidade de colunas e linhas do seu mapa.</b>
+              </Typography>
+              <div className={Style.verticalSpacer}></div>
+              <Typography
+                variant={"caption"}
+                color={"textPrimary"}
+                id="simple-modal-description"
+              >
+                <b>Atenção:</b> Editar estes valores apagará seu progresso
+                atual.
+              </Typography>
+              <div className={Style.verticalSpacer}></div>
+              <TextField
+                InputLabelProps={{ style: { color: "white" } }}
+                InputProps={{
+                  inputProps: {
+                    max: 20,
+                  },
+                }}
+                variant="filled"
+                id="age-input"
+                name="colunas"
+                label="Colunas"
+                type="number"
+                value={formValues.colunas}
+                onChange={(e) => handleInputChange(e)}
+              />
+              <div className={Style.verticalSpacer}></div>
+              <TextField
+                InputLabelProps={{ style: { color: "white" } }}
+                InputProps={{
+                  inputProps: {
+                    max: 20,
+                  },
+                }}
+                variant="filled"
+                id="age-input"
+                name="linhas"
+                label="Linhas"
+                type="number"
+                value={formValues.linhas}
+                onChange={handleInputChange}
+              />
+              <div className={Style.verticalSpacer}></div>
+              <div className={Style.verticalSpacer}></div>
+              <div className={Style.button}>
+                <Button variant="contained" color="primary" type="submit">
+                  Parece bom
+                </Button>
+              </div>
+            </form>
+          </div>
+        }
+      </Modal>
+      <div className={Style.root}>
+        <canvas
+          ref={canvas}
+          id="myCanvas"
+          style={{ backgroundColor: "white", display: "block" }}
+        ></canvas>
+        <Toolbar handleOpen={handleOpen} />
+      </div>
+    </>
   );
 };
 
