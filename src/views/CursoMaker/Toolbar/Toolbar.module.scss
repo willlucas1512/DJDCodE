@@ -1,0 +1,14 @@
+.toolbar {
+  background-color: #0099cc;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.divider {
+  border-right: 1px solid black;
+  height: 40px;
+  box-shadow: 0 0 8px black;
+  border-radius: 12px / 125px;
+}
