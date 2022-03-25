@@ -251,11 +251,13 @@ const CursoMaker = (props) => {
         }
       </Modal>
       <div className={Style.root}>
-        <canvas
-          ref={canvas}
-          id="myCanvas"
-          style={{ backgroundColor: "white", display: "block" }}
-        ></canvas>
+        <div className={Style.canvas}>
+          <canvas
+            ref={canvas}
+            id="myCanvas"
+            style={{ backgroundColor: "white", display: "block" }}
+          ></canvas>
+        </div>
         <Toolbar handleOpen={handleOpen} />
       </div>
     </>
