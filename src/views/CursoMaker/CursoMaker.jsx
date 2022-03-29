@@ -11,11 +11,13 @@ const CursoMaker = () => {
     linhas: 8,
     niveis: 3,
   };
+  const [eraseAll, setEraseAll] = useState(false);
   const [selectedLevel, setSelectedLevel] = useState(1);
   const [niveis, setNiveis] = useState(defaultValues.niveis);
   const [mapRows, setMapRows] = useState(defaultValues.linhas);
   const [mapColumns, setMapColumns] = useState(defaultValues.colunas);
-  const [modalOpen, setModalOpen] = useState(false);
+  const [editModalOpen, setEditModalOpen] = useState(false);
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [formValues, setFormValues] = useState(defaultValues);
 
   const handleInputChange = (e) => {
@@ -34,19 +36,27 @@ const CursoMaker = () => {
     handleClose();
   };
 
-  const handleClose = () => {
-    setModalOpen(false);
+  const handleClose = (pFunc) => {
+    pFunc(false);
   };
 
-  const handleOpen = () => {
-    setModalOpen(true);
+  const handleOpen = (pFunc) => {
+    pFunc(true);
+  };
+
+  const eraseAllTiles = () => {
+    setEraseAll(true);
+    setTimeout(() => {
+      setEraseAll(false);
+    }, 100);
+    handleClose(setDeleteModalOpen);
   };
 
   return (
     <>
       <Modal
-        open={modalOpen}
-        onClose={handleClose}
+        open={editModalOpen}
+        onClose={() => handleClose(setEditModalOpen)}
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
       >
@@ -139,6 +149,44 @@ const CursoMaker = () => {
           </div>
         }
       </Modal>
+      <Modal
+        open={deleteModalOpen}
+        onClose={() => handleClose(setDeleteModalOpen)}
+        aria-labelledby="simple-modal-title"
+        aria-describedby="simple-modal-description"
+      >
+        <div className={Style.modalDelete}>
+          <Typography
+            color={"textPrimary"}
+            variant={"h6"}
+            id="simple-modal-description"
+          >
+            <b> Apagar tudo?</b>
+          </Typography>
+
+          <Typography
+            color={"textPrimary"}
+            variant={"caption"}
+            id="simple-modal-description"
+          >
+            Essa ação limpará todos os níveis, para você começar do zero.
+          </Typography>
+          <div className={Style.verticalSpacer}></div>
+          <div className={Style.buttonsDelete}>
+            <Button
+              onClick={() => handleClose(setDeleteModalOpen)}
+              variant="outlined"
+              color="primary"
+            >
+              Calma, não!
+            </Button>
+            <div className={Style.horizontalSpacer}></div>
+            <Button onClick={eraseAllTiles} variant="contained" color="primary">
+              Apagar
+            </Button>
+          </div>
+        </div>
+      </Modal>
       <div className={Style.root}>
         <div className={Style.canvas}>
           <LevelSelector
@@ -147,13 +195,17 @@ const CursoMaker = () => {
             levels={niveis}
           />
           <Canvas
+            eraseAll={eraseAll}
             selectedLevel={selectedLevel}
             mapRows={mapRows}
             mapColumns={mapColumns}
             levels={niveis}
           />
         </div>
-        <Toolbar handleOpen={handleOpen} />
+        <Toolbar
+          handleDeleteOpen={() => handleOpen(setDeleteModalOpen)}
+          handleEditOpen={() => handleOpen(setEditModalOpen)}
+        />
       </div>
     </>
   );

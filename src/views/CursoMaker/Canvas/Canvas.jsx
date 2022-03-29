@@ -26,6 +26,18 @@ const Canvas = (props) => {
   let mapHeight = useRef(mapRows * tileHeight);
   let mapWidth = useRef(mapColumns * tileWidth);
 
+  function resetCanvas() {
+    context.current.clearRect(
+      sourceWidth,
+      0,
+      mapWidth.current + 1,
+      mapHeight.current + 1
+    );
+    setTiles({});
+    setAllTiles({});
+    reDrawMap();
+  }
+
   function redrawSource() {
     context.current.clearRect(0, 0, sourceWidth, sourceHeight);
     context.current.drawImage(
@@ -192,6 +204,12 @@ const Canvas = (props) => {
     setTiles({});
     reDrawTiles(allTiles[selectedLevel]);
   }, [selectedLevel]);
+
+  useEffect(() => {
+    if (props.eraseAll) {
+      resetCanvas();
+    }
+  }, [props.eraseAll]);
 
   return (
     <canvas

@@ -13,7 +13,7 @@ import Style from "./Toolbar.module.scss";
 const Toolbar = (props) => {
   return (
     <div className={Style.toolbar}>
-      <IconButton>
+      <IconButton onClick={props.handleDeleteOpen}>
         <img height="30px" width="30px" alt={"Excluir tile"} src={bin} />
       </IconButton>
       <div class={Style.divider}></div>
@@ -24,7 +24,7 @@ const Toolbar = (props) => {
         <img height="30px" width="30px" alt={"Refazer"} src={redo} />
       </IconButton>
       <div class={Style.divider}></div>
-      <IconButton onClick={props.handleOpen}>
+      <IconButton onClick={props.handleEditOpen}>
         <img height="30px" width="30px" alt={"Editar"} src={edit} />
       </IconButton>
       <IconButton>
