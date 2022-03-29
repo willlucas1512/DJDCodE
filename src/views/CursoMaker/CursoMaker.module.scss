@@ -4,8 +4,8 @@
 }
 
 .canvas {
-  display: flex;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
 }
 
 .underneath {
@@ -21,12 +21,17 @@
 .modal {
   background-color: #0099cc;
   border-radius: 10px;
-  padding: 32px;
-  width: 300px;
+  padding: 24px;
+  width: 600px;
   position: absolute;
-  top: 50%;
-  left: 50%;
+  top: calc(50% - 16px);
+  left: calc(50% - 16px);
   transform: translate(-50%, -50%);
+  margin: 16px;
+}
+
+.modalContent {
+  display: flex;
 }
 
 .verticalSpacer {
@@ -36,4 +41,15 @@
 .button {
   display: flex;
   justify-content: center;
+}
+
+.divider {
+  border-right: 1px solid black;
+  height: 270px;
+  box-shadow: 0 0 8px black;
+  border-radius: 12px / 125px;
+}
+
+.rightColumn {
+  padding-left: 16px;
 }

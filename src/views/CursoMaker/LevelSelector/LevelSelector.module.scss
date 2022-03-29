@@ -1,0 +1,11 @@
+.root {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  padding: 16px;
+}
+
+.verticalSpacer {
+  height: 8px;
+}
