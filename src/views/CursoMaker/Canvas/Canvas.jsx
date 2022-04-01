@@ -6,6 +6,7 @@ const Canvas = (props) => {
   const { mapColumns, mapRows, selectedLevel } = props;
 
   const [allTiles, setAllTiles] = useState({});
+  const deleteMode = useRef(false);
   let x = useRef(0);
   let y = useRef(0);
   let sourceX = useRef(0);
@@ -59,48 +60,66 @@ const Canvas = (props) => {
     y.current = e.clientY - bounding.top;
     let gridX = Math.floor(x.current / tileWidth) * tileWidth;
     let gridY = Math.floor(y.current / tileHeight) * tileHeight;
+    if (deleteMode.current) {
+      if (
+        y.current < mapHeight.current &&
+        x.current < mapWidth.current + sourceWidth &&
+        x.current > sourceWidth
+      ) {
+        context.current.clearRect(gridX, gridY, tileWidth, tileHeight);
+        reDrawMap();
+        let tileX = Math.floor(x.current / tileWidth);
+        let tileY = Math.floor(y.current / tileHeight);
+        let targetTile = tileY * mapColumns + tileX;
+        setTiles((prevState) => {
+          const state = { ...prevState };
+          delete state[targetTile];
+          return state;
+        });
+      }
+    } else {
+      if (y.current < sourceHeight && x.current < sourceWidth) {
+        // source
+        let tileX = Math.floor(x.current / tileWidth);
+        let tileY = Math.floor(y.current / tileHeight);
+        sourceTile.current = tileY * (sourceWidth / tileWidth) + tileX;
+        sourceX.current = gridX;
+        sourceY.current = gridY;
+        redrawSource();
+        drawBox();
+      }
 
-    if (y.current < sourceHeight && x.current < sourceWidth) {
-      // source
-      let tileX = Math.floor(x.current / tileWidth);
-      let tileY = Math.floor(y.current / tileHeight);
-      sourceTile.current = tileY * (sourceWidth / tileWidth) + tileX;
-      sourceX.current = gridX;
-      sourceY.current = gridY;
-      redrawSource();
-      drawBox();
-    }
-
-    if (
-      y.current < mapHeight.current &&
-      x.current < mapWidth.current + sourceWidth &&
-      x.current > sourceWidth
-    ) {
-      // target
-      context.current.clearRect(gridX, gridY, tileWidth, tileHeight);
-      context.current.drawImage(
-        image,
-        sourceX.current,
-        sourceY.current,
-        tileWidth,
-        tileHeight,
-        gridX,
-        gridY,
-        tileWidth,
-        tileHeight
-      );
-      let tileX = Math.floor(x.current / tileWidth);
-      let tileY = Math.floor(y.current / tileHeight);
-      let targetTile = tileY * mapColumns + tileX;
-      setTiles((prevState) => ({
-        ...prevState,
-        [targetTile]: {
-          sourceX: sourceX.current,
-          sourceY: sourceY.current,
-          targetX: gridX,
-          targetY: gridY,
-        },
-      }));
+      if (
+        y.current < mapHeight.current &&
+        x.current < mapWidth.current + sourceWidth &&
+        x.current > sourceWidth
+      ) {
+        // target
+        context.current.clearRect(gridX, gridY, tileWidth, tileHeight);
+        context.current.drawImage(
+          image,
+          sourceX.current,
+          sourceY.current,
+          tileWidth,
+          tileHeight,
+          gridX,
+          gridY,
+          tileWidth,
+          tileHeight
+        );
+        let tileX = Math.floor(x.current / tileWidth);
+        let tileY = Math.floor(y.current / tileHeight);
+        let targetTile = tileY * mapColumns + tileX;
+        setTiles((prevState) => ({
+          ...prevState,
+          [targetTile]: {
+            sourceX: sourceX.current,
+            sourceY: sourceY.current,
+            targetX: gridX,
+            targetY: gridY,
+          },
+        }));
+      }
     }
   }
 
@@ -192,10 +211,15 @@ const Canvas = (props) => {
   }, [mapRows, mapColumns]);
 
   useEffect(() => {
-    if (Object.keys(tiles).length !== 0) {
+    if (Object.keys(tiles).length !== 0 && !deleteMode.current) {
       setAllTiles((prevState) => ({
         ...prevState,
         [selectedLevel]: { ...allTiles[selectedLevel], ...tiles },
+      }));
+    } else if (Object.keys(tiles).length !== 0 && deleteMode.current) {
+      setAllTiles((prevState) => ({
+        ...prevState,
+        [selectedLevel]: { ...tiles },
       }));
     }
   }, [tiles]);
@@ -210,6 +234,10 @@ const Canvas = (props) => {
       resetCanvas();
     }
   }, [props.eraseAll]);
+
+  useEffect(() => {
+    deleteMode.current = props.deleteMode;
+  }, [props.deleteMode]);
 
   return (
     <canvas

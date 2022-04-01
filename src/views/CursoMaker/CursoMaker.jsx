@@ -11,6 +11,8 @@ const CursoMaker = () => {
     linhas: 8,
     niveis: 3,
   };
+  const [editType, setEditType] = useState("map");
+  const [deleteMode, setDeleteMode] = useState(false);
   const [eraseAll, setEraseAll] = useState(false);
   const [selectedLevel, setSelectedLevel] = useState(1);
   const [niveis, setNiveis] = useState(defaultValues.niveis);
@@ -33,7 +35,7 @@ const CursoMaker = () => {
     setMapRows(Number(formValues.linhas));
     setMapColumns(Number(formValues.colunas));
     setNiveis(Number(formValues.niveis));
-    handleClose();
+    handleClose(setEditModalOpen);
   };
 
   const handleClose = (pFunc) => {
@@ -42,6 +44,14 @@ const CursoMaker = () => {
 
   const handleOpen = (pFunc) => {
     pFunc(true);
+  };
+
+  const handleEditType = () => {
+    setEditType(editType === "map" ? "blocks" : "map");
+  };
+
+  const handleDeleteMode = () => {
+    setDeleteMode(!deleteMode);
   };
 
   const eraseAllTiles = () => {
@@ -189,12 +199,17 @@ const CursoMaker = () => {
       </Modal>
       <div className={Style.root}>
         <div className={Style.canvas}>
-          <LevelSelector
-            selectedLevel={selectedLevel}
-            setSelectedLevel={setSelectedLevel}
-            levels={niveis}
+          <Toolbar
+            editType={editType}
+            handleEditType={handleEditType}
+            handleDeleteMode={handleDeleteMode}
+            deleteMode={deleteMode}
+            handleDeleteOpen={() => handleOpen(setDeleteModalOpen)}
+            handleEditOpen={() => handleOpen(setEditModalOpen)}
           />
+
           <Canvas
+            deleteMode={deleteMode}
             eraseAll={eraseAll}
             selectedLevel={selectedLevel}
             mapRows={mapRows}
@@ -202,9 +217,10 @@ const CursoMaker = () => {
             levels={niveis}
           />
         </div>
-        <Toolbar
-          handleDeleteOpen={() => handleOpen(setDeleteModalOpen)}
-          handleEditOpen={() => handleOpen(setEditModalOpen)}
+        <LevelSelector
+          selectedLevel={selectedLevel}
+          setSelectedLevel={setSelectedLevel}
+          levels={niveis}
         />
       </div>
     </>

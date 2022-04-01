@@ -2,10 +2,33 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  flex-direction: column;
-  padding: 16px;
+  padding: 12px;
+  background-color: #0099cc;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
 }
 
-.verticalSpacer {
-  height: 8px;
+.horizontalSpacer {
+  width: 8px;
+}
+
+.biggerHorizontalSpacer {
+  width: 16px;
+}
+
+.span {
+  width: 24px;
+  display: block;
+  padding: 4px;
+  border-radius: 50%;
+  color: white;
+  transform: translateY(-4px);
+}
+
+.nonClick {
+  background: hsl(5, 85%, 65%);
+}
+
+.click {
+  background: hsl(15, 85%, 50%);
+  transform: none;
 }

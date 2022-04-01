@@ -1,50 +1,39 @@
 import React from "react";
 import { IconButton } from "@material-ui/core";
-import bin from "./bin.png";
-import save from "./save.png";
-import undo from "./undo.png";
-import done from "./done.png";
-import redo from "./redo.png";
-import rewind from "./rewind.png";
-import add from "./add.png";
-import edit from "./edit.png";
+import trash from "./trash.png";
+import blocks from "./blocks.png";
+import eraser from "./eraser.png";
+import grid from "./grid.png";
+import pencil from "./pencil.png";
+import settings from "./settings.png";
 import Style from "./Toolbar.module.scss";
 
 const Toolbar = (props) => {
   return (
     <div className={Style.toolbar}>
       <IconButton onClick={props.handleDeleteOpen}>
-        <img height="30px" width="30px" alt={"Excluir tile"} src={bin} />
+        <img height="42px" width="42px" alt={"Excluir tudo"} src={trash} />
       </IconButton>
-      <div class={Style.divider}></div>
-      <IconButton>
-        <img height="30px" width="30px" alt={"Desfazer"} src={undo} />
-      </IconButton>
-      <IconButton>
-        <img height="30px" width="30px" alt={"Refazer"} src={redo} />
+      <IconButton onClick={props.handleDeleteMode}>
+        <img
+          height="42px"
+          width="42px"
+          alt={"Excluir tile"}
+          src={props.deleteMode ? pencil : eraser}
+        />
       </IconButton>
       <div class={Style.divider}></div>
       <IconButton onClick={props.handleEditOpen}>
-        <img height="30px" width="30px" alt={"Editar"} src={edit} />
-      </IconButton>
-      <IconButton>
-        <img height="30px" width="30px" alt={"Adicionar"} src={add} />
-      </IconButton>
-      <IconButton>
-        <img height="30px" width="30px" alt={"Salvar"} src={save} />
+        <img height="42px" width="42px" alt={"Editar"} src={settings} />
       </IconButton>
       <div class={Style.divider}></div>
-      <IconButton>
+      <IconButton onClick={props.handleEditType}>
         <img
-          style={{ transform: "scaleX(-1)" }}
-          height="30px"
-          width="30px"
-          alt={"Próximo"}
-          src={rewind}
+          height="42px"
+          width="42px"
+          alt={"Grid"}
+          src={props.editType === "map" ? blocks : grid}
         />
-      </IconButton>
-      <IconButton>
-        <img height="30px" width="30px" alt={"Acabei"} src={done} />
       </IconButton>
     </div>
   );
