@@ -11,6 +11,7 @@ const CursoMaker = () => {
     linhas: 8,
     niveis: 3,
   };
+  const [course, setCourse] = useState([{}, {}, {}, {}]);
   const [editType, setEditType] = useState("map");
   const [deleteMode, setDeleteMode] = useState(false);
   const [eraseAll, setEraseAll] = useState(false);
@@ -44,6 +45,10 @@ const CursoMaker = () => {
 
   const handleOpen = (pFunc) => {
     pFunc(true);
+  };
+
+  const updateCourse = (pNewCourse) => {
+    setCourse(pNewCourse);
   };
 
   const handleEditType = () => {
@@ -198,6 +203,11 @@ const CursoMaker = () => {
         </div>
       </Modal>
       <div className={Style.root}>
+        <LevelSelector
+          selectedLevel={selectedLevel}
+          setSelectedLevel={setSelectedLevel}
+          levels={niveis}
+        />
         <div className={Style.canvas}>
           <Toolbar
             editType={editType}
@@ -209,6 +219,9 @@ const CursoMaker = () => {
           />
 
           <Canvas
+            course={course}
+            updateCourse={updateCourse}
+            editType={editType}
             deleteMode={deleteMode}
             eraseAll={eraseAll}
             selectedLevel={selectedLevel}
@@ -217,11 +230,6 @@ const CursoMaker = () => {
             levels={niveis}
           />
         </div>
-        <LevelSelector
-          selectedLevel={selectedLevel}
-          setSelectedLevel={setSelectedLevel}
-          levels={niveis}
-        />
       </div>
     </>
   );

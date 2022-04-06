@@ -1,12 +1,14 @@
 import React, { useRef, useState, useEffect } from "react";
 import tilestiles from "./Tiles_32x32.png";
+import BlocksSelector from "../BlocksSelector";
 import PropTypes from "prop-types";
 
 const Canvas = (props) => {
-  const { mapColumns, mapRows, selectedLevel } = props;
+  const { mapColumns, mapRows, selectedLevel, course, updateCourse } = props;
 
   const [allTiles, setAllTiles] = useState({});
   const deleteMode = useRef(false);
+  const hasSource = useRef(true);
   let x = useRef(0);
   let y = useRef(0);
   let sourceX = useRef(0);
@@ -85,7 +87,7 @@ const Canvas = (props) => {
         sourceTile.current = tileY * (sourceWidth / tileWidth) + tileX;
         sourceX.current = gridX;
         sourceY.current = gridY;
-        redrawSource();
+        hasSource.current && redrawSource();
         drawBox();
       }
 
@@ -136,42 +138,48 @@ const Canvas = (props) => {
     context.current.closePath();
   }
 
-  function reDrawMap() {
+  function reDrawMap(pHasSource = true) {
     context.current.beginPath();
     context.current.strokeStyle = "black";
     for (let i = 0; i <= mapColumns; i++) {
-      context.current.moveTo(i * tileWidth + sourceWidth, 0);
-      context.current.lineTo(i * tileWidth + sourceWidth, mapHeight.current);
+      const width = pHasSource ? i * tileWidth + sourceWidth : i * tileWidth;
+      context.current.moveTo(width, 0);
+      context.current.lineTo(width, mapHeight.current);
     }
     context.current.stroke();
     for (let i = 0; i <= mapRows; i++) {
-      context.current.moveTo(sourceWidth, i * tileHeight);
-      context.current.lineTo(mapWidth.current + sourceWidth, i * tileHeight);
+      const height1 = pHasSource ? sourceWidth : 0;
+      const height2 = pHasSource
+        ? mapWidth.current + sourceWidth
+        : mapWidth.current;
+      context.current.moveTo(height1, i * tileHeight);
+      context.current.lineTo(height2, i * tileHeight);
     }
     context.current.stroke();
     context.current.closePath();
   }
 
-  function reDrawTiles(pTiles) {
+  function reDrawTiles(pTiles, pHasSource = true) {
     context.current.clearRect(
-      sourceWidth,
+      pHasSource ? sourceWidth : 0,
       0,
       mapWidth.current + 1,
       mapHeight.current + 1
     );
-    reDrawMap();
+    reDrawMap(pHasSource);
     setTimeout(() => {
       for (let tile in pTiles) {
         if (tile !== undefined) {
           const sourceTile = pTiles[tile];
+          console.log(sourceTile.targetX);
           context.current.drawImage(
             image,
             sourceTile.sourceX,
             sourceTile.sourceY,
             tileWidth,
             tileHeight,
-            sourceTile.targetX,
-            sourceTile.targetY,
+            pHasSource ? sourceTile.targetX : sourceTile.targetX - sourceWidth,
+            pHasSource ? sourceTile.targetY : sourceTile.targetY - sourceHeight,
             tileWidth,
             tileHeight
           );
@@ -180,14 +188,24 @@ const Canvas = (props) => {
     }, 100);
   }
 
+  function drawImage(pContext) {
+    image.onload = function () {
+      pContext.drawImage(image, 0, 0);
+    };
+  }
+
+  function resizeCanvas(pWidth, pHeight) {
+    context.current.canvas.width = pWidth;
+    context.current.canvas.height = pHeight;
+  }
+
   useEffect(() => {
     context.current = canvas.current.getContext("2d");
-    image.onload = function () {
-      context.current.drawImage(image, 0, 0);
-    };
-    context.current.canvas.width = mapWidth.current + sourceWidth + 16;
-    context.current.canvas.height =
-      Math.max(mapHeight.current, sourceHeight) + 16;
+    drawImage(context.current);
+    resizeCanvas(
+      mapWidth.current + sourceWidth + 16,
+      Math.max(mapHeight.current, sourceHeight) + 16
+    );
     reDrawMap();
     canvas.current.addEventListener("click", doMouseClick);
   }, []);
@@ -195,9 +213,10 @@ const Canvas = (props) => {
   useEffect(() => {
     mapHeight.current = mapRows * tileHeight;
     mapWidth.current = mapColumns * tileWidth;
-    context.current.canvas.width = mapWidth.current + sourceWidth + 16;
-    context.current.canvas.height =
-      Math.max(mapHeight.current, sourceHeight) + 16;
+    resizeCanvas(
+      mapWidth.current + sourceWidth + 16,
+      Math.max(mapHeight.current, sourceHeight) + 16
+    );
     context.current.clearRect(
       sourceWidth,
       0,
@@ -205,9 +224,7 @@ const Canvas = (props) => {
       mapHeight.current
     );
     reDrawMap();
-    image.onload = function () {
-      context.current.drawImage(image, 0, 0);
-    };
+    drawImage(context.current);
   }, [mapRows, mapColumns]);
 
   useEffect(() => {
@@ -226,7 +243,7 @@ const Canvas = (props) => {
 
   useEffect(() => {
     setTiles({});
-    reDrawTiles(allTiles[selectedLevel]);
+    reDrawTiles(allTiles[selectedLevel], props.editType === "map");
   }, [selectedLevel]);
 
   useEffect(() => {
@@ -236,15 +253,44 @@ const Canvas = (props) => {
   }, [props.eraseAll]);
 
   useEffect(() => {
+    if (props.editType === "map") {
+      hasSource.current = true;
+      drawImage(context.current);
+      resizeCanvas(
+        mapWidth.current + sourceWidth + 16,
+        Math.max(mapHeight.current, sourceHeight) + 16
+      );
+      reDrawMap();
+      reDrawTiles(allTiles[selectedLevel], true);
+    } else {
+      hasSource.current = false;
+      context.current.clearRect(0, 0, sourceWidth, sourceHeight);
+      resizeCanvas(mapWidth.current + 16, mapHeight.current + 16);
+      reDrawMap(false);
+      reDrawTiles(allTiles[selectedLevel], false);
+    }
+  }, [props.editType]);
+
+  useEffect(() => {
     deleteMode.current = props.deleteMode;
   }, [props.deleteMode]);
 
   return (
-    <canvas
-      ref={canvas}
-      id="myCanvas"
-      style={{ backgroundColor: "white", display: "block" }}
-    ></canvas>
+    <>
+      {props.editType === "blocks" && (
+        <BlocksSelector
+          course={course}
+          updateCourse={updateCourse}
+          allTiles={allTiles}
+          selectedLevel={selectedLevel}
+        />
+      )}
+      <canvas
+        ref={canvas}
+        id="myCanvas"
+        style={{ backgroundColor: "white", display: "block" }}
+      ></canvas>
+    </>
   );
 };
 
