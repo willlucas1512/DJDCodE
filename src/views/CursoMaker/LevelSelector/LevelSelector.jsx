@@ -2,11 +2,15 @@ import React from "react";
 import classNames from "classnames";
 import { Typography, Button } from "@material-ui/core";
 import PropTypes from "prop-types";
+import MobileNavbar from "../../../MobileNavbar/MobileNavbar";
 import Style from "./LevelSelector.module.scss";
 
 const LevelSelector = (props) => {
   return (
     <div className={Style.root}>
+      <div className={Style.menu}>
+        <MobileNavbar />
+      </div>
       <Typography color={"textPrimary"} variant={"h5"}>
         <b>Níveis</b>
       </Typography>

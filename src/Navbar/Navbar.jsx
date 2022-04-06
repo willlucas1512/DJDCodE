@@ -11,7 +11,7 @@ import {
   Drawer,
 } from "@material-ui/core";
 import classNames from "classnames";
-import SideMenu from "./SideMenu";
+import SideMenu from "../SideMenu";
 import Logo from "../Logo";
 import LevelContext from "../views/Cursos/Labirinto/Levels/LevelContext";
 import CodeContext from "../Run/CodeContext";

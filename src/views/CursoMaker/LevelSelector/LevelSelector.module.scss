@@ -2,7 +2,7 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  padding: 12px;
+  padding: 4px;
   background-color: #0099cc;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
 }
@@ -31,4 +31,8 @@
 .click {
   background: hsl(15, 85%, 50%);
   transform: none;
+}
+
+.menu {
+  padding: 0 16px;
 }

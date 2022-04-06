@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from "react";
-import Navbar from "../Navbar";
-import Footer from "../views/Home/Footer";
 import ThemeProvider from "../ThemeProvider";
 import { themePrimary } from "../style/theme";
-// import Maker from "./Maker";
 import { Typography } from "@material-ui/core";
 import turningphone from "../turningphone.png";
 import SwitchPages from "../SwitchPages";
@@ -24,8 +21,10 @@ const ScreenOrientation = (props) => {
   };
 
   useEffect(() => {
-    if (window.innerWidth < 800) {
+    if (window.innerWidth < 920) {
       setIsMobile(true);
+    } else {
+      setIsMobile(false);
     }
     if (window.innerHeight < window.innerWidth && isMobile) {
       setOrientation("landscape");
@@ -79,9 +78,7 @@ const ScreenOrientation = (props) => {
       <NavbarProvider>
         <LevelProvider>
           <CodeProvider>
-            <Navbar />
-            <SwitchPages />
-            <Footer />
+            <SwitchPages isMobile={isMobile} />
           </CodeProvider>
         </LevelProvider>
       </NavbarProvider>
