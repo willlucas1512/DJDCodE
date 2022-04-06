@@ -11,9 +11,19 @@ import Style from "./Toolbar.module.scss";
 const Toolbar = (props) => {
   return (
     <div className={Style.toolbar}>
-      <IconButton onClick={props.handleDeleteOpen}>
-        <img height="42px" width="42px" alt={"Excluir tudo"} src={trash} />
+      <IconButton onClick={props.handleEditType}>
+        <img
+          height="42px"
+          width="42px"
+          alt={"Grid"}
+          src={props.editType === "map" ? blocks : grid}
+        />
       </IconButton>
+      <div className={Style.divider}></div>
+      <IconButton onClick={props.handleEditOpen}>
+        <img height="42px" width="42px" alt={"Editar"} src={settings} />
+      </IconButton>
+      <div className={Style.divider}></div>
       <IconButton onClick={props.handleDeleteMode}>
         <img
           height="42px"
@@ -22,18 +32,9 @@ const Toolbar = (props) => {
           src={props.deleteMode ? pencil : eraser}
         />
       </IconButton>
-      <div class={Style.divider}></div>
-      <IconButton onClick={props.handleEditOpen}>
-        <img height="42px" width="42px" alt={"Editar"} src={settings} />
-      </IconButton>
-      <div class={Style.divider}></div>
-      <IconButton onClick={props.handleEditType}>
-        <img
-          height="42px"
-          width="42px"
-          alt={"Grid"}
-          src={props.editType === "map" ? blocks : grid}
-        />
+      <div className={Style.divider}></div>
+      <IconButton onClick={props.handleDeleteOpen}>
+        <img height="42px" width="42px" alt={"Excluir tudo"} src={trash} />
       </IconButton>
     </div>
   );
