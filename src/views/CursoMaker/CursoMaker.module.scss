@@ -3,8 +3,14 @@
   background-color: white;
 }
 
-.canvas {
-  display: flex;
+.canvas_map {
+  display: grid;
+  grid-template-columns: 64px 1fr;
+}
+
+.canvas_blocks {
+  display: grid;
+  grid-template-columns: 64px 300px 1fr;
 }
 
 .underneath {

@@ -3,6 +3,7 @@ import { Modal, Typography, TextField, Button } from "@material-ui/core";
 import Toolbar from "./Toolbar";
 import Canvas from "./Canvas";
 import LevelSelector from "./LevelSelector";
+import classNames from "classnames";
 import Style from "./CursoMaker.module.scss";
 
 const CursoMaker = () => {
@@ -66,6 +67,11 @@ const CursoMaker = () => {
     }, 100);
     handleClose(setDeleteModalOpen);
   };
+
+  const gridClass = classNames({
+    [Style.canvas_map]: editType === "map",
+    [Style.canvas_blocks]: editType === "blocks",
+  });
 
   return (
     <>
@@ -208,7 +214,7 @@ const CursoMaker = () => {
           setSelectedLevel={setSelectedLevel}
           levels={niveis}
         />
-        <div className={Style.canvas}>
+        <div className={gridClass}>
           <Toolbar
             editType={editType}
             handleEditType={handleEditType}
