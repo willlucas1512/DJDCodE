@@ -171,15 +171,17 @@ const Canvas = (props) => {
       for (let tile in pTiles) {
         if (tile !== undefined) {
           const sourceTile = pTiles[tile];
-          console.log(sourceTile.targetX);
+          const sourceX = pHasSource
+            ? sourceTile.targetX
+            : sourceTile.targetX - sourceWidth;
           context.current.drawImage(
             image,
             sourceTile.sourceX,
             sourceTile.sourceY,
             tileWidth,
             tileHeight,
-            pHasSource ? sourceTile.targetX : sourceTile.targetX - sourceWidth,
-            pHasSource ? sourceTile.targetY : sourceTile.targetY - sourceHeight,
+            sourceX,
+            sourceTile.targetY,
             tileWidth,
             tileHeight
           );

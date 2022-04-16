@@ -15,13 +15,13 @@ const LevelSelector = (props) => {
         <b>Níveis</b>
       </Typography>
       <div className={Style.biggerHorizontalSpacer}></div>
-      {[...Array(props.levels).keys()].map((level) => {
+      {[...Array(props.levels).keys()].map((level, index) => {
         const spanClass = classNames(Style.span, {
           [Style.nonClick]: level + 1 !== props.selectedLevel,
           [Style.click]: level + 1 === props.selectedLevel,
         });
         return (
-          <>
+          <div className={Style.button} key={index}>
             <Button
               style={{
                 borderRadius: "50%",
@@ -40,8 +40,7 @@ const LevelSelector = (props) => {
             >
               <span className={spanClass}>{level + 1}</span>
             </Button>
-            <div className={Style.horizontalSpacer}></div>
-          </>
+          </div>
         );
       })}
     </div>

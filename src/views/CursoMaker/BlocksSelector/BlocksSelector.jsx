@@ -56,6 +56,7 @@ const BlocksSelector = (props) => {
         });
         return (
           <div
+            key={index}
             onClick={() => {
               blocos.current[index].selected = !blocos.current[index].selected;
               setNewCourse();
