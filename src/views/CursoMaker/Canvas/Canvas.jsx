@@ -2,6 +2,7 @@ import React, { useRef, useState, useEffect } from "react";
 import tilestiles from "./Tiles_32x32.png";
 import BlocksSelector from "../BlocksSelector";
 import PropTypes from "prop-types";
+import Style from "./Canvas.module.scss";
 
 const Canvas = (props) => {
   const { mapColumns, mapRows, selectedLevel, course, updateCourse } = props;
@@ -80,21 +81,26 @@ const Canvas = (props) => {
         });
       }
     } else {
-      if (y.current < sourceHeight && x.current < sourceWidth) {
+      if (
+        y.current < sourceHeight &&
+        x.current < sourceWidth &&
+        hasSource.current
+      ) {
         // source
         let tileX = Math.floor(x.current / tileWidth);
         let tileY = Math.floor(y.current / tileHeight);
         sourceTile.current = tileY * (sourceWidth / tileWidth) + tileX;
         sourceX.current = gridX;
         sourceY.current = gridY;
-        hasSource.current && redrawSource();
+        redrawSource();
         drawBox();
       }
 
       if (
         y.current < mapHeight.current &&
         x.current < mapWidth.current + sourceWidth &&
-        x.current > sourceWidth
+        x.current > sourceWidth &&
+        hasSource.current
       ) {
         // target
         context.current.clearRect(gridX, gridY, tileWidth, tileHeight);
@@ -205,8 +211,8 @@ const Canvas = (props) => {
     context.current = canvas.current.getContext("2d");
     drawImage(context.current);
     resizeCanvas(
-      mapWidth.current + sourceWidth + 16,
-      Math.max(mapHeight.current, sourceHeight) + 16
+      mapWidth.current + sourceWidth,
+      Math.max(mapHeight.current, sourceHeight)
     );
     reDrawMap();
     canvas.current.addEventListener("click", doMouseClick);
@@ -216,17 +222,17 @@ const Canvas = (props) => {
     mapHeight.current = mapRows * tileHeight;
     mapWidth.current = mapColumns * tileWidth;
     resizeCanvas(
-      mapWidth.current + sourceWidth + 16,
-      Math.max(mapHeight.current, sourceHeight) + 16
+      hasSource.current ? mapWidth.current + sourceWidth : mapWidth.current,
+      Math.max(mapHeight.current, sourceHeight)
     );
     context.current.clearRect(
-      sourceWidth,
+      hasSource.current ? sourceWidth : 0,
       0,
       mapWidth.current,
       mapHeight.current
     );
-    reDrawMap();
-    drawImage(context.current);
+    reDrawMap(hasSource.current);
+    hasSource.current && drawImage(context.current);
   }, [mapRows, mapColumns]);
 
   useEffect(() => {
@@ -259,15 +265,15 @@ const Canvas = (props) => {
       hasSource.current = true;
       drawImage(context.current);
       resizeCanvas(
-        mapWidth.current + sourceWidth + 16,
-        Math.max(mapHeight.current, sourceHeight) + 16
+        mapWidth.current + sourceWidth,
+        Math.max(mapHeight.current, sourceHeight)
       );
       reDrawMap();
       reDrawTiles(allTiles[selectedLevel], true);
     } else {
       hasSource.current = false;
       context.current.clearRect(0, 0, sourceWidth, sourceHeight);
-      resizeCanvas(mapWidth.current + 16, mapHeight.current + 16);
+      resizeCanvas(mapWidth.current, mapHeight.current);
       reDrawMap(false);
       reDrawTiles(allTiles[selectedLevel], false);
     }
@@ -278,7 +284,7 @@ const Canvas = (props) => {
   }, [props.deleteMode]);
 
   return (
-    <>
+    <div className={Style.root}>
       {props.editType === "blocks" && (
         <BlocksSelector
           course={course}
@@ -292,7 +298,7 @@ const Canvas = (props) => {
         id="myCanvas"
         style={{ backgroundColor: "white", display: "block" }}
       ></canvas>
-    </>
+    </div>
   );
 };
 

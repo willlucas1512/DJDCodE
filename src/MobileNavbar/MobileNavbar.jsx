@@ -16,21 +16,23 @@ const MobileNavbar = (props) => {
     setOpen(false);
   };
   return (
-    <div className={Style.root}>
-      <IconButton
-        onClick={handleOpen}
-        edge="start"
-        color="inherit"
-        aria-label="menu"
-      >
+    <>
+      <IconButton onClick={handleOpen} edge="start" aria-label="menu">
         <MenuIcon />
       </IconButton>
+      {/* <div className={Style.navbarTitle}>
+        <Logo />
+        <div className={Style.horizontalSpacer}></div>
+        <Typography color={"textPrimary"} variant="h6" className={Style.title}>
+          DJDCodE
+        </Typography>
+      </div> */}
       <Drawer anchor={"left"} open={open} onClose={handleClose}>
         <div className={Style.sideMenu}>
           <SideMenu handleClick={updatePage} />
         </div>
       </Drawer>
-    </div>
+    </>
   );
 };
 

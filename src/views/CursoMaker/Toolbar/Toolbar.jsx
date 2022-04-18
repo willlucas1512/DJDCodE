@@ -1,66 +1,52 @@
 import React from "react";
-import { IconButton, Typography } from "@material-ui/core";
+import { Button } from "@material-ui/core";
 import trash from "./trash.png";
 import blocks from "./blocks.png";
 import eraser from "./eraser.png";
 import grid from "./grid.png";
 import pencil from "./pencil.png";
 import settings from "./settings.png";
+import ideas from "./ideas.png";
 import Style from "./Toolbar.module.scss";
 
 const Toolbar = (props) => {
+  const buttons = [
+    {
+      label: props.editType === "map" ? "Blocos" : "Mapa",
+      icon: props.editType === "map" ? blocks : grid,
+      alt: "Blocos",
+      onClick: props.handleEditType,
+    },
+    {
+      label: props.deleteMode ? "Inserir" : "Apagar",
+      icon: props.deleteMode ? pencil : eraser,
+      onClick: props.handleDeleteMode,
+    },
+    { label: "Excluir tudo", icon: trash, onClick: props.handleDeleteOpen },
+    { label: "Editar", icon: settings, onClick: props.handleEditOpen },
+    { label: "inserir dica", icon: ideas, onClick: props.handleTipOpen },
+  ];
   return (
     <div className={Style.toolbar}>
-      <IconButton style={{ padding: "0 12px" }} onClick={props.handleEditType}>
-        <img
-          height="36px"
-          width="36px"
-          alt={"Grid"}
-          src={props.editType === "map" ? blocks : grid}
-        />
-      </IconButton>
-      <Typography color={"textPrimary"} variant={"caption"}>
-        {props.editType === "map" ? "Blocos" : "Mapa"}
-      </Typography>
-      <div className={Style.verticalSpacer}></div>
-      <div className={Style.divider}></div>
-      <IconButton
-        style={{ padding: "8px 12px" }}
-        onClick={props.handleEditOpen}
-      >
-        <img height="36px" width="36px" alt={"Editar"} src={settings} />
-      </IconButton>
-      <Typography color={"textPrimary"} variant={"caption"}>
-        {"Editar"}
-      </Typography>
-      <div className={Style.verticalSpacer}></div>
-      <div className={Style.divider}></div>
-      <IconButton
-        style={{ padding: "8px 12px" }}
-        onClick={props.handleDeleteMode}
-      >
-        <img
-          height="36px"
-          width="36px"
-          alt={"Excluir tile"}
-          src={props.deleteMode ? pencil : eraser}
-        />
-      </IconButton>
-      <Typography color={"textPrimary"} variant={"caption"}>
-        {"Apagar"}
-      </Typography>
-      <div className={Style.verticalSpacer}></div>
-      <div className={Style.divider}></div>
-      <IconButton
-        style={{ padding: "8px 12px" }}
-        onClick={props.handleDeleteOpen}
-      >
-        <img height="36px" width="36px" alt={"Excluir tudo"} src={trash} />
-      </IconButton>
-      <Typography align={"center"} color={"textPrimary"} variant={"caption"}>
-        {"Excluir tudo"}
-      </Typography>
-      <div className={Style.verticalSpacer}></div>
+      {buttons.map((button, index) => (
+        <div key={index} className={Style.button}>
+          <Button
+            variant={"contained"}
+            onClick={button.onClick}
+            size={"small"}
+            startIcon={
+              <img
+                height="32px"
+                width="32px"
+                alt={button.alt}
+                src={button.icon}
+              />
+            }
+          >
+            {button.label}
+          </Button>
+        </div>
+      ))}
     </div>
   );
 };

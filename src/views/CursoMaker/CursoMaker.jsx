@@ -1,16 +1,27 @@
 import React, { useState } from "react";
-import { Modal, Typography, TextField, Button } from "@material-ui/core";
+import {
+  Modal,
+  Typography,
+  TextField,
+  Button,
+  IconButton,
+} from "@material-ui/core";
+import { withStyles } from "@material-ui/core/styles";
 import Toolbar from "./Toolbar";
 import Canvas from "./Canvas";
+import MobileNavbar from "../../MobileNavbar/MobileNavbar";
 import LevelSelector from "./LevelSelector";
 import classNames from "classnames";
+import x from "./close.png";
 import Style from "./CursoMaker.module.scss";
 
 const CursoMaker = () => {
   const defaultValues = {
     colunas: 12,
     linhas: 8,
-    niveis: 3,
+    niveis: 10,
+    introducao: "",
+    dicas: "",
   };
   const [course, setCourse] = useState([{}, {}, {}, {}]);
   const [editType, setEditType] = useState("map");
@@ -20,12 +31,16 @@ const CursoMaker = () => {
   const [niveis, setNiveis] = useState(defaultValues.niveis);
   const [mapRows, setMapRows] = useState(defaultValues.linhas);
   const [mapColumns, setMapColumns] = useState(defaultValues.colunas);
+  const [introducao, setIntroducao] = useState(defaultValues.introducao);
+  const [dicas, setDicas] = useState(defaultValues.dicas);
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [tipModalOpen, setTipModalOpen] = useState(false);
   const [formValues, setFormValues] = useState(defaultValues);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
+    // const xValue = name === "dicas" ? [...dicas, ...value] : value;
     setFormValues({
       ...formValues,
       [name]: value,
@@ -37,6 +52,8 @@ const CursoMaker = () => {
     setMapRows(Number(formValues.linhas));
     setMapColumns(Number(formValues.colunas));
     setNiveis(Number(formValues.niveis));
+    setIntroducao(formValues.introducao);
+    setDicas(formValues.dicas);
     handleClose(setEditModalOpen);
   };
 
@@ -73,6 +90,19 @@ const CursoMaker = () => {
     [Style.canvas_blocks]: editType === "blocks",
   });
 
+  const DarkerTextField = withStyles({
+    root: {
+      "& .MuiOutlinedInput-root": {
+        "& fieldset": {
+          borderColor: "#303030",
+        },
+      },
+      "& .MuiInputBase-input": {
+        color: "#303030",
+      },
+    },
+  })(TextField);
+
   return (
     <>
       <Modal
@@ -83,59 +113,41 @@ const CursoMaker = () => {
       >
         {
           <div className={Style.modal}>
+            <div className={Style.noTitle}>
+              <IconButton
+                className={Style.iconButtonNoTitle}
+                onClick={() => handleClose(setEditModalOpen)}
+              >
+                <img src={x} alt={"x"} height={"16px"} width={"16px"} />
+              </IconButton>
+            </div>
             <form onSubmit={handleSubmit}>
               <div className={Style.modalContent}>
-                <div className={Style.leftColumn}>
+                <div className={Style.input1}>
                   <Typography
-                    color={"textPrimary"}
-                    variant={"h6"}
+                    color={"textSecondary"}
+                    variant={"body1"}
                     id="simple-modal-description"
                   >
-                    <b> Insira a quantidade de níveis no seu curso.</b>
-                  </Typography>
-                  <div className={Style.verticalSpacer}></div>
-                  <TextField
-                    InputLabelProps={{ style: { color: "white" } }}
-                    InputProps={{
-                      inputProps: {
-                        max: 3,
-                      },
-                    }}
-                    variant="filled"
-                    name="niveis"
-                    label="Níveis"
-                    type="number"
-                    value={formValues.niveis}
-                    onChange={(e) => handleInputChange(e)}
-                  />
-                </div>
-                <div className={Style.divider}></div>
-                <div className={Style.rightColumn}>
-                  <Typography
-                    color={"textPrimary"}
-                    variant={"h6"}
-                    id="simple-modal-description"
-                  >
-                    <b> Insira a quantidade de colunas e linhas do seu mapa.</b>
+                    <b> Quantidade de colunas e linhas no mapa</b>
                   </Typography>
                   <div className={Style.verticalSpacer}></div>
                   <Typography
                     variant={"caption"}
-                    color={"textPrimary"}
+                    color={"textSecondary"}
                     id="simple-modal-description"
                   >
                     <b>Atenção:</b> Editar estes valores no meio da edição do
                     mapa, apagará seu progresso atual.
                   </Typography>
                   <div className={Style.verticalSpacer}></div>
-                  <TextField
-                    InputLabelProps={{ style: { color: "white" } }}
+                  <DarkerTextField
                     InputProps={{
                       inputProps: {
                         max: 20,
                       },
                     }}
-                    variant="filled"
+                    variant="outlined"
                     name="colunas"
                     label="Colunas"
                     type="number"
@@ -143,26 +155,71 @@ const CursoMaker = () => {
                     onChange={(e) => handleInputChange(e)}
                   />
                   <div className={Style.verticalSpacer}></div>
-                  <TextField
-                    InputLabelProps={{ style: { color: "white" } }}
+                  <DarkerTextField
                     InputProps={{
                       inputProps: {
                         max: 20,
                       },
                     }}
-                    variant="filled"
+                    variant="outlined"
                     name="linhas"
                     label="Linhas"
                     type="number"
                     value={formValues.linhas}
-                    onChange={handleInputChange}
+                    onChange={(e) => handleInputChange(e)}
+                  />
+                </div>
+                <div className={Style.input2}>
+                  <Typography
+                    color={"textSecondary"}
+                    variant={"body1"}
+                    id="simple-modal-description"
+                  >
+                    <b> Texto de introdução</b>
+                  </Typography>
+                  <div className={Style.verticalSpacer}></div>
+                  <DarkerTextField
+                    multiline={true}
+                    variant="outlined"
+                    name="dica"
+                    label="Introdução"
+                    type="text"
+                    value={formValues.introducao}
+                    onChange={(e) => handleInputChange(e)}
+                  />
+                </div>
+                <div className={Style.input3}>
+                  <Typography
+                    color={"textSecondary"}
+                    variant={"body1"}
+                    id="simple-modal-description"
+                  >
+                    <b> Quantidade de níveis</b>
+                  </Typography>
+                  <div className={Style.verticalSpacer}></div>
+                  <DarkerTextField
+                    InputProps={{
+                      inputProps: {
+                        max: 10,
+                      },
+                    }}
+                    variant="outlined"
+                    name="niveis"
+                    label="Níveis"
+                    type="number"
+                    value={formValues.niveis}
+                    onChange={(e) => handleInputChange(e)}
                   />
                 </div>
               </div>
-              <div className={Style.verticalSpacer}></div>
-              <div className={Style.verticalSpacer}></div>
+
               <div className={Style.button}>
-                <Button variant="contained" color="primary" type="submit">
+                <Button
+                  fullWidth
+                  variant="contained"
+                  color="primary"
+                  type="submit"
+                >
                   Parece bom
                 </Button>
               </div>
@@ -177,16 +234,23 @@ const CursoMaker = () => {
         aria-describedby="simple-modal-description"
       >
         <div className={Style.modalDelete}>
+          <div className={Style.title}>
+            <Typography
+              color={"textSecondary"}
+              variant={"h6"}
+              id="simple-modal-description"
+            >
+              <b> Apagar tudo?</b>
+            </Typography>
+            <IconButton
+              className={Style.iconButtonWTitle}
+              onClick={() => handleClose(setDeleteModalOpen)}
+            >
+              <img src={x} alt={"x"} height={"16px"} width={"16px"} />
+            </IconButton>
+          </div>
           <Typography
-            color={"textPrimary"}
-            variant={"h6"}
-            id="simple-modal-description"
-          >
-            <b> Apagar tudo?</b>
-          </Typography>
-
-          <Typography
-            color={"textPrimary"}
+            color={"textSecondary"}
             variant={"caption"}
             id="simple-modal-description"
           >
@@ -208,22 +272,56 @@ const CursoMaker = () => {
           </div>
         </div>
       </Modal>
+      <Modal onClose={() => handleClose(setTipModalOpen)} open={tipModalOpen}>
+        <div className={Style.tipModal}>
+          <div className={Style.title}>
+            <Typography variant={"h6"} color={"textSecondary"}>
+              Dica do nível <b>{selectedLevel}</b>
+            </Typography>
+            <IconButton
+              className={Style.iconButton}
+              onClick={() => handleClose(setTipModalOpen)}
+            >
+              <img src={x} alt={"x"} height={"16px"} width={"16px"} />
+            </IconButton>
+          </div>
+          <div className={Style.verticalSpacer}></div>
+          <form>
+            <DarkerTextField
+              multiline={true}
+              variant="outlined"
+              name="dicas"
+              label="Dica"
+              type="text"
+              value={formValues.dicas}
+              onChange={(e) => handleInputChange(e)}
+            />
+            <div className={Style.verticalSpacer}></div>
+            <div className={Style.button}>
+              <Button
+                fullWidth
+                variant="contained"
+                color="primary"
+                type="submit"
+              >
+                Parece bom
+              </Button>
+            </div>
+          </form>
+        </div>
+      </Modal>
       <div className={Style.root}>
-        <LevelSelector
-          selectedLevel={selectedLevel}
-          setSelectedLevel={setSelectedLevel}
-          levels={niveis}
-        />
+        <div className={Style.menu}>
+          <MobileNavbar />
+          <div className={Style.menu_levels}>
+            <LevelSelector
+              selectedLevel={selectedLevel}
+              setSelectedLevel={setSelectedLevel}
+              levels={niveis}
+            />
+          </div>
+        </div>
         <div className={gridClass}>
-          <Toolbar
-            editType={editType}
-            handleEditType={handleEditType}
-            handleDeleteMode={handleDeleteMode}
-            deleteMode={deleteMode}
-            handleDeleteOpen={() => handleOpen(setDeleteModalOpen)}
-            handleEditOpen={() => handleOpen(setEditModalOpen)}
-          />
-
           <Canvas
             course={course}
             updateCourse={updateCourse}
@@ -234,6 +332,18 @@ const CursoMaker = () => {
             mapRows={mapRows}
             mapColumns={mapColumns}
             levels={niveis}
+          />
+          <Toolbar
+            selectedLevel={selectedLevel}
+            setSelectedLevel={setSelectedLevel}
+            levels={niveis}
+            editType={editType}
+            handleEditType={handleEditType}
+            handleDeleteMode={handleDeleteMode}
+            deleteMode={deleteMode}
+            handleDeleteOpen={() => handleOpen(setDeleteModalOpen)}
+            handleEditOpen={() => handleOpen(setEditModalOpen)}
+            handleTipOpen={() => handleOpen(setTipModalOpen)}
           />
         </div>
       </div>
