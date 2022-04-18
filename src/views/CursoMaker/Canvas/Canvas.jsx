@@ -300,7 +300,7 @@ const Canvas = (props) => {
         ref={canvas}
         id="myCanvas"
         style={{
-          background: `linear-gradient(to right, #a9a9a9 ${xAmountOfColor}%, #ffffff ${xAmountOfColor}%)`,
+          background: `linear-gradient(to right, #c5c5c5 ${xAmountOfColor}%, #ffffff ${xAmountOfColor}%)`,
           display: "block",
         }}
       ></canvas>
