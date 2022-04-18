@@ -49,24 +49,27 @@ const BlocksSelector = (props) => {
 
   return (
     <div className={Style.root}>
-      {blocos.current.map((bloco, index) => {
-        const blockClass = classNames(Style.bloco, {
-          [Style.nonClick]: !bloco.selected,
-          [Style.click]: bloco.selected,
-        });
-        return (
-          <div
-            key={index}
-            onClick={() => {
-              blocos.current[index].selected = !blocos.current[index].selected;
-              setNewCourse();
-            }}
-            className={blockClass}
-          >
-            <img alt={bloco.alt} src={bloco.img} />
-          </div>
-        );
-      })}
+      <div className={Style.blocksSelector}>
+        {blocos.current.map((bloco, index) => {
+          const blockClass = classNames(Style.bloco, {
+            [Style.nonClick]: !bloco.selected,
+            [Style.click]: bloco.selected,
+          });
+          return (
+            <div
+              key={index}
+              onClick={() => {
+                blocos.current[index].selected =
+                  !blocos.current[index].selected;
+                setNewCourse();
+              }}
+              className={blockClass}
+            >
+              <img alt={bloco.alt} src={bloco.img} />
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 };

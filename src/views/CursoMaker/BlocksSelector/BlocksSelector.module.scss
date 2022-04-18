@@ -1,11 +1,15 @@
 .root {
   width: 300px;
+  background-color: #a9a9a9;
+}
+
+.blocksSelector {
+  max-height: 256px;
+  background-color: white;
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr;
   overflow-y: scroll;
-  max-height: 256px;
-  background-color: white;
 }
 
 .bloco {

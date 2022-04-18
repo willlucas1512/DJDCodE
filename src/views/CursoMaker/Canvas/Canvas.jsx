@@ -282,7 +282,10 @@ const Canvas = (props) => {
   useEffect(() => {
     deleteMode.current = props.deleteMode;
   }, [props.deleteMode]);
-
+  const xAmountOfColor =
+    props.editType === "map"
+      ? (sourceWidth * 100) / (sourceWidth + mapColumns * tileWidth)
+      : 0;
   return (
     <div className={Style.root}>
       {props.editType === "blocks" && (
@@ -296,7 +299,10 @@ const Canvas = (props) => {
       <canvas
         ref={canvas}
         id="myCanvas"
-        style={{ backgroundColor: "white", display: "block" }}
+        style={{
+          background: `linear-gradient(to right, #a9a9a9 ${xAmountOfColor}%, #ffffff ${xAmountOfColor}%)`,
+          display: "block",
+        }}
       ></canvas>
     </div>
   );
