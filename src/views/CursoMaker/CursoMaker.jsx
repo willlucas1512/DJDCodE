@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import {
-  Modal,
+  Dialog,
   Typography,
   TextField,
   Button,
   IconButton,
 } from "@material-ui/core";
-import { withStyles } from "@material-ui/core/styles";
 import Toolbar from "./Toolbar";
 import Canvas from "./Canvas";
 import MobileNavbar from "../../MobileNavbar/MobileNavbar";
@@ -47,14 +46,14 @@ const CursoMaker = () => {
     });
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = (event, setOpen) => {
     event.preventDefault();
     setMapRows(Number(formValues.linhas));
     setMapColumns(Number(formValues.colunas));
     setNiveis(Number(formValues.niveis));
     setIntroducao(formValues.introducao);
     setDicas(formValues.dicas);
-    handleClose(setEditModalOpen);
+    handleClose(setOpen);
   };
 
   const handleClose = (pFunc) => {
@@ -90,22 +89,12 @@ const CursoMaker = () => {
     [Style.canvas_blocks]: editType === "blocks",
   });
 
-  const DarkerTextField = withStyles({
-    root: {
-      "& .MuiOutlinedInput-root": {
-        "& fieldset": {
-          borderColor: "#303030",
-        },
-      },
-      "& .MuiInputBase-input": {
-        color: "#303030",
-      },
-    },
-  })(TextField);
-
   return (
     <>
-      <Modal
+      <Dialog
+        PaperProps={{
+          style: { borderRadius: 10, maxHeight: "100%" },
+        }}
         open={editModalOpen}
         onClose={() => handleClose(setEditModalOpen)}
         aria-labelledby="simple-modal-title"
@@ -121,7 +110,7 @@ const CursoMaker = () => {
                 <img src={x} alt={"x"} height={"16px"} width={"16px"} />
               </IconButton>
             </div>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={(e) => handleSubmit(e, setEditModalOpen)}>
               <div className={Style.modalContent}>
                 <div className={Style.input1}>
                   <Typography
@@ -141,10 +130,11 @@ const CursoMaker = () => {
                     mapa, apagará seu progresso atual.
                   </Typography>
                   <div className={Style.verticalSpacer}></div>
-                  <DarkerTextField
+                  <TextField
                     InputProps={{
                       inputProps: {
                         max: 20,
+                        style: { color: "#303030" },
                       },
                     }}
                     variant="outlined"
@@ -155,10 +145,11 @@ const CursoMaker = () => {
                     onChange={(e) => handleInputChange(e)}
                   />
                   <div className={Style.verticalSpacer}></div>
-                  <DarkerTextField
+                  <TextField
                     InputProps={{
                       inputProps: {
                         max: 20,
+                        style: { color: "#303030" },
                       },
                     }}
                     variant="outlined"
@@ -178,16 +169,19 @@ const CursoMaker = () => {
                     <b> Texto de introdução</b>
                   </Typography>
                   <div className={Style.verticalSpacer}></div>
-                  <DarkerTextField
-                    multiline={true}
-                    variant="outlined"
-                    name="dica"
+                  <TextField
+                    variant={"outlined"}
+                    inputProps={{
+                      style: { color: "#303030" },
+                    }}
+                    name="introducao"
                     label="Introdução"
-                    type="text"
-                    value={formValues.introducao}
+                    multiline
+                    rows="3"
                     onChange={(e) => handleInputChange(e)}
                   />
                 </div>
+                <div className={Style.verticalSpacer}></div>
                 <div className={Style.input3}>
                   <Typography
                     color={"textSecondary"}
@@ -197,10 +191,11 @@ const CursoMaker = () => {
                     <b> Quantidade de níveis</b>
                   </Typography>
                   <div className={Style.verticalSpacer}></div>
-                  <DarkerTextField
+                  <TextField
                     InputProps={{
                       inputProps: {
                         max: 10,
+                        style: { color: "#303030" },
                       },
                     }}
                     variant="outlined"
@@ -226,8 +221,11 @@ const CursoMaker = () => {
             </form>
           </div>
         }
-      </Modal>
-      <Modal
+      </Dialog>
+      <Dialog
+        PaperProps={{
+          style: { borderRadius: 10, maxHeight: "100%" },
+        }}
         open={deleteModalOpen}
         onClose={() => handleClose(setDeleteModalOpen)}
         aria-labelledby="simple-modal-title"
@@ -271,8 +269,15 @@ const CursoMaker = () => {
             </Button>
           </div>
         </div>
-      </Modal>
-      <Modal onClose={() => handleClose(setTipModalOpen)} open={tipModalOpen}>
+      </Dialog>
+
+      <Dialog
+        PaperProps={{
+          style: { borderRadius: 10, maxHeight: "100%" },
+        }}
+        onClose={() => handleClose(setTipModalOpen)}
+        open={tipModalOpen}
+      >
         <div className={Style.tipModal}>
           <div className={Style.title}>
             <Typography variant={"h6"} color={"textSecondary"}>
@@ -286,15 +291,18 @@ const CursoMaker = () => {
             </IconButton>
           </div>
           <div className={Style.verticalSpacer}></div>
-          <form>
-            <DarkerTextField
-              multiline={true}
-              variant="outlined"
+          <form onSubmit={(e) => handleSubmit(e, setTipModalOpen)}>
+            <TextField
+              variant={"outlined"}
+              inputProps={{
+                style: { color: "#303030" },
+              }}
               name="dicas"
               label="Dica"
-              type="text"
-              value={formValues.dicas}
+              multiline
+              rows="3"
               onChange={(e) => handleInputChange(e)}
+              fullWidth
             />
             <div className={Style.verticalSpacer}></div>
             <div className={Style.button}>
@@ -309,7 +317,7 @@ const CursoMaker = () => {
             </div>
           </form>
         </div>
-      </Modal>
+      </Dialog>
       <div className={Style.root}>
         <div className={Style.menu}>
           <MobileNavbar />

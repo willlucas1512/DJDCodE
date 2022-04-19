@@ -2,6 +2,13 @@ import { createMuiTheme } from "@material-ui/core/styles";
 
 export const themePrimary = {
   mui: createMuiTheme({
+    overrides: {
+      MuiOutlinedInput: {
+        notchedOutline: {
+          borderColor: "#303030",
+        },
+      },
+    },
     palette: {
       type: "dark",
       common: { black: "#000", white: "#fff", transparent: "transparent" },
