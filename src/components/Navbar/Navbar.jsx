@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
-import { AppBar, Toolbar, Typography } from "@material-ui/core";
+import { useSelector } from "react-redux";
+import { AppBar, Toolbar, Typography, Avatar } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 import { classList } from "../../utils/helpers";
 import { makeStyles } from "@material-ui/core/styles";

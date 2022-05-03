@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -11,7 +12,7 @@ import Grid from "@mui/material/Grid";
 import locked from "../locked.png";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-
+import { acLogin } from "../../../redux/actions";
 import services from "../../../services";
 
 const theme = createTheme();
@@ -19,10 +20,13 @@ const theme = createTheme();
 function SignIn(props) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-
+  const dispatch = useDispatch();
   const handleSubmit = (event) => {
     event.preventDefault();
-    services.user.login({ email: username, password: password });
+    services.user.login({ email: username, password: password }, (user) => {
+      console.log("chamei callback");
+      dispatch(acLogin(user));
+    });
   };
 
   return (

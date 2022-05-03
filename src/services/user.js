@@ -1,8 +1,7 @@
 import Axios from "axios";
 import { REGISTER_USER_URI, LOGIN_USER_URI, GET_USER_URI } from "./URI";
 
-export const login = (pData) => {
-  console.log(pData);
+export const login = (pData, pCallback) => {
   Axios({
     method: "POST",
     data: {
@@ -11,7 +10,10 @@ export const login = (pData) => {
     },
     withCredentials: true,
     url: LOGIN_USER_URI,
-  }).then((res) => console.log(res));
+  }).then((res) => {
+    console.log(res);
+    pCallback && pCallback(res.data);
+  });
 };
 
 export const register = (pData) => {
