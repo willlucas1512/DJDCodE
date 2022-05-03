@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import NavbarContext from "../../../Navbar/NavbarContext";
+import NavbarContext from "../../../components/Navbar/NavbarContext";
 import Labirinto from "../Labirinto";
 import Building from "../Building";
 

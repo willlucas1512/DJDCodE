@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
+import { BrowserRouter } from "react-router-dom";
 import ThemeProvider from "../ThemeProvider";
-import { themePrimary } from "../style/theme";
+import { themePrimary } from "../../style/theme";
 import { Typography } from "@material-ui/core";
-import turningphone from "../turningphone.png";
+import turningphone from "./turningphone.png";
 import SwitchPages from "../SwitchPages";
 import CodeProvider from "../Run/CodeProvider";
-import LevelProvider from "../views/Cursos/Labirinto/Levels/LevelProvider";
+import LevelProvider from "../../views/Cursos/Labirinto/Levels/LevelProvider";
 import NavbarProvider from "../Navbar/NavbarProvider";
+import Routes from "../Routes/Routes";
 
 const ScreenOrientation = (props) => {
   const [orientation, setOrientation] = useState("portrait");
@@ -74,15 +76,18 @@ const ScreenOrientation = (props) => {
       </div>
     </div>
   ) : (
-    <ThemeProvider theme={themePrimary}>
-      <NavbarProvider>
-        <LevelProvider>
-          <CodeProvider>
-            <SwitchPages isMobile={isMobile} />
-          </CodeProvider>
-        </LevelProvider>
-      </NavbarProvider>
-    </ThemeProvider>
+    <BrowserRouter>
+      <ThemeProvider theme={themePrimary}>
+        <NavbarProvider>
+          <LevelProvider>
+            <CodeProvider>
+              <SwitchPages />
+              <Routes />
+            </CodeProvider>
+          </LevelProvider>
+        </NavbarProvider>
+      </ThemeProvider>
+    </BrowserRouter>
   );
 };
 

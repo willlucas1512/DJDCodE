@@ -6,7 +6,7 @@ import ApresentacaoLayout from "./ApresentacaoLayout";
 import Style from "./Home.module.scss";
 import Dados from "./Dados/Dados";
 import About from "./About";
-import NavbarContext from "../../Navbar/NavbarContext";
+import NavbarContext from "../../components/Navbar/NavbarContext";
 
 const styles = (theme) => ({
   background: {

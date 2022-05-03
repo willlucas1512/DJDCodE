@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { AppBar, Toolbar, Typography } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
-import { classList } from "../utils/helpers";
+import { classList } from "../../utils/helpers";
 import { makeStyles } from "@material-ui/core/styles";
 import {
   MobileStepper,
@@ -13,7 +13,7 @@ import {
 import classNames from "classnames";
 import SideMenu from "../SideMenu";
 import Logo from "../Logo";
-import LevelContext from "../views/Cursos/Labirinto/Levels/LevelContext";
+import LevelContext from "../../views/Cursos/Labirinto/Levels/LevelContext";
 import CodeContext from "../Run/CodeContext";
 import NavbarContext from "./NavbarContext";
 import Run from "../Run";

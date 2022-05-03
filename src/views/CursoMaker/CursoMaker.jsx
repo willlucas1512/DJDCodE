@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Dialog,
   Typography,
@@ -8,7 +8,7 @@ import {
 } from "@material-ui/core";
 import Toolbar from "./Toolbar";
 import Canvas from "./Canvas";
-import MobileNavbar from "../../MobileNavbar/MobileNavbar";
+import MobileNavbar from "../../components/MobileNavbar/MobileNavbar";
 import LevelSelector from "./LevelSelector";
 import classNames from "classnames";
 import x from "./close.png";
@@ -22,7 +22,9 @@ const CursoMaker = () => {
     introducao: "",
     dicas: "",
   };
-  const [course, setCourse] = useState([{}, {}, {}, {}]);
+  const [course, setCourse] = useState(
+    [].fill({}, 0, defaultValues.niveis + 1)
+  );
   const [editType, setEditType] = useState("map");
   const [deleteMode, setDeleteMode] = useState(false);
   const [eraseAll, setEraseAll] = useState(false);
@@ -88,6 +90,10 @@ const CursoMaker = () => {
     [Style.canvas_map]: editType === "map",
     [Style.canvas_blocks]: editType === "blocks",
   });
+
+  useEffect(() => {
+    console.log(course);
+  }, [course]);
 
   return (
     <>
@@ -270,7 +276,6 @@ const CursoMaker = () => {
           </div>
         </div>
       </Dialog>
-
       <Dialog
         PaperProps={{
           style: { borderRadius: 10, maxHeight: "100%" },

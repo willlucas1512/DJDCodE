@@ -1,4 +1,4 @@
-import ScreenOrientation from "./ScreenOrientation";
+import { ScreenOrientation } from "./components";
 
 function App() {
   return <ScreenOrientation />;

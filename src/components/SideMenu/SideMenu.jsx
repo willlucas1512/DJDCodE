@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { ListItem, List, ListItemIcon, ListItemText } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import HomeIcon from "@material-ui/icons/Home";
@@ -25,9 +26,14 @@ const SideMenu = (props) => {
   return (
     <div className={classes.root} role="presentation">
       <List>
-        {["Home", "Cursos", "Curso Maker", "Material de apoio"].map(
-          (text, index) => (
-            <ListItem onClick={() => handleClick(text)} button key={text}>
+        {[
+          { text: "Home", path: "home" },
+          { text: "Cursos", path: "cursos" },
+          { text: "Curso Maker", path: "cursomaker" },
+          { text: "Material de apoio", path: "materialapoio" },
+        ].map((item, index) => (
+          <Link key={index} to={`/${item.path}`}>
+            <ListItem onClick={() => handleClick(item.text)} button>
               <ListItemIcon>
                 {index === 0 ? (
                   <HomeIcon />
@@ -39,10 +45,10 @@ const SideMenu = (props) => {
                   <MenuBookIcon />
                 )}
               </ListItemIcon>
-              <ListItemText primary={text} />
+              <ListItemText primary={item.text} />
             </ListItem>
-          )
-        )}
+          </Link>
+        ))}
       </List>
     </div>
   );

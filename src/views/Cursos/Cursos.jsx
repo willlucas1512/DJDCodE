@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import CardCurso from "./CardCurso";
-import NavbarContext from "../../Navbar/NavbarContext";
+import NavbarContext from "../../components/Navbar/NavbarContext";
 import Style from "./Cursos.module.scss";
 import SwitchCourses from "./SwitchCourses/SwitchCourses";
 
