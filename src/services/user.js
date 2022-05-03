@@ -1,27 +1,31 @@
 import Axios from "axios";
 import { REGISTER_USER_URI, LOGIN_USER_URI, GET_USER_URI } from "./URI";
 
-export const register = (data) => {
+export const login = (pData) => {
+  console.log(pData);
   Axios({
     method: "POST",
     data: {
-      username: data.username,
-      password: data.password,
-    },
-    withCredentials: true,
-    url: REGISTER_USER_URI,
-  }).then((res) => console.log(res));
-};
-
-export const login = (data) => {
-  Axios({
-    method: "POST",
-    data: {
-      username: data.username,
-      password: data.password,
+      email: pData.email,
+      password: pData.password,
     },
     withCredentials: true,
     url: LOGIN_USER_URI,
+  }).then((res) => console.log(res));
+};
+
+export const register = (pData) => {
+  console.log(pData);
+  Axios({
+    method: "POST",
+    data: {
+      name_first: pData.name_first,
+      name_last: pData.name_last,
+      email: pData.email,
+      password: pData.password,
+    },
+    withCredentials: true,
+    url: REGISTER_USER_URI,
   }).then((res) => console.log(res));
 };
 
@@ -34,3 +38,5 @@ export const getUser = () => {
     console.log(res.data);
   });
 };
+
+export default { register, login, getUser };

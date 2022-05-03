@@ -162,7 +162,7 @@ a {
   color: #fff;
 }
 
-a:hover {
+/* a:hover {
   border-bottom: 1px solid #ffff;
   background: #f25e5e;
   padding: 8px;
@@ -172,4 +172,4 @@ a:focus {
   border-bottom: 1px solid #ffff;
   background: #f25e5e;
   padding: 8px;
-}
+} */

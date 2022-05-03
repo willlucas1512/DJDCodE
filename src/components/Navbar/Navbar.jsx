@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
+import { Link } from "react-router-dom";
 import { AppBar, Toolbar, Typography } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 import { classList } from "../../utils/helpers";
@@ -179,7 +180,7 @@ const Navbar = (props) => {
   //   );
   // } else {
   return (
-    <AppBar elevation={24} position="static">
+    <AppBar elevation={12} position="static">
       <Toolbar>
         <IconButton
           onClick={handleOpen}
@@ -256,12 +257,9 @@ const Navbar = (props) => {
           )}
         </div>
         {page === "Home" && (
-          <Button
-            color="inherit"
-            // onClick={handleOpen}
-          >
-            Login
-          </Button>
+          <Link to="/login">
+            <Button color="inherit">Login</Button>
+          </Link>
         )}
       </Toolbar>
       <Drawer anchor={"left"} open={open} onClose={handleClose}>
