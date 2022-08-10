@@ -1,7 +1,7 @@
 import Axios from "axios";
 import { REGISTER_USER_URI, LOGIN_USER_URI, GET_USER_URI } from "./URI";
 
-export const login = (pData, pCallback) => {
+export const login = (pData, pSuccess, pError) => {
   Axios({
     method: "POST",
     data: {
@@ -10,14 +10,16 @@ export const login = (pData, pCallback) => {
     },
     withCredentials: true,
     url: LOGIN_USER_URI,
-  }).then((res) => {
-    console.log(res);
-    pCallback && pCallback(res.data);
-  });
+  })
+    .then((res) => {
+      pSuccess && pSuccess(res.data);
+    })
+    .catch((error) => {
+      pError && pError(error.response);
+    });
 };
 
-export const register = (pData) => {
-  console.log(pData);
+export const register = (pData, pSuccess, pError) => {
   Axios({
     method: "POST",
     data: {
@@ -28,7 +30,11 @@ export const register = (pData) => {
     },
     withCredentials: true,
     url: REGISTER_USER_URI,
-  }).then((res) => console.log(res));
+  })
+    .then((res) => pSuccess && pSuccess(res.data))
+    .catch((error) => {
+      pError && pError(error.response);
+    });
 };
 
 export const getUser = () => {

@@ -7,29 +7,35 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
-import locked from "../locked.png";
+import locked from "../SignIn/locked.png";
 import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
-import services from "../../../services";
+import services from "../../services";
 
 const theme = createTheme();
 
-function SignUp(props) {
+function SignUp() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
+  const [message, setMessage] = useState("");
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    services.user.register({
-      email: username,
-      password: password,
-      name_first: firstName,
-      name_last: lastName,
-    });
+    services.user.register(
+      {
+        email: username,
+        password: password,
+        name_first: firstName,
+        name_last: lastName,
+      },
+      (response) => {
+        setMessage("Conta criada com sucesso! Faça login.");
+      }
+    );
   };
 
   return (
@@ -129,6 +135,7 @@ function SignUp(props) {
                   />
                 </Grid>
               </Grid>
+              {message.length > 0 && message}
               <Button
                 type="submit"
                 fullWidth
@@ -139,11 +146,7 @@ function SignUp(props) {
               </Button>
               <Grid container justifyContent="flex-end">
                 <Grid item>
-                  <Link
-                    to="/login"
-                    style={{ color: "black" }}
-                    onClick={() => props.setInUp("in")}
-                  >
+                  <Link to="/login" style={{ color: "black" }}>
                     <Typography
                       color={"inherit"}
                       component={"p"}

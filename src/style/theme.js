@@ -1,7 +1,7 @@
-import { createMuiTheme } from "@material-ui/core/styles";
+import { createTheme } from "@material-ui/core/styles";
 
 export const themePrimary = {
-  mui: createMuiTheme({
+  mui: createTheme({
     overrides: {
       MuiOutlinedInput: {
         notchedOutline: {

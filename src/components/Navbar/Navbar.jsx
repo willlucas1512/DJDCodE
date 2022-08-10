@@ -29,7 +29,8 @@ const Navbar = (props) => {
   const [isMobile, setIsMobile] = useState(false);
   const [open, setOpen] = useState(false);
   const { updatePage, page, course } = useContext(NavbarContext);
-
+  const name_first = useSelector((state) => state.user.name_first);
+  const name_last = useSelector((state) => state.user.name_last);
   const handleOpen = () => {
     setOpen(true);
   };
@@ -257,10 +258,27 @@ const Navbar = (props) => {
             </div>
           )}
         </div>
-        {page === "Home" && (
+        {page === "Home" && !name_first && (
           <Link to="/login">
             <Button color="inherit">Login</Button>
           </Link>
+        )}
+        {name_first && name_last && (
+          <div className={Style.username}>
+            <Avatar />
+            <div className={Style.horizontalSpacer}></div>
+            <div className={Style.horizontalSpacer}></div>
+            <div className={Style.horizontalSpacer}></div>
+            <Typography variant={"body1"}>
+              <b>{name_first.charAt(0).toUpperCase() + name_first.slice(1)} </b>
+            </Typography>
+            <div className={Style.horizontalSpacer}></div>
+            <Typography variant={"body1"}>
+              {" "}
+              <b> {name_last.charAt(0).toUpperCase() + name_last.slice(1)}</b>
+            </Typography>
+            <div className={Style.horizontalSpacer}></div>
+          </div>
         )}
       </Toolbar>
       <Drawer anchor={"left"} open={open} onClose={handleClose}>

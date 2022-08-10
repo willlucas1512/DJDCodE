@@ -1,13 +1,13 @@
 import { ScreenOrientation } from "./components";
 import { PersistGate } from "redux-persist/integration/react";
 import { Provider } from "react-redux";
-import configureStore from "./redux/configureStore";
+import store from "./redux/store";
 
 function App() {
-  const xConfigureStore = configureStore();
+  const Store = store();
   return (
-    <Provider store={xConfigureStore.store}>
-      <PersistGate loading={null} persistor={xConfigureStore.persistor}>
+    <Provider store={Store.store}>
+      <PersistGate loading={null} persistor={Store.persistor}>
         <ScreenOrientation />
       </PersistGate>
     </Provider>
