@@ -15,7 +15,7 @@ export const resetPass = (pData, pSuccess, pError) => {
       password: pData.password,
       confirmPassword: pData.confirmPassword,
     },
-    withCredentials: true,
+    // withCredentials: true,
     url: RESET_PASSWORD_URI,
   })
     .then((res) => {
@@ -32,7 +32,7 @@ export const recover = (pEmail, pSuccess, pError) => {
     data: {
       email: pEmail.email,
     },
-    withCredentials: true,
+    // withCredentials: true,
     url: RECOVER_PASSWORD_URI,
   })
     .then((res) => {
@@ -50,7 +50,7 @@ export const login = (pData, pSuccess, pError) => {
       email: pData.email,
       password: pData.password,
     },
-    withCredentials: true,
+    //withCredentials: true,
     url: LOGIN_USER_URI,
   })
     .then((res) => {
@@ -70,7 +70,7 @@ export const register = (pData, pSuccess, pError) => {
       email: pData.email,
       password: pData.password,
     },
-    withCredentials: true,
+    // withCredentials: true,
     url: REGISTER_USER_URI,
   })
     .then((res) => pSuccess && pSuccess(res.data))
@@ -82,7 +82,7 @@ export const register = (pData, pSuccess, pError) => {
 export const getUser = () => {
   Axios({
     method: "GET",
-    withCredentials: true,
+    // withCredentials: true,
     url: GET_USER_URI,
   }).then((res) => {
     console.log(res.data);
