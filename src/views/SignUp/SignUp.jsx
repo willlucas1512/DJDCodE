@@ -126,14 +126,14 @@ function SignUp() {
                     autoComplete="new-password"
                   />
                 </Grid>
-                <Grid item xs={12}>
+                {/* <Grid item xs={12}>
                   <FormControlLabel
                     control={
                       <Checkbox value="allowExtraEmails" color="primary" />
                     }
                     label="Quero receber conteúdo via email."
                   />
-                </Grid>
+                  </Grid>*/}
               </Grid>
               {message.length > 0 && message}
               <Button

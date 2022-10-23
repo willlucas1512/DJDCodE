@@ -34,7 +34,7 @@ function SignIn() {
       },
       (error) => {
         if (error.status === 401) {
-          setMessage("A senha inserida está incorreta");
+          setMessage("Email ou senha inválidos");
         }
       }
     );
@@ -103,11 +103,14 @@ function SignIn() {
                 id="password"
                 autoComplete="current-password"
               />
-              {message.length > 0 && message}
-              <FormControlLabel
+              <p style={{ color: "red", margin: 0, fontSize: 12 }}>
+                {" "}
+                {message.length > 0 && message}
+              </p>
+              {/*<FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}
                 label="Lembre de mim"
-              />
+          />*/}
               <Button
                 type="submit"
                 fullWidth
