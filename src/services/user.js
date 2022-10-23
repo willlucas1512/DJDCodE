@@ -1,5 +1,47 @@
 import Axios from "axios";
-import { REGISTER_USER_URI, LOGIN_USER_URI, GET_USER_URI } from "./URI";
+import {
+  REGISTER_USER_URI,
+  LOGIN_USER_URI,
+  GET_USER_URI,
+  RECOVER_PASSWORD_URI,
+  RESET_PASSWORD_URI,
+} from "./URI";
+
+export const resetPass = (pData, pSuccess, pError) => {
+  Axios({
+    method: "POST",
+    data: {
+      token: pData.token,
+      password: pData.password,
+      confirmPassword: pData.confirmPassword,
+    },
+    withCredentials: true,
+    url: RESET_PASSWORD_URI,
+  })
+    .then((res) => {
+      pSuccess && pSuccess(res.data);
+    })
+    .catch((error) => {
+      pError && pError(error.response);
+    });
+};
+
+export const recover = (pEmail, pSuccess, pError) => {
+  Axios({
+    method: "POST",
+    data: {
+      email: pEmail.email,
+    },
+    withCredentials: true,
+    url: RECOVER_PASSWORD_URI,
+  })
+    .then((res) => {
+      pSuccess && pSuccess(res.data);
+    })
+    .catch((error) => {
+      pError && pError(error.response);
+    });
+};
 
 export const login = (pData, pSuccess, pError) => {
   Axios({
@@ -47,4 +89,4 @@ export const getUser = () => {
   });
 };
 
-export default { register, login, getUser };
+export default { register, login, getUser, recover, resetPass };

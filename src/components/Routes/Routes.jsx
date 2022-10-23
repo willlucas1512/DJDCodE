@@ -7,6 +7,8 @@ import {
   MaterialApoio,
   SignIn,
   SignUp,
+  ForgotPass,
+  ResetPass,
 } from "../../views";
 
 function Routes(props) {
@@ -18,6 +20,8 @@ function Routes(props) {
       <Route exact path="/materialapoio" component={MaterialApoio} />
       <Route exact path="/login" component={SignIn} />
       <Route exact path="/cadastro" component={SignUp} />
+      <Route exact path="/recover" component={ForgotPass} />
+      <Route exact path="/reset-pass/:token" component={ResetPass} />
       <Redirect from="/" to="/home" />
     </Switch>
   );
