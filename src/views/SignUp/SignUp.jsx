@@ -1,15 +1,24 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
-import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
-import locked from "../SignIn/locked.png";
-import Typography from "@mui/material/Typography";
-import Paper from "@mui/material/Paper";
+import { Link, useHistory } from "react-router-dom";
+import {
+  Button,
+  CssBaseline,
+  Box,
+  Typography,
+  Paper,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  IconButton,
+  Grid,
+  TextField,
+} from "@mui/material";
+import locked from "../Login/locked.png";
+import CloseIcon from "../../components/CloseIcon/CloseIcon";
+import Error from "../../components/Error/Error";
+import Success from "../../components/Success/Success";
+import Loading from "../../components/Loading";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 import services from "../../services";
@@ -22,8 +31,18 @@ function SignUp() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [message, setMessage] = useState("");
+  const [error, setError] = useState("");
+  const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [disabledButton, setDisabledButton] = useState(false);
+  const history = useHistory();
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   const handleSubmit = (event) => {
+    setLoading(true);
     event.preventDefault();
     services.user.register(
       {
@@ -32,8 +51,18 @@ function SignUp() {
         name_first: firstName,
         name_last: lastName,
       },
-      (response) => {
-        setMessage("Conta criada com sucesso! Faça login.");
+      (rResponse) => {
+        setLoading(false);
+        setMessage(rResponse.message);
+        setOpen(true);
+        setDisabledButton(true);
+        setTimeout(() => history.push("/home"), 5000);
+      },
+      (rError) => {
+        setOpen(true);
+        setLoading(false);
+        setError(rError.data.message);
+        setMessage(rError.data.message);
       }
     );
   };
@@ -126,23 +155,23 @@ function SignUp() {
                     autoComplete="new-password"
                   />
                 </Grid>
-                {/* <Grid item xs={12}>
-                  <FormControlLabel
-                    control={
-                      <Checkbox value="allowExtraEmails" color="primary" />
-                    }
-                    label="Quero receber conteúdo via email."
-                  />
-                  </Grid>*/}
               </Grid>
-              {message.length > 0 && message}
+              <p style={{ color: "red", margin: 0, fontSize: 12 }}>
+                {" "}
+                {error.length > 0 && error}{" "}
+              </p>
               <Button
+                disabled={disabledButton}
                 type="submit"
                 fullWidth
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
               >
-                Cadastrar
+                {loading ? (
+                  <Loading width={"30px"} height={"30px"} />
+                ) : (
+                  "Cadastrar"
+                )}
               </Button>
               <Grid container justifyContent="flex-end">
                 <Grid item>
@@ -161,6 +190,27 @@ function SignUp() {
           </Box>
         </Grid>
       </Grid>
+      <Dialog
+        sx={{ padding: "16px", display: "flex", justifyContent: "center" }}
+        onClose={handleClose}
+        open={open}
+      >
+        <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+          <IconButton onClick={handleClose}>
+            <CloseIcon />
+          </IconButton>
+        </Box>
+        {error.length > 0 ? <Error /> : <Success />}
+
+        <DialogTitle
+          sx={{ display: "flex", justifyContent: "center", padding: 0 }}
+        >
+          {error.length > 0 ? "Erro" : "Sucesso"}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText>{message}</DialogContentText>
+        </DialogContent>
+      </Dialog>
     </ThemeProvider>
   );
 }

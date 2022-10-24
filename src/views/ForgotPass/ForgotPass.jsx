@@ -1,34 +1,54 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { Link, useHistory } from "react-router-dom";
-import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
-import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import Paper from "@mui/material/Paper";
-import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
-import Typography from "@mui/material/Typography";
+import { Link } from "react-router-dom";
+import Loading from "../../components/Loading";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import services from "../../services";
+import {
+  DialogContent,
+  IconButton,
+  Grid,
+  Box,
+  Paper,
+  Typography,
+  DialogContentText,
+  Dialog,
+  DialogTitle,
+  TextField,
+  CssBaseline,
+  Button,
+} from "@mui/material";
+import Success from "../../components/Success/Success";
+import Error from "../../components/Error/Error";
+import CloseIcon from "../../components/CloseIcon/CloseIcon";
 
 const theme = createTheme();
 
 function ForgotPass() {
   const [username, setUsername] = useState("");
+  const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
-  const dispatch = useDispatch();
+  const [error, setError] = useState("");
+  const [open, setOpen] = useState(false);
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   const handleSubmit = (event) => {
+    setLoading(true);
     event.preventDefault();
     services.user.recover(
       { email: username },
       (rResponse) => {
-        alert(rResponse.message);
+        setMessage(rResponse.message);
+        setLoading(false);
+        setOpen(true);
       },
       (rError) => {
-        alert(rError.message);
+        setLoading(false);
+        setOpen(true);
+        setError(rError.data.message);
+        setMessage(rError.data.message);
       }
     );
   };
@@ -90,7 +110,7 @@ function ForgotPass() {
 
               <p style={{ color: "red", margin: 0, fontSize: 12 }}>
                 {" "}
-                {message.length > 0 && message}
+                {error.length > 0 && error}
               </p>
 
               <Button
@@ -99,8 +119,13 @@ function ForgotPass() {
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
               >
-                Enviar
+                {loading ? (
+                  <Loading width={"30px"} height={"30px"} />
+                ) : (
+                  " Enviar"
+                )}
               </Button>
+
               <Grid justifyContent="center" container>
                 <Grid item>
                   <Link
@@ -123,6 +148,26 @@ function ForgotPass() {
           </Box>
         </Grid>
       </Grid>
+      <Dialog
+        sx={{ padding: "16px", display: "flex", justifyContent: "center" }}
+        onClose={handleClose}
+        open={open}
+      >
+        <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+          <IconButton onClick={handleClose}>
+            <CloseIcon />
+          </IconButton>
+        </Box>
+        {error.length > 0 ? <Error /> : <Success />}
+        <DialogTitle
+          sx={{ display: "flex", justifyContent: "center", padding: 0 }}
+        >
+          {error.length > 0 ? "Erro" : "Sucesso"}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText>{message}</DialogContentText>
+        </DialogContent>
+      </Dialog>
     </ThemeProvider>
   );
 }

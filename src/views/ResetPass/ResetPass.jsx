@@ -1,15 +1,23 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
 import { Link, useParams, useHistory } from "react-router-dom";
-import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
-import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import Paper from "@mui/material/Paper";
-import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
-import Typography from "@mui/material/Typography";
+import {
+  Button,
+  CssBaseline,
+  TextField,
+  Paper,
+  Box,
+  Grid,
+  Typography,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  IconButton,
+} from "@mui/material";
+import CloseIcon from "../../components/CloseIcon/CloseIcon";
+import Error from "../../components/Error/Error";
+import Success from "../../components/Success/Success";
+import Loading from "../../components/Loading";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import services from "../../services";
 
@@ -19,20 +27,34 @@ function ResetPass() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [message, setMessage] = useState("");
-  const dispatch = useDispatch();
+  const [error, setError] = useState("");
+  const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [disabledButton, setDisabledButton] = useState(false);
   const history = useHistory();
   const { token } = useParams();
 
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   const handleSubmit = (event) => {
+    setLoading(true);
     event.preventDefault();
     services.user.resetPass(
       { token: token, password: password, confirmPassword: confirmPassword },
       (rResponse) => {
-        alert(rResponse.message);
-        history.push("/login");
+        setLoading(false);
+        setMessage(rResponse.message);
+        setOpen(true);
+        setDisabledButton(true);
+        setTimeout(() => history.push("/login"), 5000);
       },
       (rError) => {
-        alert(rError.message);
+        setOpen(true);
+        setLoading(false);
+        setError(rError.data.message);
+        setMessage(rError.data.message);
       }
     );
   };
@@ -108,12 +130,17 @@ function ResetPass() {
               </p>
 
               <Button
+                disabled={disabledButton}
                 type="submit"
                 fullWidth
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
               >
-                Enviar
+                {loading ? (
+                  <Loading width={"30px"} height={"30px"} />
+                ) : (
+                  "Enviar"
+                )}
               </Button>
               <Grid justifyContent="center" container>
                 <Grid item>
@@ -137,6 +164,30 @@ function ResetPass() {
           </Box>
         </Grid>
       </Grid>
+      <Dialog
+        sx={{ padding: "16px", display: "flex", justifyContent: "center" }}
+        onClose={handleClose}
+        open={open}
+      >
+        <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+          <IconButton onClick={handleClose}>
+            <CloseIcon />
+          </IconButton>
+        </Box>
+        {error.length > 0 ? <Error /> : <Success />}
+        <DialogTitle
+          sx={{ display: "flex", justifyContent: "center", padding: 0 }}
+        >
+          {error.length > 0 ? "Erro" : "Sucesso"}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            {message} <br />
+            {error.length === 0 &&
+              "Você será redirecionado para a página de login."}
+          </DialogContentText>
+        </DialogContent>
+      </Dialog>
     </ThemeProvider>
   );
 }

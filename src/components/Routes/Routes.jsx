@@ -5,7 +5,7 @@ import {
   Home,
   Cursos,
   MaterialApoio,
-  SignIn,
+  Login,
   SignUp,
   ForgotPass,
   ResetPass,
@@ -18,7 +18,7 @@ function Routes(props) {
       <Route exact path="/home" component={Home} />
       <Route exact path="/cursos" component={Cursos} />
       <Route exact path="/materialapoio" component={MaterialApoio} />
-      <Route exact path="/login" component={SignIn} />
+      <Route exact path="/login" component={Login} />
       <Route exact path="/cadastro" component={SignUp} />
       <Route exact path="/recover" component={ForgotPass} />
       <Route exact path="/reset-pass/:token" component={ResetPass} />

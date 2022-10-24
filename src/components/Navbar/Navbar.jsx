@@ -29,8 +29,8 @@ const Navbar = (props) => {
   const [isMobile, setIsMobile] = useState(false);
   const [open, setOpen] = useState(false);
   const { updatePage, page, course } = useContext(NavbarContext);
-  const name_first = useSelector((state) => state.user.name_first);
-  const name_last = useSelector((state) => state.user.name_last);
+  const name_first = useSelector((state) => state.user.user.name_first);
+  const name_last = useSelector((state) => state.user.user.name_last);
   const handleOpen = () => {
     setOpen(true);
   };

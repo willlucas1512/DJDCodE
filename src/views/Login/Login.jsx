@@ -1,41 +1,63 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
-import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
-import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import Paper from "@mui/material/Paper";
-import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
+import {
+  Button,
+  CssBaseline,
+  Box,
+  Typography,
+  Paper,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  IconButton,
+  Grid,
+  TextField,
+} from "@mui/material";
 import locked from "./locked.png";
-import Typography from "@mui/material/Typography";
+import CloseIcon from "../../components/CloseIcon/CloseIcon";
+import Error from "../../components/Error/Error";
+import Success from "../../components/Success/Success";
+import Loading from "../../components/Loading";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { acLogin } from "../../redux/actions";
 import services from "../../services";
 
 const theme = createTheme();
 
-function SignIn() {
+function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
+  const [error, setError] = useState("");
+  const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [disabledButton, setDisabledButton] = useState(false);
   const dispatch = useDispatch();
   const history = useHistory();
 
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   const handleSubmit = (event) => {
+    setLoading(true);
     event.preventDefault();
     services.user.login(
       { email: username, password: password },
-      (response) => {
-        dispatch(acLogin(response));
+      (rResponse) => {
+        dispatch(acLogin(rResponse));
+        setLoading(false);
+        setOpen(true);
+        setDisabledButton(true);
         history.push("/home");
       },
-      (error) => {
-        if (error.status === 401) {
-          setMessage("Email ou senha inválidos");
-        }
+      (rError) => {
+        setOpen(true);
+        setLoading(false);
+        setError(rError.data.message);
+        setMessage(rError.data.message);
       }
     );
   };
@@ -105,19 +127,20 @@ function SignIn() {
               />
               <p style={{ color: "red", margin: 0, fontSize: 12 }}>
                 {" "}
-                {message.length > 0 && message}
+                {error.length > 0 && error}
               </p>
               {/*<FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}
                 label="Lembre de mim"
           />*/}
               <Button
+                disabled={disabledButton}
                 type="submit"
                 fullWidth
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
               >
-                Login
+                {loading ? <Loading width={"30px"} height={"30px"} /> : "Login"}
               </Button>
               <Grid container>
                 <Grid item xs>
@@ -152,8 +175,29 @@ function SignIn() {
           </Box>
         </Grid>
       </Grid>
+      <Dialog
+        sx={{ padding: "16px", display: "flex", justifyContent: "center" }}
+        onClose={handleClose}
+        open={open}
+      >
+        <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+          <IconButton onClick={handleClose}>
+            <CloseIcon />
+          </IconButton>
+        </Box>
+        {error.length > 0 ? <Error /> : <Success />}
+
+        <DialogTitle
+          sx={{ display: "flex", justifyContent: "center", padding: 0 }}
+        >
+          {error.length > 0 ? "Erro" : "Sucesso"}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText>{message}</DialogContentText>
+        </DialogContent>
+      </Dialog>
     </ThemeProvider>
   );
 }
 
-export default SignIn;
+export default Login;
