@@ -5,21 +5,6 @@ import Ending from "./Ending";
 import LevelContext from "./LevelContext";
 
 const Levels = (props) => {
-  const [isMobile, setIsMobile] = useState(false);
-  const [currentLevelState, setCurrentLevelState] = useState({
-    level: 0,
-    layout: [[]],
-    hint: "",
-  });
-  const { currentLevel, updateLevel } = useContext(LevelContext);
-  const IsMobile = () => {
-    if (window.innerWidth < 800) {
-      setIsMobile(true);
-    } else {
-      setIsMobile(false);
-    }
-  };
-
   const layouts = [
     [[]],
     [
@@ -136,6 +121,20 @@ const Levels = (props) => {
     ],
     [[]],
   ];
+  const [isMobile, setIsMobile] = useState(false);
+  const [currentLevelState, setCurrentLevelState] = useState({
+    level: 0,
+    layout: layouts[1],
+    hint: "",
+  });
+  const { currentLevel, updateLevel } = useContext(LevelContext);
+  const IsMobile = () => {
+    if (window.innerWidth < 800) {
+      setIsMobile(true);
+    } else {
+      setIsMobile(false);
+    }
+  };
 
   const hints = [
     "",
@@ -156,10 +155,13 @@ const Levels = (props) => {
 
   useEffect(() => {
     IsMobile();
+    updateLocalLevel(1);
   }, []);
 
   useEffect(() => {
-    updateLocalLevel(currentLevel);
+    if (currentLevel !== 0) {
+      updateLocalLevel(currentLevel);
+    }
   }, [currentLevel]);
 
   return currentLevel === 0 ? (

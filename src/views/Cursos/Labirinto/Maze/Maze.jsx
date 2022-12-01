@@ -325,6 +325,16 @@ function Maze(props) {
   }, []);
 
   useEffect(() => {
+    makeMaze(
+      "maze_container",
+      props.layout,
+      props.width,
+      props.height,
+      props.random
+    );
+  }, [props.layout, props.width, props.height, props.random]);
+
+  useEffect(() => {
     if (walk) {
       if (currentLevel === 1) {
         blocksLogicLevel1();
