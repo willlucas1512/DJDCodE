@@ -1,4 +1,4 @@
-import React, { useEffect, useContext, useState } from "react";
+import React, { useEffect, useContext, useState, useRef } from "react";
 import Blockly from "blockly/core";
 import BlocklyJS from "blockly/javascript";
 import FancyMazeBuilder from "./FancyMazeBuilder";
@@ -9,6 +9,7 @@ import LevelContext from "../Levels/LevelContext";
 function Maze(props) {
   const { walk, updateMaze } = useContext(CodeContext);
   const { currentLevel } = useContext(LevelContext);
+  const counter = useRef(0);
   const [maze, setMaze] = useState();
   const next = {
     up: up,
@@ -20,19 +21,27 @@ function Maze(props) {
   var Maze, MazeGame;
 
   function up(pMaze) {
-    pMaze.walkUp();
+    pMaze.walkUp(counter.current);
+    counter.current += 1;
+    return "console.log(`walking up`);";
   }
 
   function down(pMaze) {
-    pMaze.walkDown();
+    pMaze.walkDown(counter.current);
+    counter.current += 1;
+    return "console.log(`walking down`);";
   }
 
   function left(pMaze) {
-    pMaze.walkLeft();
+    pMaze.walkLeft(counter.current);
+    counter.current += 1;
+    return "console.log(`walking left`);";
   }
 
   function right(pMaze) {
-    pMaze.walkRight();
+    pMaze.walkRight(counter.current);
+    counter.current += 1;
+    return "console.log(`walking right`);";
   }
 
   const makeMaze = (id, layout, width, height, random) => {
@@ -42,47 +51,37 @@ function Maze(props) {
     setMaze(MazeGame);
     updateMaze(MazeGame);
     BlocklyJS["maze_walk_up"] = () => up(MazeGame);
-    // BlocklyJS["maze_walk_up"] = function up(pNext) {
-    //   MazeGame.walkUp();
-    // };
     BlocklyJS["maze_walk_down"] = () => down(MazeGame);
-    // function down(pNext) {
-    //   MazeGame.walkDown();
-    // };
     BlocklyJS["maze_walk_left"] = () => left(MazeGame);
-    // function left(pNext) {
-    //   MazeGame.walkLeft();
-    // };
     BlocklyJS["maze_walk_right"] = () => right(MazeGame);
-    // function right(pNext) {
-    //   MazeGame.walkRight();
-    // };
   };
 
   const blocksLogicLevel1 = () => {
-    const xWorkspace = Blockly.Workspace.getAll()[0];
-    // const code = BlocklyJS.workspaceToCode(xWorkspace.workspace);
-    const xBlocksOnWorkspace = xWorkspace.getAllBlocks();
-    const xTypes = {
-      maze_walk_up: "up",
-      maze_walk_down: "down",
-      maze_walk_left: "left",
-      maze_walk_right: "right",
-    };
-    let xBlocks = [];
+    console.log("blocksLogicLevel1");
+    // const xWorkspace = Blockly.Workspace.getAll()[0];
+    // // const code = BlocklyJS.workspaceToCode(xWorkspace.workspace);
+    // const xBlocksOnWorkspace = xWorkspace.getAllBlocks();
+    // const xTypes = {
+    //   maze_walk_up: "up",
+    //   maze_walk_down: "down",
+    //   maze_walk_left: "left",
+    //   maze_walk_right: "right",
+    // };
+    // let xBlocks = [];
 
-    xBlocksOnWorkspace.map((bloco, index) => {
-      xBlocks.push(xTypes[bloco.type]);
-      return 1;
-    });
-
-    xBlocks.map((move, index) => {
-      setTimeout(() => {
-        if (index !== 0) {
-          next[move](maze);
-        }
-      }, 1000 * index);
-    });
+    // xBlocksOnWorkspace.map((bloco, index) => {
+    //   xBlocks.push(xTypes[bloco.type]);
+    //   return 1;
+    // });
+    // console.log(xBlocks);
+    // xBlocks.forEach((move, index) => {
+    //   console.log(index, 1000 * index);
+    //   return setTimeout(() => {
+    //     // if (index !== 0) {
+    //     //next[move](maze);
+    //     //}
+    //   }, 1000 * index);
+    // });
   };
 
   const blocksLogicLevel2 = () => {
@@ -334,21 +333,23 @@ function Maze(props) {
     );
   }, [props.layout, props.width, props.height, props.random]);
 
-  useEffect(() => {
-    if (walk) {
-      if (currentLevel === 1) {
-        blocksLogicLevel1();
-      } else if (currentLevel === 2) {
-        blocksLogicLevel2();
-      } else if (currentLevel === 3) {
-        blocksLogicLevel3();
-      } else if (currentLevel === 4) {
-        blocksLogicLevel4();
-      } else if (currentLevel === 5) {
-        blocksLogicLevel5();
-      }
-    }
-  }, [walk]);
+  // useEffect(() => {
+  //   if (walk) {
+  //     if (currentLevel === 1) {
+  //       console.log("1");
+  //       blocksLogicLevel1();
+  //     } else if (currentLevel === 2) {
+  //       console.log("2");
+  //       blocksLogicLevel2();
+  //     } else if (currentLevel === 3) {
+  //       blocksLogicLevel3();
+  //     } else if (currentLevel === 4) {
+  //       blocksLogicLevel4();
+  //     } else if (currentLevel === 5) {
+  //       blocksLogicLevel5();
+  //     }
+  //   }
+  // }, [walk]);
 
   return <div id="maze_container">{/**/}</div>;
 }

@@ -19,11 +19,11 @@ const Run = (props) => {
     }
   };
 
-  const generateCode = () => {
-    var code = BlocklyJS.workspaceToCode(workspace.workspace);
-    updateCode(code);
-    setShow(!show);
-  };
+  // const generateCode = () => {
+  //   var code = BlocklyJS.workspaceToCode(workspace.workspace);
+  //   updateCode(code);
+  //   setShow(!show);
+  // };
 
   // const deepCopy = (pSource) => {
   //   return JSON.parse(JSON.stringify(pSource));
@@ -31,20 +31,18 @@ const Run = (props) => {
 
   const runCode = () => {
     updateWalk();
-    // Generate JavaScript code and run it.
     window.LoopTrap = 1000;
     BlocklyJS.INFINITE_LOOP_TRAP =
       'if (--window.LoopTrap == 0) throw "Infinite loop.";\n';
     // const code = BlocklyJS.workspaceToCode(workspace.workspace);
     const xWorkspace = Blockly.Workspace.getAll()[0];
     const code = BlocklyJS.workspaceToCode(xWorkspace.workspace);
-    const xBlocksOnWorkspace = xWorkspace.getAllBlocks();
-    xBlocksOnWorkspace.map((bloco, index) => {});
+    // const xBlocksOnWorkspace = xWorkspace.getAllBlocks();
     updateCode(code);
     BlocklyJS.INFINITE_LOOP_TRAP = null;
     try {
       // eslint-disable-next-line
-      eval(code);
+      // eval(code);
     } catch (e) {
       alert(e);
     }

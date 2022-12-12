@@ -1,5 +1,5 @@
 import React from "react";
-import "./Error.css";
+import Style from "./Error.module.scss";
 const Error = () => {
   return (
     <div id="overallStatus">
@@ -9,6 +9,7 @@ const Error = () => {
         height="45px"
         viewBox="0 0 45 45"
         version="1.1"
+        className={Style.svg}
       >
         <title>red_status</title>
         <defs>

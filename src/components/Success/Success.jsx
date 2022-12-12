@@ -1,5 +1,5 @@
 import React from "react";
-import "./Success.css";
+import "./Success.module.scss";
 
 const Success = () => {
   return (

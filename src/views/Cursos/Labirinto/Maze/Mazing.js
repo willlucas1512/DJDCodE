@@ -52,8 +52,8 @@ export function Mazing(id) {
   this.mazeContainer.insertAdjacentElement("afterend", mazeOutputDiv);
 
   // activate control keys
-  this.keyPressHandler = this.mazeKeyPressHandler.bind(this);
-  document.addEventListener("keydown", this.keyPressHandler, false);
+  // this.keyPressHandler = this.mazeKeyPressHandler.bind(this);
+  // document.addEventListener("keydown", this.keyPressHandler, false);
 }
 
 Mazing.prototype.enableSpeech = function () {
@@ -94,7 +94,7 @@ Mazing.prototype.gameOver = function (text) {
 
 Mazing.prototype.heroWins = function () {
   // this.mazeScore.classList.remove("has-key");
-  this.maze[this.heroPos].classList.remove("door");
+  //this.maze[this.heroPos].classList.remove("door");
   // this.heroScore += 50;
   this.gameOver("você completou o labirinto!!!");
 };
@@ -110,49 +110,52 @@ Mazing.prototype.tryMoveHero = function (pos) {
   //   return;
   // }
 
-  var nextStep = this.maze[pos].className;
+  var nextStep = this.maze[pos]?.className;
 
   // before moving
-  if (nextStep.match(/sentinel/)) {
-    // this.heroScore = Math.max(this.heroScore - 5, 0);
-    if (
-      !this.childMode
-      // && this.heroScore <= 0
-    ) {
-      this.gameOver("poxa, não deu");
-    } else {
-      this.setMessage("ai, isso dói!");
-    }
-    return;
-  }
-  if (nextStep.match(/wall/)) {
-    return;
-  }
-  if (nextStep.match(/exit/)) {
-    if (this.heroHasKey) {
-      this.heroWins();
-    } else {
-      this.setMessage("você precisa da chave para abrir a porta");
+  if (nextStep) {
+    if (nextStep.match(/sentinel/)) {
+      // this.heroScore = Math.max(this.heroScore - 5, 0);
+      if (
+        !this.childMode
+        // && this.heroScore <= 0
+      ) {
+        this.gameOver("poxa, não deu");
+      } else {
+        this.setMessage("ai, isso dói!");
+      }
       return;
     }
+    if (nextStep.match(/wall/)) {
+      return;
+    }
+    if (nextStep.match(/exit/)) {
+      if (this.heroHasKey) {
+        this.heroWins();
+      } else {
+        this.setMessage("você precisa da chave para abrir a porta");
+        return;
+      }
+    }
   }
-
   // move hero one step
-  this.maze[this.heroPos].classList.remove("hero");
-  this.maze[pos].classList.add("hero");
+  this.maze[this.heroPos]?.classList.remove("hero");
+  this.maze[pos]?.classList.add("hero");
   this.heroPos = pos;
 
   // after moving
-  if (nextStep.match(/nubbin/)) {
-    this.heroTakeTreasure();
-    return;
-  }
-  if (nextStep.match(/key/)) {
-    this.heroTakeKey();
-    return;
-  }
-  if (nextStep.match(/exit/)) {
-    return;
+  if (nextStep) {
+    if (nextStep.match(/nubbin/)) {
+      this.heroTakeTreasure();
+      return;
+    }
+    if (nextStep.match(/key/)) {
+      this.heroTakeKey();
+      return;
+    }
+    if (nextStep.match(/exit/)) {
+      return;
+    }
   }
   // if (this.heroScore >= 1) {
   //   if (!this.childMode) {
@@ -166,60 +169,68 @@ Mazing.prototype.tryMoveHero = function (pos) {
   // }
 };
 
-Mazing.prototype.walkUp = function () {
-  var tryPos = new Position(this.heroPos.x, this.heroPos.y);
-  tryPos.x--;
-  this.tryMoveHero(tryPos);
+Mazing.prototype.walkUp = function (pCounter) {
+  setTimeout(() => {
+    var tryPos = new Position(this.heroPos.x, this.heroPos.y);
+    tryPos.x--;
+    this.tryMoveHero(tryPos);
+  }, 1000 * pCounter);
 };
-Mazing.prototype.walkLeft = function () {
-  var tryPos = new Position(this.heroPos.x, this.heroPos.y);
-  this.mazeContainer.classList.remove("face-right");
-  tryPos.y--;
-  this.tryMoveHero(tryPos);
+Mazing.prototype.walkLeft = function (pCounter) {
+  setTimeout(() => {
+    var tryPos = new Position(this.heroPos.x, this.heroPos.y);
+    this.mazeContainer.classList.remove("face-right");
+    tryPos.y--;
+    this.tryMoveHero(tryPos);
+  }, 1000 * pCounter);
 };
-Mazing.prototype.walkRight = function () {
-  var tryPos = new Position(this.heroPos.x, this.heroPos.y);
-  this.mazeContainer.classList.add("face-right");
-  tryPos.y++;
-  this.tryMoveHero(tryPos);
+Mazing.prototype.walkRight = function (pCounter) {
+  setTimeout(() => {
+    var tryPos = new Position(this.heroPos.x, this.heroPos.y);
+    this.mazeContainer.classList.add("face-right");
+    tryPos.y++;
+    this.tryMoveHero(tryPos);
+  }, 1000 * pCounter);
 };
-Mazing.prototype.walkDown = function () {
-  var tryPos = new Position(this.heroPos.x, this.heroPos.y);
-  tryPos.x++;
-  this.tryMoveHero(tryPos);
-};
-
-Mazing.prototype.mazeKeyPressHandler = function (e) {
-  var tryPos = new Position(this.heroPos.x, this.heroPos.y);
-  switch (e.keyCode) {
-    case 37: // left
-      this.walkLeft(tryPos);
-      break;
-
-    case 38: // up
-      this.walkUp(tryPos);
-      // tryPos.x--;
-      break;
-
-    case 39: // right
-      this.walkRight(tryPos);
-      break;
-
-    case 40: // down
-      this.walkDown(tryPos);
-      break;
-
-    default:
-      return;
-  }
-  this.tryMoveHero(tryPos);
-  e.preventDefault();
+Mazing.prototype.walkDown = function (pCounter) {
+  setTimeout(() => {
+    var tryPos = new Position(this.heroPos.x, this.heroPos.y);
+    tryPos.x++;
+    this.tryMoveHero(tryPos);
+  }, 1000 * pCounter);
 };
 
-Mazing.prototype.setChildMode = function () {
-  this.childMode = true;
-  // this.heroScore = 0;
-  this.setMessage("colete todo o tesouro");
-};
+// Mazing.prototype.mazeKeyPressHandler = function (e) {
+//   var tryPos = new Position(this.heroPos.x, this.heroPos.y);
+//   switch (e.keyCode) {
+//     case 37: // left
+//       this.walkLeft(tryPos);
+//       break;
+
+//     case 38: // up
+//       this.walkUp(tryPos);
+//       // tryPos.x--;
+//       break;
+
+//     case 39: // right
+//       this.walkRight(tryPos);
+//       break;
+
+//     case 40: // down
+//       this.walkDown(tryPos);
+//       break;
+
+//     default:
+//       return;
+//   }
+//   this.tryMoveHero(tryPos);
+//   e.preventDefault();
+// };
+
+// Mazing.prototype.setChildMode = function () {
+//   this.childMode = true;
+//   // this.heroScore = 0;
+//   this.setMessage("colete todo o tesouro");
+// };
 
 export default Mazing;
