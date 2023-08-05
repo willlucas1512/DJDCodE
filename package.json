@@ -23,6 +23,7 @@
     "redux": "^4.2.0",
     "redux-persist": "^6.0.0",
     "redux-thunk": "^2.4.1",
+    "sass": "^1.64.1",
     "web-vitals": "^1.1.1"
   },
   "scripts": {
@@ -48,8 +49,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "node-sass": "^5.0.0"
   }
 }
