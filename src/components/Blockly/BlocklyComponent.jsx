@@ -1,6 +1,6 @@
 import React from "react";
 import Style from "./BlocklyComponent.module.scss";
-import CodeContext from "../Run/CodeContext";
+import CodeContext from "../../contexts/Code/CodeContext";
 import Blockly from "blockly/core";
 import locale from "blockly/msg/pt";
 import "blockly/blocks";

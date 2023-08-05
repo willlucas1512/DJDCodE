@@ -3,7 +3,7 @@ import Blockly from "blockly/core";
 import { Block, Value, Field, Category } from "../../Blockly";
 import BlocksArea from "../../BlocksArea";
 import MapArea from "../../MapArea";
-import CodeContext from "../../Run/CodeContext";
+import CodeContext from "../../../../contexts/Code/CodeContext";
 import classNames from "classnames";
 import Style from "./LevelDump.module.scss";
 

@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import NavbarContext from "../Navbar/NavbarContext";
+import NavbarContext from "../../contexts/Navbar/NavbarContext";
 import Navbar from "../Navbar";
 
 const SwitchPages = (props) => {

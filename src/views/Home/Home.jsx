@@ -1,12 +1,11 @@
-import React, { useContext } from "react";
+import React from "react";
 import { withStyles } from "@material-ui/core/styles";
 import Button from "./Button";
 import Typography from "./Typography";
 import ApresentacaoLayout from "./ApresentacaoLayout";
 import Style from "./Home.module.scss";
 import Dados from "./Dados/Dados";
-import About from "./About";
-import NavbarContext from "../../components/Navbar/NavbarContext";
+import { Link } from "react-router-dom";
 
 const styles = (theme) => ({
   background: {
@@ -16,6 +15,7 @@ const styles = (theme) => ({
   },
   button: {
     minWidth: 300,
+    marginRight: "16px",
   },
   h5: {
     marginBottom: theme.spacing(4),
@@ -31,7 +31,6 @@ const styles = (theme) => ({
 
 const Home = (props) => {
   const { classes } = props;
-  const { updatePage } = useContext(NavbarContext);
 
   return (
     <div className={Style.root}>
@@ -53,18 +52,31 @@ const Home = (props) => {
           >
             Mude o mundo.
           </Typography>
-          <Button
-            color="secondary"
-            variant="contained"
-            size="large"
-            className={classes.button}
-            onClick={() => updatePage("Cursos")}
-          >
-            Quero aprender
-          </Button>
+          <div display={"flex"}>
+            <Link to={`/labirinto`}>
+              <Button
+                color="primary"
+                variant="contained"
+                size="large"
+                className={classes.button}
+              >
+                Quero aprender
+              </Button>
+            </Link>
+            <Link to={`/cursomaker`}>
+              <Button
+                color="secondary"
+                variant="contained"
+                size="large"
+                className={classes.button}
+              >
+                Quero ensinar
+              </Button>
+            </Link>
+          </div>
         </ApresentacaoLayout>
         <Dados />
-        <About />
+        {/* <About /> */}
       </div>
     </div>
   );

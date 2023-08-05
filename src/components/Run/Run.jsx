@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import Blockly from "blockly/core";
 import BlocklyJS from "blockly/javascript";
 import { IconButton, Icon } from "@material-ui/core";
-import CodeContext from "./CodeContext";
+import CodeContext from "../../contexts/Code/CodeContext";
 import PropTypes from "prop-types";
 import Style from "./Run.module.scss";
 

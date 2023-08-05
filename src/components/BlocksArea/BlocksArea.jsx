@@ -1,5 +1,5 @@
 import React from "react";
-import CodeProvider from "../Run/CodeProvider";
+import CodeProvider from "../../contexts/Code/CodeProvider";
 import BlocklyComponent from "../Blockly";
 import PropTypes from "prop-types";
 

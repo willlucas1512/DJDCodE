@@ -3,9 +3,8 @@ import { withRouter, Switch, Route, Redirect } from "react-router-dom";
 import {
   CursoMaker,
   Home,
-  Cursos,
-  MaterialApoio,
   Login,
+  Labirinto,
   SignUp,
   ForgotPass,
   ResetPass,
@@ -16,8 +15,7 @@ function Routes(props) {
     <Switch>
       <Route exact path="/cursomaker" component={CursoMaker} />
       <Route exact path="/home" component={Home} />
-      <Route exact path="/cursos" component={Cursos} />
-      <Route exact path="/materialapoio" component={MaterialApoio} />
+      <Route exact path="/labirinto" component={Labirinto} />
       <Route exact path="/login" component={Login} />
       <Route exact path="/cadastro" component={SignUp} />
       <Route exact path="/recover" component={ForgotPass} />

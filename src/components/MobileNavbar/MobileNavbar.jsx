@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import { IconButton, Drawer } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 import Style from "./MobileNavbar.module.scss";
-import NavbarContext from "../Navbar/NavbarContext";
+import NavbarContext from "../../contexts/Navbar/NavbarContext";
 import SideMenu from "../SideMenu";
 
 const MobileNavbar = (props) => {

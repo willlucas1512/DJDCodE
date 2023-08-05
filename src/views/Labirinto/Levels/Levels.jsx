@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import Level from "./Level";
 import Intro from "./Intro";
 import Ending from "./Ending";
-import LevelContext from "./LevelContext";
+import LevelContext from "../../../contexts/Level/LevelContext";
 
 const Levels = (props) => {
   const layouts = [

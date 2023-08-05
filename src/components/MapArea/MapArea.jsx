@@ -1,7 +1,7 @@
 import React from "react";
 import BlocklyJS from "blockly/javascript";
 import Style from "./MapArea.module.scss";
-import Maze from "../../views/Cursos/Labirinto/Maze";
+import Maze from "../../views/Labirinto/Maze";
 
 const MapArea = (props) => {
   // ctrl-c ctrl-v do generator stub no blocky dev

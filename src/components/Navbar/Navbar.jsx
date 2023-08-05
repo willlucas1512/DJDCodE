@@ -15,9 +15,9 @@ import {
 import classNames from "classnames";
 import SideMenu from "../SideMenu";
 import Logo from "../Logo";
-import LevelContext from "../../views/Cursos/Labirinto/Levels/LevelContext";
-import CodeContext from "../Run/CodeContext";
-import NavbarContext from "./NavbarContext";
+import LevelContext from "../../contexts/Level/LevelContext";
+import CodeContext from "../../contexts/Code/CodeContext";
+import NavbarContext from "../../contexts/Navbar/NavbarContext";
 import Run from "../Run";
 import Restart from "../Run/Restart";
 import Style from "./Navbar.module.scss";
@@ -248,15 +248,17 @@ const Navbar = (props) => {
               </div>
             </div>
           )}
-          {currentLevel !== 0 && course === "labirinto" && currentLevel !== 6 && (
-            <div className={Style.buttonsMobile}>
-              <Hint />
-              <Restart maze={maze} />
-              <div className={Style.run}>
-                <Run />
+          {currentLevel !== 0 &&
+            course === "labirinto" &&
+            currentLevel !== 6 && (
+              <div className={Style.buttonsMobile}>
+                <Hint />
+                <Restart maze={maze} />
+                <div className={Style.run}>
+                  <Run />
+                </div>
               </div>
-            </div>
-          )}
+            )}
         </div>
         {page === "Home" && !name_first && (
           <Link to="/login">

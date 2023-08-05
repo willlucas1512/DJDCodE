@@ -5,9 +5,9 @@ import { themePrimary } from "../../style/theme";
 import { Typography } from "@material-ui/core";
 import turningphone from "./turningphone.png";
 import SwitchPages from "../SwitchPages";
-import CodeProvider from "../Run/CodeProvider";
-import LevelProvider from "../../views/Cursos/Labirinto/Levels/LevelProvider";
-import NavbarProvider from "../Navbar/NavbarProvider";
+import CodeProvider from "../../contexts/Code/CodeProvider";
+import LevelProvider from "../../contexts/Level/LevelProvider";
+import NavbarProvider from "../../contexts/Navbar/NavbarProvider";
 import Routes from "../Routes/Routes";
 
 const ScreenOrientation = (props) => {
