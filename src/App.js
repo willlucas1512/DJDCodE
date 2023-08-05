@@ -1,4 +1,4 @@
-import { ScreenOrientation } from "./components";
+import { Navbar, ScreenOrientation } from "./components";
 import { PersistGate } from "redux-persist/integration/react";
 import { Provider } from "react-redux";
 import store from "./redux/store";

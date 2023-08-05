@@ -1,11 +1,11 @@
-import React, { useContext } from "react";
-import NavbarContext from "../../contexts/Navbar/NavbarContext";
+import React from "react";
+import { useLocation } from "react-router-dom";
 import Navbar from "../Navbar";
 
 const SwitchPages = (props) => {
-  const { page } = useContext(NavbarContext);
+  const location = useLocation();
 
-  return page !== "Curso Maker" && <Navbar />;
+  return location.pathname !== "/cursomaker" && <Navbar />;
 };
 
 export default SwitchPages;
