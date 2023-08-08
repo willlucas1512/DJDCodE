@@ -56,38 +56,9 @@ function Maze(props) {
     BlocklyJS["maze_walk_right"] = () => right(MazeGame);
   };
 
-  const blocksLogicLevel1 = () => {
-    console.log("blocksLogicLevel1");
-    // const xWorkspace = Blockly.Workspace.getAll()[0];
-    // // const code = BlocklyJS.workspaceToCode(xWorkspace.workspace);
-    // const xBlocksOnWorkspace = xWorkspace.getAllBlocks();
-    // const xTypes = {
-    //   maze_walk_up: "up",
-    //   maze_walk_down: "down",
-    //   maze_walk_left: "left",
-    //   maze_walk_right: "right",
-    // };
-    // let xBlocks = [];
-
-    // xBlocksOnWorkspace.map((bloco, index) => {
-    //   xBlocks.push(xTypes[bloco.type]);
-    //   return 1;
-    // });
-    // console.log(xBlocks);
-    // xBlocks.forEach((move, index) => {
-    //   console.log(index, 1000 * index);
-    //   return setTimeout(() => {
-    //     // if (index !== 0) {
-    //     //next[move](maze);
-    //     //}
-    //   }, 1000 * index);
-    // });
-  };
-
   const blocksLogicLevel2 = () => {
-    const xWorkspace = Blockly.Workspace.getAll()[3];
-    const xBlocksOnWorkspace = xWorkspace.getAllBlocks();
-
+    const xWorkspace = Blockly.Workspace.getAll()[0];
+    const xBlocksOnWorkspace = xWorkspace.getAllBlocks(true);
     let xBlocks = [];
     let xRepetitions = 0;
     let xTypes = {
@@ -119,35 +90,9 @@ function Maze(props) {
     });
   };
 
-  const blocksLogicLevel3 = () => {
-    const xWorkspace = Blockly.Workspace.getAll()[6];
-    // const code = BlocklyJS.workspaceToCode(xWorkspace.workspace);
-    const xBlocksOnWorkspace = xWorkspace.getAllBlocks();
-    const xTypes = {
-      maze_walk_up: "up",
-      maze_walk_down: "down",
-      maze_walk_left: "left",
-      maze_walk_right: "right",
-    };
-    let xBlocks = [];
-
-    xBlocksOnWorkspace.map((bloco, index) => {
-      xBlocks.push(xTypes[bloco.type]);
-      return 1;
-    });
-    console.log(xBlocks);
-    xBlocks.map((move, index) => {
-      setTimeout(() => {
-        if (index !== 0) {
-          next[move](maze);
-        }
-      }, 1000 * index);
-    });
-  };
-
   const blocksLogicLevel4 = () => {
-    const xWorkspace = Blockly.Workspace.getAll()[9];
-    const xBlocksOnWorkspace = xWorkspace.getAllBlocks();
+    const xWorkspace = Blockly.Workspace.getAll()[0];
+    const xBlocksOnWorkspace = xWorkspace.getAllBlocks(true);
 
     let xBlocks = [];
     let xRepetitions = 0;
@@ -187,26 +132,36 @@ function Maze(props) {
         }
       }, 1000 * pIndex);
     });
-    // const xRepeatArray = Array(xTypes["math_number"]).fill().map(Math.random);
-    // xRepeatArray.map((random, index) => {
-    //   setTimeout(() => {
-    //     if (index !== 0) {
-    //       const xWalkType = `maze_walk_${xBlocks[2]}`;
-    //       const moveLabel = xTypes[xWalkType];
-    //       next[moveLabel](maze);
-    //     }
-    //   }, 1000 * index);
-    // });
   };
 
-  const blocksLogicLevel5 = () => {
-    const xWorkspace = Blockly.Workspace.getAll()[12];
-    console.log(Blockly.Workspace.getAll());
-    const xBlocksOnWorkspace = xWorkspace.getAllBlocks();
+  function findFirstBlockWithoutChildren(block) {
+    if (block.type.includes("maze") && block.childBlocks_.length === 0) {
+      return block;
+    }
 
+    for (const childBlock of block.childBlocks_) {
+      const foundBlock = findFirstBlockWithoutChildren(childBlock);
+      if (foundBlock) {
+        return foundBlock;
+      }
+    }
+
+    return null;
+  }
+
+  function multiplyArray(arr, times) {
+    const result = [];
+    for (let i = 0; i < times; i++) {
+      result.push(...arr);
+    }
+    return result;
+  }
+
+  const blocksLogicLevel5 = () => {
+    const xWorkspace = Blockly.Workspace.getAll()[0];
+    const xBlocksOnWorkspace = xWorkspace.getAllBlocks(true);
     let xBlocks = [];
     let xRepetitions = 0;
-    let moves = ["up", "down", "left", "right"];
     let xTypes = {
       controls_repeat_ext: "repeat",
       math_number: [xRepetitions],
@@ -215,102 +170,43 @@ function Maze(props) {
       maze_walk_left: "left",
       maze_walk_right: "right",
     };
-
+    let xId = "";
     xBlocksOnWorkspace.map((bloco, index) => {
       if (bloco.type === "math_number") {
-        // const xBlcks = xBlocks;
-        // const xSkcolb = xBlcks.reverse();
-        // const xLastRepeatIndex = xSkcolb.indexOf("repeat");
         xTypes[bloco.type] = bloco.getFieldValue("NUM");
-        // xBlocks.splice(xLastRepeatIndex + 1, 0, bloco.getFieldValue("NUM"));
+      } else if (bloco.type === "controls_repeat_ext") {
+        const xFirstWalkBlockinRepeat = findFirstBlockWithoutChildren(bloco);
+        xId = xFirstWalkBlockinRepeat.id;
       }
-      //  else {
       xBlocks.push(xTypes[bloco.type]);
-      // }
+      if (xId === bloco.id) {
+        xBlocks.push("fimdorepeat");
+      }
       return 1;
     });
     console.log(xBlocks);
-    let xWeAreRepeting = [];
-    xBlocks.map((pCommand, pIndex) => {
-      if (pCommand === "repeat" || xWeAreRepeting.length === 1) {
-        console.log("primeiro if");
-        xWeAreRepeting.push(pCommand);
-      } else if (xWeAreRepeting.length === 2) {
-        console.log("segundo if");
-        let xMove = "";
-        let xRepetitions = 0;
-        if (typeof pCommand === "number") {
-          xMove = xWeAreRepeting[1];
-          xRepetitions = pCommand;
-        } else {
-          xMove = pCommand;
-          xRepetitions = xWeAreRepeting[1];
+    if (xBlocks.includes("repeat")) {
+      let xRepeatArray = [];
+      xBlocks.map((pCommand, pIndex) => {
+        if (pCommand === "repeat") {
+          xRepeatArray = xBlocks.slice(
+            pIndex + 2,
+            xBlocks.findIndex((value) => value === "fimdorepeat")
+          );
+          const xRepeatedArray = multiplyArray(
+            xRepeatArray,
+            xBlocks[pIndex + 1]
+          );
+          xRepeatedArray.map((pMove, index) => {
+            setTimeout(() => {
+              const xWalkType = `maze_walk_${pMove}`;
+              const moveLabel = xTypes[xWalkType];
+              next[moveLabel](maze);
+            }, 1000 * index);
+          });
         }
-        const xRepeatArray = Array(xRepetitions).fill().map(Math.random);
-        xRepeatArray.map((random, index) => {
-          console.log("repeticao", index);
-          setTimeout(() => {
-            // if (index !== 0) {
-            const xWalkType = `maze_walk_${xMove}`;
-            const moveLabel = xTypes[xWalkType];
-            next[moveLabel](maze);
-            // }
-          }, 1000 * index);
-        });
-        xWeAreRepeting = [];
-      } else {
-        console.log("else");
-        xWeAreRepeting = [];
-        if (xBlocks.length > 1) {
-          setTimeout(() => {
-            const xWalkType = `maze_walk_${pCommand}`;
-            const moveLabel = xTypes[xWalkType];
-            next[moveLabel](maze);
-          }, 1000);
-        }
-      }
-    });
-    // xBlocks.map((pCommand, pIndex) => {
-    //   console.log(pCommand);
-    //   setTimeout(() => {
-    //     if (typeof pCommand === "number") {
-    //       xRepetitions = pCommand;
-    //     } else if (moves.includes(pCommand)) {
-    //       if (xRepetitions !== 0) {
-    //         const xRepeatArray = Array(xRepetitions).fill().map(Math.random);
-    //         xRepeatArray.map((random, index) => {
-    //           setTimeout(() => {
-    //             // if (index !== 0) {
-    //             const xWalkType = `maze_walk_${pCommand}`;
-    //             const moveLabel = xTypes[xWalkType];
-    //             next[moveLabel](maze);
-    //             // }
-    //           }, 1000 * index);
-    //         });
-    //         xRepetitions = 0;
-    //       } else {
-    //         xRepetitions = 0;
-    //         setTimeout(() => {
-    //           // if (index !== 0) {
-    //           const xWalkType = `maze_walk_${pCommand}`;
-    //           const moveLabel = xTypes[xWalkType];
-    //           next[moveLabel](maze);
-    //           // }
-    //         }, 1000);
-    //       }
-    //     }
-    //   }, 1000 * pIndex);
-    // });
-    // const xRepeatArray = Array(xTypes["math_number"]).fill().map(Math.random);
-    // xRepeatArray.map((random, index) => {
-    //   setTimeout(() => {
-    //     if (index !== 0) {
-    //       const xWalkType = `maze_walk_${xBlocks[2]}`;
-    //       const moveLabel = xTypes[xWalkType];
-    //       next[moveLabel](maze);
-    //     }
-    //   }, 1000 * index);
-    // });
+      });
+    }
   };
 
   useEffect(() => {
@@ -333,23 +229,17 @@ function Maze(props) {
     );
   }, [props.layout, props.width, props.height, props.random]);
 
-  // useEffect(() => {
-  //   if (walk) {
-  //     if (currentLevel === 1) {
-  //       console.log("1");
-  //       blocksLogicLevel1();
-  //     } else if (currentLevel === 2) {
-  //       console.log("2");
-  //       blocksLogicLevel2();
-  //     } else if (currentLevel === 3) {
-  //       blocksLogicLevel3();
-  //     } else if (currentLevel === 4) {
-  //       blocksLogicLevel4();
-  //     } else if (currentLevel === 5) {
-  //       blocksLogicLevel5();
-  //     }
-  //   }
-  // }, [walk]);
+  useEffect(() => {
+    if (walk) {
+      if (currentLevel === 2) {
+        blocksLogicLevel2();
+      } else if (currentLevel === 4) {
+        blocksLogicLevel4();
+      } else if (currentLevel === 5) {
+        blocksLogicLevel5();
+      }
+    }
+  }, [walk]);
 
   return <div id="maze_container">{/**/}</div>;
 }
