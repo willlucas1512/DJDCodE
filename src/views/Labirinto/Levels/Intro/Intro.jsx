@@ -28,11 +28,6 @@ const Intro = (props) => {
         <Typography align={"center"} color={"textPrimary"}>
           <b>Boa sorte.</b>
         </Typography>
-        <div className={Style.signature}>
-          <Typography align={"right"} variant={"caption"} color={"textPrimary"}>
-            Ass: Dream Team da Robótica
-          </Typography>
-        </div>
         <div className={Style.button}>
           <Button
             variant={"contained"}
