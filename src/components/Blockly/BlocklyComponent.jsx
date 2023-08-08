@@ -20,6 +20,16 @@ class BlocklyComponent extends React.Component {
     const { initialXml, children, ...rest } = this.props;
     this.primaryWorkspace = Blockly.inject(this.blocklyDiv.current, {
       toolbox: this.toolbox.current,
+      // maxBlocks:
+      //   this.context.currentLevelState === 1
+      //     ? 4
+      //     : this.context.currentLevelState === 2
+      //     ? 3
+      //     : this.context.currentLevelState === 3
+      //     ? 9
+      //     : this.context.currentLevelState === 4
+      //     ? 3
+      //     : 10,
       ...rest,
     });
 

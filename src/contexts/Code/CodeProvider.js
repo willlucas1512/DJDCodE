@@ -1,10 +1,13 @@
-import React, { memo, useState } from "react";
+import React, { memo, useContext, useEffect, useState } from "react";
 import CodeContext from "./CodeContext";
+import LevelContext from "../Level/LevelContext";
 
 const CodeProvider = memo((props) => {
+  const { currentLevel } = useContext(LevelContext);
   const [code, setCode] = useState("");
   const [walk, setWalk] = useState(false);
   const [maze, setMaze] = useState();
+  const [currentLevelState, setCurrentLevel] = useState(0);
   const providerWorkspace = React.createRef();
 
   const state = {
@@ -12,6 +15,7 @@ const CodeProvider = memo((props) => {
     code,
     walk,
     maze,
+    currentLevelState,
   };
 
   const refs = {
@@ -37,6 +41,10 @@ const CodeProvider = memo((props) => {
     providerWorkspace.current = pWkspc;
   };
   const actions = { updateCode, updateWorkspace, updateWalk, updateMaze };
+
+  useEffect(() => {
+    setCurrentLevel(currentLevel);
+  }, [currentLevel]);
 
   return (
     <CodeContext.Provider value={{ ...state, ...actions, ...refs }}>
