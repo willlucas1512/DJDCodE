@@ -1,7 +1,13 @@
 import React, { useState, useContext, useEffect } from "react";
 
 import Blockly from "blockly/core";
-import { Block, Category } from "../../../../components/Blockly";
+import {
+  Block,
+  Category,
+  Field,
+  Shadow,
+  Value,
+} from "../../../../components/Blockly";
 
 import { BlocksArea, MapArea } from "../../../../components";
 import CodeContext from "../../../../contexts/Code/CodeContext";
@@ -13,7 +19,6 @@ import Style from "./Level.module.scss";
 const Level = (props) => {
   const { code } = useContext(CodeContext);
   const { showHintLevel, updateHintLevel } = useContext(LevelContext);
-
   const [showHint, setShowHint] = useState(true);
   const levelLayout = props.level.layout;
   const levelWidth = levelLayout[0].length;
@@ -122,6 +127,15 @@ const Level = (props) => {
               <Block type="maze_walk_right"></Block>
               <Block type="maze_walk_left"></Block>
               <Block type="maze_walk_down"></Block>
+            </Category>
+            <Category name="Repetições" colour="230">
+              <Block type="controls_repeat_ext">
+                <Value name="TIMES">
+                  <Shadow type="math_number">
+                    <Field name="NUM">0</Field>
+                  </Shadow>
+                </Value>
+              </Block>
             </Category>
           </BlocksArea>
         </div>
