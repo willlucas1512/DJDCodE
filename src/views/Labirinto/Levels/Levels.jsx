@@ -139,9 +139,9 @@ const Levels = (props) => {
   const hints = [
     "",
     "Começando iniciante... como sair usando 4 blocos?",
-    "Agora faça a mesma coisa usando 3 blocos. A distância continua sendo 4.",
+    "Agora faça a mesma coisa usando 2 blocos. A distância continua sendo 4.",
     "Encontrei um rascunho com 3D 3C 2E 1B escrito. Você sabe o que significa?",
-    "Agora que descobriu o que é, faça o mesmo com 3 blocos.",
+    "Agora que descobriu o que é, faça o mesmo com 7 blocos.",
     "Eu estava brincando com você. O teste real vem agora. Quero ver você sair dessa.",
   ];
 
