@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Blockly from "blockly/core";
 import { IconButton, Icon } from "@material-ui/core";
-
-import Style from "./Restart.module.scss";
+import NavbarContext from "../../../contexts/Navbar/NavbarContext";
 
 const Restart = (props) => {
+  const { updateResetLevel } = useContext(NavbarContext);
   const [isMobile, setIsMobile] = useState(false);
   const IsMobile = () => {
     if (window.innerWidth < 800) {
@@ -15,14 +15,12 @@ const Restart = (props) => {
   };
 
   const resetWorkspace = () => {
-    // const xLevel = props.currentLevel;
-    // const xDePara = { 1: 0, 2: 3, 3: 6, 4: 9, 5: 12 };
-    // const xLevelWorkspace = xDePara[xLevel];
     const xWorkspaces = Blockly.Workspace.getAll();
     xWorkspaces.map((pWorkspace) => {
       pWorkspace.clear();
     });
     props.maze.heroBackToStart();
+    updateResetLevel();
   };
 
   useEffect(() => {
@@ -30,26 +28,12 @@ const Restart = (props) => {
   }, []);
 
   return (
-    <>
-      {/* <Button
-            variant={"contained"}
-            size={"small"}
-            color={isMobile ? "primary" : "secondary"}
-            onClick={resetWorkspace}
-          >
-            Limpar
-          </Button> */}
-      <IconButton
-        color={isMobile ? "primary" : "secondary"}
-        onClick={resetWorkspace}
-      >
-        <Icon>replay</Icon>
-      </IconButton>
-
-      {/* <Button variant={"contained"} color={"primary"} onClick={generateCode}>
-          {show ? "Esconder" : "Mostrar"} JavaScript
-        </Button> */}
-    </>
+    <IconButton
+      color={isMobile ? "primary" : "secondary"}
+      onClick={resetWorkspace}
+    >
+      <Icon>replay</Icon>
+    </IconButton>
   );
 };
 

@@ -4,11 +4,13 @@ import NavbarContext from "./NavbarContext";
 const NavbarProvider = memo((props) => {
   const [page, setPage] = useState("Home");
   const [course, setCourse] = useState("");
+  const [resetLevel, setResetLevel] = useState(false);
 
   const state = {
     ...props.state,
     page,
     course,
+    resetLevel,
   };
 
   const updatePage = (pPage) => {
@@ -24,7 +26,12 @@ const NavbarProvider = memo((props) => {
     setCourse(course);
   };
 
-  const actions = { updatePage, updateCourse };
+  const updateResetLevel = () => {
+    setResetLevel(true);
+    setTimeout(() => setResetLevel(false), 3000);
+  };
+
+  const actions = { updatePage, updateCourse, updateResetLevel };
 
   return (
     <NavbarContext.Provider value={{ ...state, ...actions }}>
