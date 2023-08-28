@@ -30,6 +30,8 @@ const SideMenu = (props) => {
           { text: "Home", path: "home" },
           { text: "Labirinto", path: "labirinto" },
           { text: "Curso Maker", path: "cursomaker" },
+          { text: "Explorar cursos", path: "cursos" },
+          { text: "Meus cursos", path: "perfil" },
         ].map((item, index) => (
           <Link key={index} to={`/${item.path}`}>
             <ListItem onClick={() => handleClick(item.text)} button>

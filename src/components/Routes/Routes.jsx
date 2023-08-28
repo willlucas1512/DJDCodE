@@ -8,6 +8,9 @@ import {
   SignUp,
   ForgotPass,
   ResetPass,
+  Perfil,
+  CursoPlayer,
+  Cursos,
 } from "../../views";
 
 function Routes(props) {
@@ -16,7 +19,10 @@ function Routes(props) {
       <Route exact path="/cursomaker" component={CursoMaker} />
       <Route exact path="/home" component={Home} />
       <Route exact path="/labirinto" component={Labirinto} />
+      <Route exact path="/cursoplayer" component={CursoPlayer} />
+      <Route exact path="/cursos" component={Cursos} />
       <Route exact path="/login" component={Login} />
+      <Route exact path="/perfil" component={Perfil} />
       <Route exact path="/cadastro" component={SignUp} />
       <Route exact path="/recover" component={ForgotPass} />
       <Route exact path="/reset-pass/:token" component={ResetPass} />

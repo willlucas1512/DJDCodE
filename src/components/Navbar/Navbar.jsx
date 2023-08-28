@@ -178,21 +178,25 @@ const Navbar = (props) => {
           </Link>
         )}
         {name_first && name_last && (
-          <div className={Style.username}>
-            <Avatar />
-            <div className={Style.horizontalSpacer}></div>
-            <div className={Style.horizontalSpacer}></div>
-            <div className={Style.horizontalSpacer}></div>
-            <Typography variant={"body1"}>
-              <b>{name_first.charAt(0).toUpperCase() + name_first.slice(1)} </b>
-            </Typography>
-            <div className={Style.horizontalSpacer}></div>
-            <Typography variant={"body1"}>
-              {" "}
-              <b> {name_last.charAt(0).toUpperCase() + name_last.slice(1)}</b>
-            </Typography>
-            <div className={Style.horizontalSpacer}></div>
-          </div>
+          <Link to="/perfil">
+            <div className={Style.username}>
+              <Avatar />
+              <div className={Style.horizontalSpacer}></div>
+              <div className={Style.horizontalSpacer}></div>
+              <div className={Style.horizontalSpacer}></div>
+              <Typography variant={"body1"}>
+                <b>
+                  {name_first.charAt(0).toUpperCase() + name_first.slice(1)}{" "}
+                </b>
+              </Typography>
+              <div className={Style.horizontalSpacer}></div>
+              <Typography variant={"body1"}>
+                {" "}
+                <b> {name_last.charAt(0).toUpperCase() + name_last.slice(1)}</b>
+              </Typography>
+              <div className={Style.horizontalSpacer}></div>
+            </div>
+          </Link>
         )}
       </Toolbar>
       <Drawer anchor={"left"} open={open} onClose={handleClose}>

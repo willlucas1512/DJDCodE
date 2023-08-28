@@ -9,6 +9,7 @@ import CodeProvider from "../../contexts/Code/CodeProvider";
 import LevelProvider from "../../contexts/Level/LevelProvider";
 import NavbarProvider from "../../contexts/Navbar/NavbarProvider";
 import Routes from "../Routes/Routes";
+import CourseProvider from "../../contexts/Course/CourseProvider";
 
 const ScreenOrientation = (props) => {
   const [orientation, setOrientation] = useState("portrait");
@@ -81,8 +82,10 @@ const ScreenOrientation = (props) => {
         <NavbarProvider>
           <LevelProvider>
             <CodeProvider>
-              <SwitchPages />
-              <Routes />
+              <CourseProvider>
+                <SwitchPages />
+                <Routes />
+              </CourseProvider>
             </CodeProvider>
           </LevelProvider>
         </NavbarProvider>
