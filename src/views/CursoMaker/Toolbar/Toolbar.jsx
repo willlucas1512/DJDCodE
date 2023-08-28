@@ -7,9 +7,23 @@ import grid from "./grid.png";
 import pencil from "./pencil.png";
 import settings from "./settings.png";
 import ideas from "./ideas.png";
+import positive from "./positive-vote.png";
 import Style from "./Toolbar.module.scss";
+import services from "../../../services";
 
 const Toolbar = (props) => {
+  const saveCourse = () => {
+    services.course.save(
+      { course: props.course },
+      (rResponse) => {
+        alert("success!");
+      },
+      (rError) => {
+        alert("error!");
+      }
+    );
+  };
+
   const buttons = [
     {
       label: props.editType === "map" ? "Blocos" : "Mapa",
@@ -25,6 +39,7 @@ const Toolbar = (props) => {
     { label: "Excluir tudo", icon: trash, onClick: props.handleDeleteOpen },
     { label: "Editar", icon: settings, onClick: props.handleEditOpen },
     { label: "inserir dica", icon: ideas, onClick: props.handleTipOpen },
+    { label: "tudo pronto", icon: positive, onClick: saveCourse },
   ];
   return (
     <div className={Style.toolbar}>

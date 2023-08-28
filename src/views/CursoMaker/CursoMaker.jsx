@@ -20,11 +20,13 @@ const CursoMaker = () => {
     linhas: 8,
     niveis: 10,
     introducao: "",
-    dicas: "",
   };
-  const [course, setCourse] = useState(
-    [].fill({}, 0, defaultValues.niveis + 1)
+  const initialLevelsEmptyObj = Object.fromEntries(
+    Array.from({ length: defaultValues.niveis }, (_, i) => [i + 1, {}])
   );
+  const [course, setCourse] = useState({
+    niveis: initialLevelsEmptyObj,
+  });
   const [editType, setEditType] = useState("map");
   const [deleteMode, setDeleteMode] = useState(false);
   const [eraseAll, setEraseAll] = useState(false);
@@ -32,8 +34,6 @@ const CursoMaker = () => {
   const [niveis, setNiveis] = useState(defaultValues.niveis);
   const [mapRows, setMapRows] = useState(defaultValues.linhas);
   const [mapColumns, setMapColumns] = useState(defaultValues.colunas);
-  const [introducao, setIntroducao] = useState(defaultValues.introducao);
-  const [dicas, setDicas] = useState(defaultValues.dicas);
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [tipModalOpen, setTipModalOpen] = useState(false);
@@ -53,8 +53,21 @@ const CursoMaker = () => {
     setMapRows(Number(formValues.linhas));
     setMapColumns(Number(formValues.colunas));
     setNiveis(Number(formValues.niveis));
-    setIntroducao(formValues.introducao);
-    setDicas(formValues.dicas);
+    setCourse((prevCourse) => ({
+      ...prevCourse,
+      introducao: formValues.introducao,
+      qtd_niveis: Number(formValues.niveis),
+      colunas: Number(formValues.colunas),
+      linhas: Number(formValues.linhas),
+      nome: formValues.nome,
+      niveis: {
+        ...prevCourse.niveis,
+        [selectedLevel]: {
+          ...prevCourse.niveis[selectedLevel],
+          dica: formValues.dicas,
+        },
+      },
+    }));
     handleClose(setOpen);
   };
 
@@ -64,10 +77,6 @@ const CursoMaker = () => {
 
   const handleOpen = (pFunc) => {
     pFunc(true);
-  };
-
-  const updateCourse = (pNewCourse) => {
-    setCourse(pNewCourse);
   };
 
   const handleEditType = () => {
@@ -80,6 +89,9 @@ const CursoMaker = () => {
 
   const eraseAllTiles = () => {
     setEraseAll(true);
+    setCourse({
+      niveis: initialLevelsEmptyObj,
+    });
     setTimeout(() => {
       setEraseAll(false);
     }, 100);
@@ -172,6 +184,25 @@ const CursoMaker = () => {
                     variant={"body1"}
                     id="simple-modal-description"
                   >
+                    <b>Nome do curso</b>
+                  </Typography>
+                  <div className={Style.verticalSpacer}></div>
+                  <TextField
+                    variant={"outlined"}
+                    inputProps={{
+                      style: { color: "#303030" },
+                    }}
+                    name="nome"
+                    label="Nome do curso"
+                    onChange={(e) => handleInputChange(e)}
+                  />
+                </div>
+                <div className={Style.input3}>
+                  <Typography
+                    color={"textSecondary"}
+                    variant={"body1"}
+                    id="simple-modal-description"
+                  >
                     <b> Texto de introdução</b>
                   </Typography>
                   <div className={Style.verticalSpacer}></div>
@@ -188,7 +219,7 @@ const CursoMaker = () => {
                   />
                 </div>
                 <div className={Style.verticalSpacer}></div>
-                <div className={Style.input3}>
+                <div className={Style.input4}>
                   <Typography
                     color={"textSecondary"}
                     variant={"body1"}
@@ -337,7 +368,7 @@ const CursoMaker = () => {
         <div className={gridClass}>
           <Canvas
             course={course}
-            updateCourse={updateCourse}
+            updateCourse={setCourse}
             editType={editType}
             deleteMode={deleteMode}
             eraseAll={eraseAll}
@@ -347,6 +378,7 @@ const CursoMaker = () => {
             levels={niveis}
           />
           <Toolbar
+            course={course}
             selectedLevel={selectedLevel}
             setSelectedLevel={setSelectedLevel}
             levels={niveis}

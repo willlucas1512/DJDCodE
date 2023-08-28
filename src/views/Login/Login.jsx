@@ -48,6 +48,7 @@ function Login() {
       { email: username, password: password },
       (rResponse) => {
         dispatch(acLogin(rResponse));
+        localStorage.setItem("user", JSON.stringify(rResponse));
         setLoading(false);
         setOpen(true);
         setDisabledButton(true);

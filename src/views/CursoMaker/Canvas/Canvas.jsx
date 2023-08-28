@@ -241,10 +241,30 @@ const Canvas = (props) => {
         ...prevState,
         [selectedLevel]: { ...allTiles[selectedLevel], ...tiles },
       }));
+      updateCourse((prevCourse) => ({
+        ...prevCourse,
+        niveis: {
+          ...prevCourse.niveis,
+          [selectedLevel]: {
+            ...prevCourse.niveis[selectedLevel],
+            tiles: { ...prevCourse.niveis[selectedLevel].tiles, ...tiles },
+          },
+        },
+      }));
     } else if (Object.keys(tiles).length !== 0 && deleteMode.current) {
       setAllTiles((prevState) => ({
         ...prevState,
         [selectedLevel]: { ...tiles },
+      }));
+      updateCourse((prevCourse) => ({
+        ...prevCourse,
+        niveis: {
+          ...prevCourse.niveis,
+          [selectedLevel]: {
+            ...prevCourse.niveis[selectedLevel],
+            tiles: { ...tiles },
+          },
+        },
       }));
     }
   }, [tiles]);
