@@ -8,6 +8,7 @@ import pencil from "./pencil.png";
 import settings from "./settings.png";
 import ideas from "./ideas.png";
 import positive from "./positive-vote.png";
+import images from "./images.png";
 import Style from "./Toolbar.module.scss";
 import services from "../../../services";
 
@@ -38,7 +39,12 @@ const Toolbar = (props) => {
     },
     { label: "Excluir tudo", icon: trash, onClick: props.handleDeleteOpen },
     { label: "Editar", icon: settings, onClick: props.handleEditOpen },
-    { label: "inserir dica", icon: ideas, onClick: props.handleTipOpen },
+    { label: "adicionar dica", icon: ideas, onClick: props.handleTipOpen },
+    {
+      label: "Escolher miniatura",
+      icon: images,
+      onClick: props.handleThumbnailOpen,
+    },
     { label: "tudo pronto", icon: positive, onClick: saveCourse },
   ];
   return (

@@ -7,6 +7,7 @@ export const save = (pData, pSuccess, pError) => {
     method: "POST",
     data: {
       course: pData.course,
+      thumbnail: pData.course.thumbnail,
       user: {
         _id: xUser._id,
         name_first: xUser.name_first,

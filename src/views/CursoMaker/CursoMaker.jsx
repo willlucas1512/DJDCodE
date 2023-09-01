@@ -5,6 +5,8 @@ import {
   TextField,
   Button,
   IconButton,
+  RadioGroup,
+  Radio,
 } from "@material-ui/core";
 import Toolbar from "./Toolbar";
 import Canvas from "./Canvas";
@@ -12,7 +14,12 @@ import MobileNavbar from "../../components/MobileNavbar/MobileNavbar";
 import LevelSelector from "./LevelSelector";
 import classNames from "classnames";
 import x from "./close.png";
+import oneone from "./thumbnails/11.png";
+import twotwo from "./thumbnails/22.png";
+import threethree from "./thumbnails/33.png";
+import fourfour from "./thumbnails/44.png";
 import Style from "./CursoMaker.module.scss";
+import { Stack } from "@mui/material";
 
 const CursoMaker = () => {
   const defaultValues = {
@@ -37,11 +44,12 @@ const CursoMaker = () => {
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [tipModalOpen, setTipModalOpen] = useState(false);
+  const [thumbnailModalOpen, setThumbnailModalOpen] = useState(false);
   const [formValues, setFormValues] = useState(defaultValues);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    // const xValue = name === "dicas" ? [...dicas, ...value] : value;
+    console.log(name, value);
     setFormValues({
       ...formValues,
       [name]: value,
@@ -60,6 +68,7 @@ const CursoMaker = () => {
       colunas: Number(formValues.colunas),
       linhas: Number(formValues.linhas),
       nome: formValues.nome,
+      thumbnail: formValues.radios,
       niveis: {
         ...prevCourse.niveis,
         [selectedLevel]: {
@@ -309,6 +318,58 @@ const CursoMaker = () => {
       </Dialog>
       <Dialog
         PaperProps={{
+          style: {
+            // borderRadius: 10,
+            maxHeight: "100%",
+            backgroundColor: "#fff",
+            padding: "30px",
+          },
+        }}
+        onClose={() => handleClose(setThumbnailModalOpen)}
+        open={thumbnailModalOpen}
+      >
+        <div className={Style.thumbnailModal}>
+          <div className={Style.title}>
+            <Typography variant={"h6"} color={"textSecondary"}>
+              Imagem miniatura do curso
+            </Typography>
+            <IconButton
+              className={Style.iconButton}
+              onClick={() => handleClose(setThumbnailModalOpen)}
+            >
+              <img src={x} alt={"x"} height={"16px"} width={"16px"} />
+            </IconButton>
+          </div>
+          <div className={Style.verticalSpacer}></div>
+          <form onSubmit={(e) => handleSubmit(e, setThumbnailModalOpen)}>
+            <RadioGroup onChange={(e) => handleInputChange(e)} name="radios">
+              <Stack flexDirection={"column"} alignItems={"center"}>
+                <Radio value="11" size="md" />
+                <img height={"100px"} width={"200px"} src={oneone} />
+                <Radio value="22" size="md" />
+                <img height={"100px"} width={"200px"} src={twotwo} />
+                <Radio value="33" size="md" />
+                <img height={"100px"} width={"200px"} src={threethree} />
+                <Radio value="44" size="md" />
+                <img height={"100px"} width={"200px"} src={fourfour} />
+              </Stack>
+            </RadioGroup>
+            <div className={Style.verticalSpacer}></div>
+            <div className={Style.button}>
+              <Button
+                fullWidth
+                variant="contained"
+                color="primary"
+                type="submit"
+              >
+                Parece bom
+              </Button>
+            </div>
+          </form>
+        </div>
+      </Dialog>
+      <Dialog
+        PaperProps={{
           style: { borderRadius: 10, maxHeight: "100%" },
         }}
         onClose={() => handleClose(setTipModalOpen)}
@@ -389,6 +450,7 @@ const CursoMaker = () => {
             handleDeleteOpen={() => handleOpen(setDeleteModalOpen)}
             handleEditOpen={() => handleOpen(setEditModalOpen)}
             handleTipOpen={() => handleOpen(setTipModalOpen)}
+            handleThumbnailOpen={() => handleOpen(setThumbnailModalOpen)}
           />
         </div>
       </div>
