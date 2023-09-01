@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { useSelector } from "react-redux";
 import { AppBar, Toolbar, Typography, Avatar } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 import { classList } from "../../utils/helpers";
@@ -32,8 +31,7 @@ const Navbar = (props) => {
   const [isMobile, setIsMobile] = useState(false);
   const [open, setOpen] = useState(false);
   const { updatePage, page } = useContext(NavbarContext);
-  const name_first = useSelector((state) => state.user.user.name_first);
-  const name_last = useSelector((state) => state.user.user.name_last);
+
   const handleOpen = () => {
     setOpen(true);
   };
@@ -80,6 +78,7 @@ const Navbar = (props) => {
         color={isMobile ? "primary" : "secondary"}
         onClick={handleHint}
       >
+        <Typography className={Style.label}>DICA</Typography>
         <Icon>tips_and_updates</Icon>
       </IconButton>
     );
@@ -107,14 +106,16 @@ const Navbar = (props) => {
           <MenuIcon />
         </IconButton>
         <div className={Style.navPC}>
-          <div className={Style.restNav}>
-            <Logo />
-            <div className={Style.navbarTitle}>
-              <Typography variant="h6" className={Style.title}>
-                DJDCodE
-              </Typography>
+          <Link to={"/home"}>
+            <div className={Style.restNav}>
+              <Logo />
+              <div className={Style.navbarTitle}>
+                <Typography variant="h6" className={Style.title}>
+                  DJDCodE
+                </Typography>
+              </div>
             </div>
-          </div>
+          </Link>
           {location.pathname === "/cursoplayer" && (
             <div className={level0}>
               <div className={Style.subDivLevel}>
@@ -222,12 +223,7 @@ const Navbar = (props) => {
               </div>
             )}
         </div>
-        {page === "Home" && !name_first && (
-          <Link to="/login">
-            <Button color="inherit">Login</Button>
-          </Link>
-        )}
-        {name_first && name_last && (
+        {localStorage.getItem("user") ? (
           <Link to="/perfil">
             <div className={Style.username}>
               <Avatar />
@@ -236,16 +232,31 @@ const Navbar = (props) => {
               <div className={Style.horizontalSpacer}></div>
               <Typography variant={"body1"}>
                 <b>
-                  {name_first.charAt(0).toUpperCase() + name_first.slice(1)}{" "}
+                  {JSON.parse(localStorage.getItem("user"))
+                    .name_first.charAt(0)
+                    .toUpperCase() +
+                    JSON.parse(localStorage.getItem("user")).name_first.slice(
+                      1
+                    )}{" "}
                 </b>
               </Typography>
               <div className={Style.horizontalSpacer}></div>
               <Typography variant={"body1"}>
                 {" "}
-                <b> {name_last.charAt(0).toUpperCase() + name_last.slice(1)}</b>
+                <b>
+                  {" "}
+                  {JSON.parse(localStorage.getItem("user"))
+                    .name_last.charAt(0)
+                    .toUpperCase() +
+                    JSON.parse(localStorage.getItem("user")).name_last.slice(1)}
+                </b>
               </Typography>
               <div className={Style.horizontalSpacer}></div>
             </div>
+          </Link>
+        ) : (
+          <Link to="/login">
+            <Button color="inherit">Login</Button>
           </Link>
         )}
       </Toolbar>

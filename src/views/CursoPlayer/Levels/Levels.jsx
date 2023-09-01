@@ -7,7 +7,6 @@ import LevelContext from "../../../contexts/Level/LevelContext";
 const Levels = (props) => {
   const { colunas, linhas, niveis, nome, qtd_niveis, introducao } =
     props.coursePlaying;
-  console.log(niveis);
   const layouts = [
     [[]],
     [

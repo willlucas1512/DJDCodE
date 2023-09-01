@@ -234,7 +234,6 @@ class MazeBuilder {
       });
       container.appendChild(rowDiv);
     });
-    console.log(container);
     this.parentDiv.appendChild(container);
 
     return true;

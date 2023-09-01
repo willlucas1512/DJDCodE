@@ -1,5 +1,6 @@
 import React from "react";
 import logo from "./logodjde.png";
+
 import Style from "./Logo.module.scss";
 
 const Logo = (props) => {

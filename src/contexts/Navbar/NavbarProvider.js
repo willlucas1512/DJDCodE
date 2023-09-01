@@ -19,6 +19,9 @@ const NavbarProvider = memo((props) => {
     } else if (pPage !== "Cursos") {
       setCourse("");
     }
+    if (pPage === "Sair") {
+      localStorage.removeItem("user");
+    }
     setPage(pPage);
   };
 

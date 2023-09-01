@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import Blockly from "blockly/core";
 import BlocklyJS from "blockly/javascript";
-import { IconButton, Icon } from "@material-ui/core";
+import { IconButton, Icon, Typography } from "@material-ui/core";
 import CodeContext from "../../contexts/Code/CodeContext";
 import PropTypes from "prop-types";
 import Style from "./Run.module.scss";
@@ -58,21 +58,10 @@ const Run = (props) => {
 
   return (
     <>
-      {/* <Button
-            variant={"contained"}
-            size={"small"}
-            color={isMobile ? "primary" : "secondary"}
-            onClick={runCode}
-          >
-            Rodar
-          </Button> */}
       <IconButton color={isMobile ? "primary" : "secondary"} onClick={runCode}>
+        <Typography className={Style.label}>RODAR</Typography>
         <Icon>play_arrow</Icon>
       </IconButton>
-
-      {/* <Button variant={"contained"} color={"primary"} onClick={generateCode}>
-          {show ? "Esconder" : "Mostrar"} JavaScript
-        </Button> */}
     </>
   );
 };

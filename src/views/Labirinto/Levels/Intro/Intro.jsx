@@ -13,17 +13,17 @@ const Intro = (props) => {
           Boas-vindas ao Labirinto.
         </Typography>
         <Typography variant={"body1"} align={"center"} color={"textPrimary"}>
-          Seu objetivo é completar o labirinto sem enlouquecer com a
-          programação.
+          Seu objetivo é completar o labirinto sem enlouquecer com a programação
+          em 5 níveis.
         </Typography>
         <Typography variant={"body1"} align={"center"} color={"textPrimary"}>
-          <b>Regras:</b>
+          <b>Avisos:</b>
         </Typography>
         <Typography variant={"body1"} align={"center"} color={"textPrimary"}>
-          O código deve ser rodado já completo, não podendo rodá-lo em partes.
+          O progresso não será salvo, então, se sair, terá que recomeçar.
         </Typography>
         <Typography variant={"body1"} align={"center"} color={"textPrimary"}>
-          Não é permitido, em cada nível, usar a lógica de outros níveis.
+          Você pode ver a dica novamente, se clicar na lâmpada.
         </Typography>
         <Typography align={"center"} color={"textPrimary"}>
           <b>Boa sorte.</b>

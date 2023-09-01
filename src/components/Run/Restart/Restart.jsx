@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useContext } from "react";
 import Blockly from "blockly/core";
-import { IconButton, Icon } from "@material-ui/core";
+import { IconButton, Icon, Typography } from "@material-ui/core";
 import NavbarContext from "../../../contexts/Navbar/NavbarContext";
+import Style from "./Restart.module.scss";
 
 const Restart = (props) => {
   const { updateResetLevel } = useContext(NavbarContext);
@@ -32,6 +33,7 @@ const Restart = (props) => {
       color={isMobile ? "primary" : "secondary"}
       onClick={resetWorkspace}
     >
+      <Typography className={Style.label}>RECOMEÇAR</Typography>
       <Icon>replay</Icon>
     </IconButton>
   );

@@ -40,7 +40,7 @@
 }
 .level0 {
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   flex-grow: 2;
 }
 
@@ -86,4 +86,13 @@
 
 .horizontalSpacer {
   width: 4px;
+}
+
+.label {
+  margin-right: 8px !important;
+  font-weight: 700 !important;
+}
+
+.title {
+  text-decoration: none !important;
 }

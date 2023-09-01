@@ -37,7 +37,7 @@ function Dados() {
                   <span className={Style.spacer}></span>
                   <Typography
                     style={{
-                      textShadow: "1px 1px 1px red, 2px 2px 1px blue",
+                      textShadow: "1px 1px 1px black, 2px 2px 1px black",
                     }}
                     color={"textPrimary"}
                     variant="h5"
@@ -48,7 +48,7 @@ function Dados() {
                   <span className={Style.spacer}></span>
                   <Typography
                     style={{
-                      textShadow: "1px 1px 1px red, 2px 2px 1px blue",
+                      textShadow: "1px 1px 1px black, 2px 2px 1px black",
                     }}
                     color={"textPrimary"}
                     align={"center"}
@@ -69,7 +69,7 @@ function Dados() {
                   <span className={Style.spacer}></span>
                   <Typography
                     style={{
-                      textShadow: "1px 1px 1px red, 2px 2px 1px blue",
+                      textShadow: "1px 1px 1px black, 2px 2px 1px black",
                     }}
                     color={"textPrimary"}
                     variant="h5"
@@ -80,7 +80,7 @@ function Dados() {
                   <span className={Style.spacer}></span>
                   <Typography
                     style={{
-                      textShadow: "1px 1px 1px red, 2px 2px 1px blue",
+                      textShadow: "1px 1px 1px black, 2px 2px 1px black",
                     }}
                     color={"textPrimary"}
                     align={"center"}
@@ -102,33 +102,26 @@ function Dados() {
                   <span className={Style.biggerSpacer}></span>
                   <Typography
                     style={{
-                      textShadow: "1px 1px 1px red, 2px 2px 1px blue",
+                      textShadow: "1px 1px 1px black, 2px 2px 1px black",
                     }}
                     color={"textPrimary"}
                     variant="h5"
                     sx={{ my: 5 }}
                   >
-                    <b>Tenha apoio!</b>
+                    <b>Crie uma conta!</b>
                   </Typography>
                   <span className={Style.spacer}></span>
                   <Typography
                     style={{
-                      textShadow: "1px 1px 1px red, 2px 2px 1px blue",
+                      textShadow: "1px 1px 1px black, 2px 2px 1px black",
                     }}
                     color={"textPrimary"}
                     align={"center"}
                     variant="body1"
                   >
                     <b>
-                      Precisa de conteúdo explicativo ou quer se aprofundar
-                      mais? Clique{" "}
-                      <a
-                        className={Style.clickHere}
-                        onClick={() => updatePage("Material de apoio")}
-                      >
-                        aqui
-                      </a>{" "}
-                      para dar uma olhada.
+                      Para ter acesso ao conteúdo personalizado, crie uma conta
+                      ou faça login.
                     </b>
                   </Typography>
                 </Box>

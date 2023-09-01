@@ -8,10 +8,22 @@ import CardCurso from "../../components/CardCurso/CardCurso";
 
 function Cursos() {
   const [cursos, setCursos] = useState([]);
+  function sortByCreatedAtDescending(arr) {
+    arr.sort(function (a, b) {
+      const dateA = new Date(a.createdAt);
+      const dateB = new Date(b.createdAt);
+
+      if (isNaN(dateA) || isNaN(dateB)) {
+        return 0;
+      }
+      return dateB - dateA;
+    });
+    return arr;
+  }
   const getAllCursos = () => {
     services.course.getCourses((rResponse) => {
-      console.log(rResponse.courses);
-      setCursos(rResponse.courses);
+      const sortedCourses = sortByCreatedAtDescending(rResponse.courses);
+      setCursos(sortedCourses);
     });
   };
   useEffect(() => {

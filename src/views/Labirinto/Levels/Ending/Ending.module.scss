@@ -30,8 +30,14 @@
 }
 
 .button {
-  margin-top: 16px;
   display: flex;
   justify-content: center;
   color: black;
+  margin-right: 16px;
+}
+
+.buttons {
+  margin-top: 16px;
+  display: flex;
+  align-items: center;
 }

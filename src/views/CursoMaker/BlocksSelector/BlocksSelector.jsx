@@ -38,10 +38,6 @@ const BlocksSelector = (props) => {
     blocos.current = [...blocosInitial];
   }, [selectedLevel]);
 
-  useEffect(() => {
-    console.log(blocos.current);
-  }, [blocos]);
-
   return (
     <div className={Style.root}>
       <div className={Style.blocksSelector}>

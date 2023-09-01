@@ -18,13 +18,14 @@ import oneone from "./thumbnails/11.png";
 import twotwo from "./thumbnails/22.png";
 import threethree from "./thumbnails/33.png";
 import fourfour from "./thumbnails/44.png";
+import { Link } from "react-router-dom";
 import Style from "./CursoMaker.module.scss";
 import { Stack } from "@mui/material";
 
 const CursoMaker = () => {
   const defaultValues = {
-    colunas: 12,
-    linhas: 8,
+    colunas: 20,
+    linhas: 16,
     niveis: 10,
     introducao: "",
   };
@@ -45,11 +46,11 @@ const CursoMaker = () => {
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [tipModalOpen, setTipModalOpen] = useState(false);
   const [thumbnailModalOpen, setThumbnailModalOpen] = useState(false);
+  const [introModalOpen, setIntroModalOpen] = useState(false);
   const [formValues, setFormValues] = useState(defaultValues);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    console.log(name, value);
     setFormValues({
       ...formValues,
       [name]: value,
@@ -113,8 +114,8 @@ const CursoMaker = () => {
   });
 
   useEffect(() => {
-    console.log(course);
-  }, [course]);
+    handleOpen(setIntroModalOpen);
+  }, []);
 
   return (
     <>
@@ -267,6 +268,66 @@ const CursoMaker = () => {
             </form>
           </div>
         }
+      </Dialog>
+      <Dialog
+        PaperProps={{
+          style: { borderRadius: 10, maxHeight: "100%" },
+        }}
+        open={introModalOpen}
+        onClose={() => handleClose(setIntroModalOpen)}
+        aria-labelledby="simple-modal-title"
+        aria-describedby="simple-modal-description"
+      >
+        <div className={Style.modalDelete}>
+          <div className={Style.title}>
+            <Typography
+              color={"textSecondary"}
+              variant={"h6"}
+              id="simple-modal-description"
+            >
+              <b> Boas-vindas ao Curso Maker!</b>
+            </Typography>
+            <IconButton
+              className={Style.iconButtonWTitle}
+              onClick={() => handleClose(setIntroModalOpen)}
+            >
+              <img src={x} alt={"x"} height={"16px"} width={"16px"} />
+            </IconButton>
+          </div>
+          <Typography color={"textSecondary"} variant={"body1"}>
+            {" "}
+            Aqui você poderá criar um curso, do seu jeito.
+          </Typography>
+          <Typography color={"textSecondary"} variant={"body2"}>
+            <br />
+            Para selecionar um <i>tile</i>, clique nele na tela da esquerda e
+            clique no quadrado desejado na região da direita para posicioná-lo.{" "}
+            <br />
+            Para deletar, clique em apagar, e após clique no <i>tile</i> que
+            deseje deletar.
+          </Typography>
+          <Typography
+            color={"textSecondary"}
+            variant={"caption"}
+            id="simple-modal-description"
+          >
+            <br />
+            Você deve indicar: <br />• Nome do curso <br />• Texto de introdução{" "}
+            <br />• Quantidade de níveis <br />• Tamanho do mapa (linhas x
+            colunas) <br />• Miniatura do curso <br />• Dica de cada nível{" "}
+            <br />• Mapa de cada nível <br />• Blocos de cada nível
+          </Typography>
+          <div className={Style.verticalSpacer}></div>
+          <div className={Style.buttonsDelete}>
+            <Button
+              onClick={() => handleClose(setIntroModalOpen)}
+              variant="outlined"
+              color="primary"
+            >
+              Beleza
+            </Button>
+          </div>
+        </div>
       </Dialog>
       <Dialog
         PaperProps={{
@@ -447,6 +508,7 @@ const CursoMaker = () => {
             handleEditType={handleEditType}
             handleDeleteMode={handleDeleteMode}
             deleteMode={deleteMode}
+            handleIntroModalOpen={() => handleOpen(setIntroModalOpen)}
             handleDeleteOpen={() => handleOpen(setDeleteModalOpen)}
             handleEditOpen={() => handleOpen(setEditModalOpen)}
             handleTipOpen={() => handleOpen(setTipModalOpen)}
