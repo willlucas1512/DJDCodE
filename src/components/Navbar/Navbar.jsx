@@ -21,11 +21,13 @@ import NavbarContext from "../../contexts/Navbar/NavbarContext";
 import Run from "../Run";
 import Restart from "../Run/Restart";
 import Style from "./Navbar.module.scss";
+import CourseContext from "../../contexts/Course/CourseContext";
 
 const Navbar = (props) => {
   const location = useLocation();
   const { currentLevel, updateLevel, updateHintLevel } =
     useContext(LevelContext);
+  const { coursePlaying } = useContext(CourseContext);
   const { maze } = useContext(CodeContext);
   const [isMobile, setIsMobile] = useState(false);
   const [open, setOpen] = useState(false);
@@ -113,6 +115,53 @@ const Navbar = (props) => {
               </Typography>
             </div>
           </div>
+          {location.pathname === "/cursoplayer" && (
+            <div className={level0}>
+              <div className={Style.subDivLevel}>
+                <div className={Style.levelName}>
+                  <Typography variant={"h6"}>
+                    {" "}
+                    {currentLevel !== 0
+                      ? `Nível ${currentLevel}`
+                      : coursePlaying.nome}
+                  </Typography>
+                </div>
+                <div className={Style.stepper}>
+                  <MobileStepper
+                    className={classList(xClassNames)}
+                    // style={{ backgroundColor: "white" }}
+                    variant="dots"
+                    steps={coursePlaying.qtd_niveis}
+                    position="static"
+                    activeStep={currentLevel}
+                    nextButton={
+                      currentLevel !== 6 && (
+                        <Button
+                          // color={"textPrimary"}
+                          size="small"
+                          onClick={handleNext}
+                          // disabled={currentLevel === 5}
+                        >
+                          Próximo
+                        </Button>
+                      )
+                    }
+                    backButton={
+                      currentLevel !== 0 && (
+                        <Button
+                          size="small"
+                          onClick={handleBack}
+                          disabled={currentLevel === 0}
+                        >
+                          Voltar
+                        </Button>
+                      )
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          )}
           {location.pathname === "/labirinto" && (
             <div className={level0}>
               <div className={Style.subDivLevel}>
@@ -161,8 +210,9 @@ const Navbar = (props) => {
             </div>
           )}
           {currentLevel !== 0 &&
-            location.pathname === "/labirinto" &&
-            currentLevel !== 6 && (
+            currentLevel !== 6 &&
+            (location.pathname === "/cursoplayer" ||
+              location.pathname === "/labirinto") && (
               <div className={Style.buttonsMobile}>
                 <Hint />
                 <Restart maze={maze} />

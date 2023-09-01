@@ -49,8 +49,8 @@ function Maze(props) {
     return "console.log(`walking`);";
   }
 
-  const makeMaze = (id, layout, width, height, random) => {
-    Maze = new FancyMazeBuilder(layout, width, height, random);
+  const makeMaze = (id, layout, width, height) => {
+    Maze = new FancyMazeBuilder(layout, width, height);
     Maze.display(id);
     MazeGame = new Mazing("maze");
     setMaze(MazeGame);
@@ -164,14 +164,8 @@ function Maze(props) {
   }, [resetLevel]);
 
   useEffect(() => {
-    makeMaze(
-      "maze_container",
-      props.layout,
-      props.width,
-      props.height,
-      props.random
-    );
-  }, [props.layout, props.width, props.height, props.random]);
+    makeMaze("maze_container", props.layout, props.width, props.height);
+  }, [props.layout, props.width, props.height]);
 
   useEffect(() => {
     if (walk) {

@@ -1,5 +1,5 @@
 class MazeBuilder {
-  constructor(layout, width, height, random = false) {
+  constructor(layout, width, height) {
     this.width = width;
     this.height = height;
     this.layout = layout;
@@ -7,45 +7,7 @@ class MazeBuilder {
     this.cols = 2 * this.width + 1;
     this.rows = 2 * this.height + 1;
 
-    this.maze = random ? this.initArray([]) : this.layout;
-
-    if (random) {
-      // place initial walls
-      this.maze.forEach((row, r) => {
-        row.forEach((cell, c) => {
-          switch (r) {
-            case 0:
-            case this.rows - 1:
-              this.maze[r][c] = ["wall"];
-              break;
-
-            default:
-              if (r % 2 === 1) {
-                if (c === 0 || c === this.cols - 1) {
-                  this.maze[r][c] = ["wall"];
-                }
-              } else if (c % 2 === 0) {
-                this.maze[r][c] = ["wall"];
-              }
-          }
-        });
-
-        if (r === 0) {
-          // place exit in top row
-          let doorPos = this.posToSpace(this.rand(1, this.width));
-          this.maze[r][doorPos] = ["door", "exit"];
-        }
-
-        if (r === this.rows - 1) {
-          // place entrance in bottom row
-          let doorPos = this.posToSpace(this.rand(1, this.width));
-          this.maze[r][doorPos] = ["door", "entrance"];
-        }
-      });
-
-      // start partitioning
-      this.partition(1, this.height - 1, 1, this.width - 1);
-    }
+    this.maze = this.layout;
   }
 
   initArray(value) {

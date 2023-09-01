@@ -9,7 +9,6 @@ const MapArea = (props) => {
         layout={props.mazeProps.layout}
         width={props.mazeProps.width}
         height={props.mazeProps.height}
-        random={props.mazeProps.random}
       />
     </div>
   );

@@ -9,7 +9,8 @@ import {
   Value,
 } from "../../../../components/Blockly";
 
-import { BlocksArea, MapArea } from "../../../../components";
+import { BlocksArea } from "../../../../components";
+import MapArea from "../../MapArea";
 import CodeContext from "../../../../contexts/Code/CodeContext";
 import LevelContext from "../../../../contexts/Level/LevelContext";
 import { Modal, Typography } from "@material-ui/core";
@@ -22,7 +23,7 @@ const Level = (props) => {
   const [showHint, setShowHint] = useState(true);
   const levelLayout = props.level.layout;
   const levelBlocks = props.level.blocos;
-  console.log(levelBlocks);
+
   const levelWidth = levelLayout[0].length;
   const levelHeight = levelLayout.length;
 
