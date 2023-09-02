@@ -5,6 +5,10 @@ export const save = (pData, pSuccess, pError) => {
   const xUser = JSON.parse(localStorage.getItem("user"));
   Axios({
     method: "POST",
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+      "ngrok-skip-browser-warning": true,
+    },
     data: {
       course: pData.course,
       thumbnail: pData.course.thumbnail,
@@ -29,6 +33,10 @@ export const save = (pData, pSuccess, pError) => {
 export const getUserCourses = (pSuccess, pError) => {
   Axios({
     method: "GET",
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+      "ngrok-skip-browser-warning": true,
+    },
     // withCredentials: true,
     url: GET_COURSES_URI + JSON.parse(localStorage.getItem("user"))._id,
   })
@@ -43,6 +51,10 @@ export const getUserCourses = (pSuccess, pError) => {
 export const getCourses = (pSuccess, pError) => {
   Axios({
     method: "GET",
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+      "ngrok-skip-browser-warning": true,
+    },
     // withCredentials: true,
     url: SAVE_COURSE_URI,
   })

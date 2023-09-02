@@ -10,6 +10,10 @@ import {
 export const resetPass = (pData, pSuccess, pError) => {
   Axios({
     method: "POST",
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+      "ngrok-skip-browser-warning": true,
+    },
     data: {
       token: pData.token,
       password: pData.password,
@@ -29,6 +33,10 @@ export const resetPass = (pData, pSuccess, pError) => {
 export const recover = (pEmail, pSuccess, pError) => {
   Axios({
     method: "POST",
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+      "ngrok-skip-browser-warning": true,
+    },
     data: {
       email: pEmail.email,
     },
@@ -46,6 +54,10 @@ export const recover = (pEmail, pSuccess, pError) => {
 export const login = (pData, pSuccess, pError) => {
   Axios({
     method: "POST",
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+      "ngrok-skip-browser-warning": true,
+    },
     data: {
       email: pData.email,
       password: pData.password,
@@ -64,6 +76,10 @@ export const login = (pData, pSuccess, pError) => {
 export const register = (pData, pSuccess, pError) => {
   Axios({
     method: "POST",
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+      "ngrok-skip-browser-warning": true,
+    },
     data: {
       name_first: pData.name_first,
       name_last: pData.name_last,
@@ -82,6 +98,10 @@ export const register = (pData, pSuccess, pError) => {
 export const getUser = () => {
   Axios({
     method: "GET",
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+      "ngrok-skip-browser-warning": true,
+    },
     // withCredentials: true,
     url: GET_USER_URI,
   }).then((res) => {
