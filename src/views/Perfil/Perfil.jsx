@@ -12,10 +12,23 @@ import CardCurso from "../../components/CardCurso/CardCurso";
 function Perfil() {
   const { updateCourse } = useContext(CourseContext);
   const [courses, setCourses] = useState([]);
+  function sortByCreatedAtDescending(arr) {
+    arr.sort(function (a, b) {
+      const dateA = new Date(a.createdAt);
+      const dateB = new Date(b.createdAt);
+
+      if (isNaN(dateA) || isNaN(dateB)) {
+        return 0;
+      }
+      return dateB - dateA;
+    });
+    return arr;
+  }
   const getCourses = () => {
     services.course.getUserCourses(
       (rResponse) => {
-        setCourses(rResponse.courses);
+        const sortedCourses = sortByCreatedAtDescending(rResponse.courses);
+        setCourses(sortedCourses);
       },
       (rError) => {
         alert("error!");
