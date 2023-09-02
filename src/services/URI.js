@@ -1,4 +1,5 @@
-export const BASE_URL = "http://localhost:8000/";
+export const BASE_URL =
+  "https://c132-2804-7f1-e787-9c0b-1442-d4cf-58ed-ded1.ngrok.io/";
 
 export const RESET_PASSWORD_URI = BASE_URL + "reset-pass/";
 export const RECOVER_PASSWORD_URI = BASE_URL + "recover/";
