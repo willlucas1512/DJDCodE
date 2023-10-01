@@ -1,5 +1,5 @@
 export const BASE_URL =
-  "https://1a51-2804-7f1-e88c-3374-dd57-5740-79a-4e77.ngrok-free.app/";
+  "https://fa92-2804-7f1-e88c-3374-dd57-5740-79a-4e77.ngrok-free.app/";
 
 export const RESET_PASSWORD_URI = BASE_URL + "reset-pass/";
 export const RECOVER_PASSWORD_URI = BASE_URL + "recover/";
