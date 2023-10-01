@@ -28,7 +28,21 @@ function CardCurso(props) {
       Por: {course.name_first} {course.name_last}
       <br />
       <Typography variant={"body2"}>
-        {new Date(course.createdAt).toLocaleString()}
+        {course.qtd_niveis} {course.qtd_niveis === 1 ? "nível" : "níveis"}
+      </Typography>
+      <Typography variant={"body2"}>
+        Criado em:{" "}
+        {
+          String(new Date(course.createdAt).toLocaleString("pt-BR")).split(
+            ","
+          )[0]
+        }{" "}
+        às{" "}
+        {
+          String(new Date(course.createdAt).toLocaleString("pt-BR")).split(
+            ","
+          )[1]
+        }
       </Typography>
     </div>
   );
