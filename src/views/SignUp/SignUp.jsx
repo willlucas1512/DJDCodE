@@ -53,16 +53,20 @@ function SignUp() {
       },
       (rResponse) => {
         setLoading(false);
-        setMessage(rResponse.message);
+        setMessage(rResponse.message + " Faça o login para continuar.");
         setOpen(true);
+        setError("");
         setDisabledButton(true);
-        setTimeout(() => history.push("/home"), 5000);
+        setTimeout(() => history.push("/login"), 5000);
       },
       (rError) => {
         setOpen(true);
         setLoading(false);
-        setError(rError.data.message);
-        setMessage(rError.data.message);
+        setError(rError.data.message || "Erro!");
+        setMessage(
+          rError.data.message ||
+            "Não foi possível realizar seu cadastro. Tente novamente mais tarde."
+        );
       }
     );
   };
