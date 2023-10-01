@@ -18,11 +18,12 @@ import oneone from "./thumbnails/11.png";
 import twotwo from "./thumbnails/22.png";
 import threethree from "./thumbnails/33.png";
 import fourfour from "./thumbnails/44.png";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import Style from "./CursoMaker.module.scss";
 import { Stack } from "@mui/material";
 
 const CursoMaker = () => {
+  const history = useHistory();
   const defaultValues = {
     colunas: 20,
     linhas: 16,
@@ -115,6 +116,9 @@ const CursoMaker = () => {
 
   useEffect(() => {
     handleOpen(setIntroModalOpen);
+    if (!localStorage.getItem("user")) {
+      history.push("/login");
+    }
   }, []);
 
   return (
