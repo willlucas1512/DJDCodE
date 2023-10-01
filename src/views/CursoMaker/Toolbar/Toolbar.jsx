@@ -15,11 +15,14 @@ import question from "./question.png";
 import Style from "./Toolbar.module.scss";
 import services from "../../../services";
 import { useState } from "react";
+import Error from "../../../components/Error/Error";
+import Success from "../../../components/Success/Success";
+import { Box } from "@mui/material";
 
 const Toolbar = (props) => {
   const [successModalOpen, setSuccessModalOpen] = useState(false);
   const [errorModalOpen, setErrorModalOpen] = useState(false);
-  const [error, setError] = useState("");
+  const [error, setError] = useState({});
 
   const saveCourse = () => {
     services.course.save(
@@ -29,7 +32,10 @@ const Toolbar = (props) => {
       },
       (rError) => {
         console.log(rError);
-        setError(rError.data.message);
+        setError({
+          message: rError.data.message,
+          errors: Object.values(rError.data.errors),
+        });
         handleOpen(setErrorModalOpen);
       }
     );
@@ -118,13 +124,29 @@ const Toolbar = (props) => {
               <img src={x} alt={"x"} height={"16px"} width={"16px"} />
             </IconButton>
           </div>
+          <Box sx={{ display: "flex", justifyContent: "center" }}>
+            {Object.values(error).length > 0 ? <Error /> : <Success />}
+          </Box>
           <Typography color={"textSecondary"} variant={"body1"}>
             Não foi possível salvar o seu curso.
           </Typography>
 
           <Typography color={"textSecondary"} variant={"caption"}>
-            {error}
+            {error?.message}
+            <br />
           </Typography>
+          {error?.errors?.map((pError, pIndex) => {
+            return (
+              <Typography
+                key={pIndex}
+                color={"textSecondary"}
+                variant={"caption"}
+              >
+                {pIndex + 1}. {pError}
+                <br />
+              </Typography>
+            );
+          })}
 
           <div className={Style.verticalSpacer}></div>
           <div className={Style.buttonsDelete}>

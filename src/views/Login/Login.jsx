@@ -57,8 +57,12 @@ function Login() {
       (rError) => {
         setOpen(true);
         setLoading(false);
-        setError(rError.data.message);
-        setMessage(rError.data.message);
+        console.log(rError);
+        setError(rError.data.message || "Erro!");
+        setMessage(
+          rError.data.message ||
+            "Não foi possível concluir o login. Tente novamente mais tarde."
+        );
       }
     );
   };
@@ -186,8 +190,9 @@ function Login() {
             <CloseIcon />
           </IconButton>
         </Box>
-        {error.length > 0 ? <Error /> : <Success />}
-
+        <Box sx={{ display: "flex", justifyContent: "center" }}>
+          {error.length > 0 ? <Error /> : <Success />}
+        </Box>
         <DialogTitle
           sx={{ display: "flex", justifyContent: "center", padding: 0 }}
         >
