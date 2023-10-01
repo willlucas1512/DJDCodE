@@ -47,6 +47,7 @@ function ResetPass() {
         setLoading(false);
         setMessage(rResponse.message);
         setOpen(true);
+        setError("");
         setDisabledButton(true);
         setTimeout(() => history.push("/login"), 5000);
       },
