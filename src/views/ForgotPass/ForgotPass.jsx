@@ -174,7 +174,7 @@ function ForgotPass() {
           <DialogContentText>
             {message}
             <br />{" "}
-            {error.length > 0 &&
+            {error.length === 0 &&
               "Não se esqueça de verificar sua caixa de spam."}
           </DialogContentText>
         </DialogContent>
