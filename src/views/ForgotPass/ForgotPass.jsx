@@ -45,10 +45,14 @@ function ForgotPass() {
         setOpen(true);
       },
       (rError) => {
+        console.log(rError);
         setLoading(false);
         setOpen(true);
-        setError(rError.data.message);
-        setMessage(rError.data.message);
+        setError(rError.data.message || "Erro!");
+        setMessage(
+          rError.data.message ||
+            "Não foi possível recuperar sua senha. Tente novamente mais tarde."
+        );
       }
     );
   };
@@ -158,14 +162,21 @@ function ForgotPass() {
             <CloseIcon />
           </IconButton>
         </Box>
-        {error.length > 0 ? <Error /> : <Success />}
+        <Box sx={{ display: "flex", justifyContent: "center" }}>
+          {error.length > 0 ? <Error /> : <Success />}
+        </Box>
         <DialogTitle
           sx={{ display: "flex", justifyContent: "center", padding: 0 }}
         >
           {error.length > 0 ? "Erro" : "Sucesso"}
         </DialogTitle>
         <DialogContent>
-          <DialogContentText>{message}</DialogContentText>
+          <DialogContentText>
+            {message}
+            <br />{" "}
+            {error.length > 0 &&
+              "Não se esqueça de verificar sua caixa de spam."}
+          </DialogContentText>
         </DialogContent>
       </Dialog>
     </ThemeProvider>

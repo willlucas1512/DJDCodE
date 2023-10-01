@@ -174,7 +174,9 @@ function ResetPass() {
             <CloseIcon />
           </IconButton>
         </Box>
-        {error.length > 0 ? <Error /> : <Success />}
+        <Box sx={{ display: "flex", justifyContent: "center" }}>
+          {error.length > 0 ? <Error /> : <Success />}
+        </Box>
         <DialogTitle
           sx={{ display: "flex", justifyContent: "center", padding: 0 }}
         >
