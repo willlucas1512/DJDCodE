@@ -51,17 +51,25 @@ const Navbar = (props) => {
     }
   };
 
-  const useStyles = makeStyles((theme) => ({
+  const useStyles = makeStyles({
     root: {
       padding: "0px",
       backgroundColor: "transparent",
     },
-  }));
+    dot: {
+      backgroundColor: "#5368a6",
+    },
+    dotActive: {
+      backgroundColor: "#f36c5d",
+    },
+  });
 
   const classes = useStyles();
-  const xClassNames = {
-    [classes.root]: true,
-  };
+  // const xClassNames = {
+  //   [classes.root]: true,
+  //   [classes.dot]: true,
+  //   [classes.dotactive]: true,
+  // };
 
   const handleNext = () => {
     updateLevel((prevActiveStep) => prevActiveStep + 1);
@@ -75,12 +83,23 @@ const Navbar = (props) => {
     updateHintLevel(currentLevel);
   };
 
+  const useStyles2 = makeStyles({
+    root: {
+      backgroundColor: "#5368a6",
+      borderRadius: isMobile ? "50%" : "10px",
+      marginRight: "10px",
+    },
+  });
+
+  const classes2 = useStyles2();
+
+  useEffect(() => {
+    IsMobile();
+  }, []);
+
   const Hint = () => {
     return (
-      <IconButton
-        // color={isMobile ? "primary" : "secondary"}
-        onClick={handleHint}
-      >
+      <IconButton classes={{ root: classes2.root }} onClick={handleHint}>
         {!isMobile && <Typography className={Style.label}>DICA</Typography>}
         <Icon>tips_and_updates</Icon>
       </IconButton>
@@ -129,27 +148,26 @@ const Navbar = (props) => {
                 <div className={Style.levelName}>
                   <Typography variant={"h6"}>
                     {" "}
-                    {currentLevel !== 0
+                    {currentLevel !== 0 &&
+                    currentLevel <= selectedCourse?.qtd_niveis
                       ? `Nível ${currentLevel}`
                       : selectedCourse?.nome}
                   </Typography>
                 </div>
                 <div className={Style.stepper}>
                   <MobileStepper
-                    className={classList(xClassNames)}
-                    // style={{ backgroundColor: "white" }}
                     variant="dots"
                     steps={selectedCourse?.qtd_niveis}
                     position="static"
                     activeStep={currentLevel}
+                    classes={{
+                      root: classes.root,
+                      dot: classes.dot,
+                      dotActive: classes.dotActive,
+                    }}
                     nextButton={
-                      currentLevel !== 6 && (
-                        <Button
-                          // color={"textPrimary"}
-                          size="small"
-                          onClick={handleNext}
-                          // disabled={currentLevel === 5}
-                        >
+                      currentLevel <= selectedCourse?.qtd_niveis && (
+                        <Button size="small" onClick={handleNext}>
                           Próximo
                         </Button>
                       )
@@ -183,20 +201,18 @@ const Navbar = (props) => {
                 </div>
                 <div className={Style.stepper}>
                   <MobileStepper
-                    className={classList(xClassNames)}
-                    // style={{ backgroundColor: "white" }}
                     variant="dots"
                     steps={6}
                     position="static"
                     activeStep={currentLevel}
+                    classes={{
+                      root: classes.root,
+                      dot: classes.dot,
+                      dotActive: classes.dotActive,
+                    }}
                     nextButton={
                       currentLevel !== 6 && (
-                        <Button
-                          // color={"textPrimary"}
-                          size="small"
-                          onClick={handleNext}
-                          // disabled={currentLevel === 5}
-                        >
+                        <Button size="small" onClick={handleNext}>
                           Próximo
                         </Button>
                       )
@@ -219,8 +235,19 @@ const Navbar = (props) => {
           )}
           {currentLevel !== 0 &&
             currentLevel !== 6 &&
-            (location.pathname === "/cursoplayer" ||
-              location.pathname === "/labirinto") && (
+            location.pathname === "/labirinto" && (
+              <div className={Style.buttonsMobile}>
+                <Hint />
+                <Restart maze={maze} />
+                <div className={Style.run}>
+                  <Run />
+                </div>
+              </div>
+            )}
+
+          {currentLevel !== 0 &&
+            currentLevel <= selectedCourse?.qtd_niveis &&
+            location.pathname === "/cursoplayer" && (
               <div className={Style.buttonsMobile}>
                 <Hint />
                 <Restart maze={maze} />

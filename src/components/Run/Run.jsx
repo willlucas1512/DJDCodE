@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import Blockly from "blockly/core";
 import BlocklyJS from "blockly/javascript";
-import { IconButton, Icon, Typography } from "@material-ui/core";
+import { IconButton, Icon, Typography, makeStyles } from "@material-ui/core";
 import CodeContext from "../../contexts/Code/CodeContext";
 import PropTypes from "prop-types";
 import Style from "./Run.module.scss";
@@ -18,6 +18,16 @@ const Run = (props) => {
       setIsMobile(false);
     }
   };
+
+  const useStyles = makeStyles({
+    root: {
+      backgroundColor: "#f36c5d",
+      borderRadius: isMobile ? "50%" : "10px",
+      marginRight: "10px",
+    },
+  });
+
+  const classes = useStyles();
 
   // const generateCode = () => {
   //   var code = BlocklyJS.workspaceToCode(workspace.workspace);
@@ -57,15 +67,10 @@ const Run = (props) => {
   }, []);
 
   return (
-    <>
-      <IconButton
-        // color={isMobile ? "primary" : "secondary"}
-        onClick={runCode}
-      >
-        {!isMobile && <Typography className={Style.label}>RODAR</Typography>}
-        <Icon>play_arrow</Icon>
-      </IconButton>
-    </>
+    <IconButton classes={{ root: classes.root }} onClick={runCode}>
+      {!isMobile && <Typography className={Style.label}>RODAR</Typography>}
+      <Icon>play_arrow</Icon>
+    </IconButton>
   );
 };
 
