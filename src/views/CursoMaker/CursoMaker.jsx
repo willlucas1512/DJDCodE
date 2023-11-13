@@ -24,10 +24,11 @@ import { Stack } from "@mui/material";
 
 const CursoMaker = () => {
   const history = useHistory();
+  const [isMobile, setIsMobile] = useState(true);
   const defaultValues = {
-    colunas: 20,
-    linhas: 16,
-    niveis: 10,
+    colunas: 10,
+    linhas: 8,
+    niveis: 5,
     introducao: "",
   };
   const initialLevelsEmptyObj = Object.fromEntries(
@@ -109,12 +110,29 @@ const CursoMaker = () => {
     handleClose(setDeleteModalOpen);
   };
 
+  const IsMobile = () => {
+    if (window.innerWidth < 800) {
+      setIsMobile(true);
+    } else {
+      setIsMobile(false);
+    }
+  };
+
   const gridClass = classNames({
     [Style.canvas_map]: editType === "map",
     [Style.canvas_blocks]: editType === "blocks",
   });
 
   useEffect(() => {
+    if (!isMobile) {
+      setNiveis(10);
+      setMapRows(16);
+      setMapColumns(20);
+    }
+  }, [isMobile]);
+
+  useEffect(() => {
+    IsMobile();
     handleOpen(setIntroModalOpen);
     if (!localStorage.getItem("user")) {
       history.push("/login");

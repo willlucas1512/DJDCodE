@@ -78,10 +78,10 @@ const Navbar = (props) => {
   const Hint = () => {
     return (
       <IconButton
-        color={isMobile ? "primary" : "secondary"}
+        // color={isMobile ? "primary" : "secondary"}
         onClick={handleHint}
       >
-        <Typography className={Style.label}>DICA</Typography>
+        {!isMobile && <Typography className={Style.label}>DICA</Typography>}
         <Icon>tips_and_updates</Icon>
       </IconButton>
     );

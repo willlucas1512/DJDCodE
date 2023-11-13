@@ -123,7 +123,7 @@
 }
 
 .menu {
-  width: 100%;
+  width: calc(100vw - 48px);
   display: flex;
   padding: 4px 24px;
   background-color: #2dbfa5;

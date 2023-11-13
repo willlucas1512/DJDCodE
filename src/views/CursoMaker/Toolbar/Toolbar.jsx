@@ -14,15 +14,17 @@ import images from "./images.png";
 import question from "./question.png";
 import Style from "./Toolbar.module.scss";
 import services from "../../../services";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Error from "../../../components/Error/Error";
 import Success from "../../../components/Success/Success";
 import { Box } from "@mui/material";
+import classNames from "classnames";
 
 const Toolbar = (props) => {
   const [successModalOpen, setSuccessModalOpen] = useState(false);
   const [errorModalOpen, setErrorModalOpen] = useState(false);
   const [error, setError] = useState({});
+  const [isMobile, setIsMobile] = useState(true);
 
   const saveCourse = () => {
     services.course.save(
@@ -48,6 +50,19 @@ const Toolbar = (props) => {
   const handleOpen = (pFunc) => {
     pFunc(true);
   };
+
+  const IsMobile = () => {
+    if (window.innerWidth < 800) {
+      setIsMobile(true);
+    } else {
+      setIsMobile(false);
+    }
+  };
+
+  const toolbarClass = classNames({
+    [Style.toolbar]: !isMobile,
+    [Style.toolbarMobile]: isMobile,
+  });
 
   const buttons = [
     {
@@ -76,9 +91,13 @@ const Toolbar = (props) => {
     },
     { label: "tudo pronto", icon: positive, onClick: saveCourse },
   ];
+
+  useEffect(() => {
+    IsMobile();
+  }, []);
   return (
     <>
-      <div className={Style.toolbar}>
+      <div className={toolbarClass}>
         {buttons.map((button, index) => (
           <div key={index} className={Style.button}>
             <Button

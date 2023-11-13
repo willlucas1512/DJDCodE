@@ -58,8 +58,11 @@ const Run = (props) => {
 
   return (
     <>
-      <IconButton color={isMobile ? "primary" : "secondary"} onClick={runCode}>
-        <Typography className={Style.label}>RODAR</Typography>
+      <IconButton
+        // color={isMobile ? "primary" : "secondary"}
+        onClick={runCode}
+      >
+        {!isMobile && <Typography className={Style.label}>RODAR</Typography>}
         <Icon>play_arrow</Icon>
       </IconButton>
     </>

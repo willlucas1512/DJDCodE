@@ -18,7 +18,8 @@ import Style from "./Level.module.scss";
 
 const Level = (props) => {
   const { code } = useContext(CodeContext);
-  const { showHintLevel, updateHintLevel } = useContext(LevelContext);
+  const { showHintLevel, updateHintLevel, currentLevel } =
+    useContext(LevelContext);
   const [showHint, setShowHint] = useState(true);
   const levelLayout = props.level.layout;
   const levelWidth = levelLayout[0].length;
@@ -81,6 +82,7 @@ const Level = (props) => {
   const map = classNames({
     [Style.map]: !props.isMobile,
     [Style.mapMobile]: props.isMobile,
+    [Style.mapMobileLevel5]: props.isMobile && currentLevel === 5,
   });
 
   const blockArea = classNames({

@@ -30,10 +30,10 @@ const Restart = (props) => {
 
   return (
     <IconButton
-      color={isMobile ? "primary" : "secondary"}
+      // color={isMobile ? "primary" : "secondary"}
       onClick={resetWorkspace}
     >
-      <Typography className={Style.label}>RECOMEÇAR</Typography>
+      {!isMobile && <Typography className={Style.label}>RECOMEÇAR</Typography>}
       <Icon>replay</Icon>
     </IconButton>
   );
