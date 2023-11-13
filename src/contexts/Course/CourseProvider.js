@@ -1,7 +1,9 @@
-import React, { memo, useState } from "react";
+import React, { memo, useContext, useState } from "react";
 import CourseContext from "./CourseContext";
+import LevelContext from "../Level/LevelContext";
 
 const CourseProvider = memo((props) => {
+  const { updateLevel } = useContext(LevelContext);
   const [coursePlaying, setCoursePlaying] = useState({});
 
   const state = {
@@ -10,6 +12,7 @@ const CourseProvider = memo((props) => {
   };
 
   const updateCourse = (course) => {
+    updateLevel(0);
     setCoursePlaying(course);
     localStorage.removeItem("course");
     localStorage.setItem("course", JSON.stringify(course));

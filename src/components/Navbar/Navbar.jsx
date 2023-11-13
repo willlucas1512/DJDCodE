@@ -131,7 +131,7 @@ const Navbar = (props) => {
                     {" "}
                     {currentLevel !== 0
                       ? `Nível ${currentLevel}`
-                      : selectedCourse.nome}
+                      : selectedCourse?.nome}
                   </Typography>
                 </div>
                 <div className={Style.stepper}>
@@ -139,7 +139,7 @@ const Navbar = (props) => {
                     className={classList(xClassNames)}
                     // style={{ backgroundColor: "white" }}
                     variant="dots"
-                    steps={selectedCourse.qtd_niveis}
+                    steps={selectedCourse?.qtd_niveis}
                     position="static"
                     activeStep={currentLevel}
                     nextButton={
