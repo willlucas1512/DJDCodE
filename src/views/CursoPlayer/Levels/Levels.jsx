@@ -211,9 +211,9 @@ const Levels = (props) => {
   const updateLocalLevel = (level) => {
     setCurrentLevelState({
       level: level,
-      layout: generateLayout(linhas, colunas, niveis[level].tiles),
-      hint: niveis[level].dica,
-      blocos: niveis[level].blocos,
+      layout: generateLayout(linhas, colunas, niveis[level]?.tiles),
+      hint: niveis[level]?.dica,
+      blocos: niveis[level]?.blocos,
     });
   };
 
@@ -223,7 +223,7 @@ const Levels = (props) => {
   }, []);
 
   useEffect(() => {
-    if (currentLevel !== 0) {
+    if (currentLevel !== 0 && currentLevel < qtd_niveis) {
       updateLocalLevel(currentLevel);
     }
   }, [currentLevel]);
@@ -235,7 +235,7 @@ const Levels = (props) => {
       isMobile={isMobile}
       updateLevel={updateLevel}
     />
-  ) : currentLevel === 6 ? (
+  ) : currentLevel > qtd_niveis ? (
     <Ending isMobile={isMobile} updateLevel={updateLevel} />
   ) : (
     <Level

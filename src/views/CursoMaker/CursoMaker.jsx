@@ -282,7 +282,7 @@ const CursoMaker = () => {
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
       >
-        <div className={Style.modalDelete}>
+        <div className={Style.modalHelp}>
           <div className={Style.title}>
             <Typography
               color={"textSecondary"}
@@ -304,11 +304,18 @@ const CursoMaker = () => {
           </Typography>
           <Typography color={"textSecondary"} variant={"body2"}>
             <br />
-            Para selecionar um <i>tile</i>, clique nele na tela da esquerda e
-            clique no quadrado desejado na região da direita para posicioná-lo.{" "}
+            <b>
+              Para definir a posição inicial do seu herói, utilize o <i>tile</i>{" "}
+              em branco!
+            </b>
             <br />
-            Para deletar, clique em apagar, e após clique no <i>tile</i> que
-            deseje deletar.
+            <br />
+            • Não se esqueça de definir uma porta e uma chave.
+            <br />• Para selecionar um <i>tile</i>, clique nele na tela da
+            esquerda e clique no quadrado desejado na região da direita para
+            posicioná-lo. <br />• Para deletar, clique em apagar, e após clique
+            no <i>tile</i> que deseje deletar. <br />• Caso queira apagar tudo,
+            clique em apagar tudo.
           </Typography>
           <Typography
             color={"textSecondary"}
