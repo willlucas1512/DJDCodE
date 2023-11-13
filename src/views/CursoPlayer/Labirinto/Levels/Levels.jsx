@@ -138,11 +138,11 @@ const Levels = (props) => {
 
   const hints = [
     "",
-    "Começando iniciante... como sair usando 4 blocos?",
-    "Agora faça a mesma coisa usando 2 blocos. A distância continua sendo 4.",
-    "Encontrei um rascunho com 3D 3C 2E 1B escrito. Você sabe o que significa?",
-    "Agora que descobriu o que é, faça o mesmo com 7 blocos.",
-    "Eu estava brincando com você. O teste real vem agora. Quero ver você sair dessa.",
+    "Começando iniciante... como sair usando 4 blocos? Obs.: Não use o bloco de repetição.",
+    "Agora faça a mesma coisa usando 2 blocos. A distância continua sendo 4. Obs.: O bloco de repetição está liberado.",
+    "Encontrei um rascunho com 3D 3C 2E 1B escrito. Você sabe o que significa? Obs.: Não use o bloco de repetição.",
+    "Agora que descobriu o que é, faça o mesmo com 7 blocos. Obs.: O bloco de repetição está liberado.",
+    "Eu estava brincando com você. O teste real vem agora. Quero ver você sair dessa. Dica 1: Você precisa da chave para abrir a porta. Dica 2: Faça aos poucos, para não errar as distâncias. Dica 3: O bloco de repetição está liberado.",
   ];
 
   const updateLocalLevel = (level) => {

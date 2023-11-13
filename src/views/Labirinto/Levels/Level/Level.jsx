@@ -113,9 +113,23 @@ const Level = (props) => {
       >
         {
           <div className={Style.modal}>
-            <Typography id="simple-modal-description">
-              {props.level.hint}
-            </Typography>
+            {Array.isArray(props.level.hint) ? (
+              props.level.hint.map((pHint, pIndex) => (
+                <>
+                  {pIndex !== 0 && (
+                    <Typography>
+                      <b>Dica {pIndex}:</b>
+                    </Typography>
+                  )}
+                  <Typography id="simple-modal-description">{pHint}</Typography>
+                  <br />
+                </>
+              ))
+            ) : (
+              <Typography id="simple-modal-description">
+                {props.level.hint}
+              </Typography>
+            )}
           </div>
         }
       </Modal>

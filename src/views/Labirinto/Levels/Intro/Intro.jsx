@@ -13,14 +13,20 @@ const Intro = (props) => {
           Boas-vindas ao Labirinto.
         </Typography>
         <Typography variant={"body1"} align={"center"} color={"textPrimary"}>
-          Seu objetivo é completar o labirinto sem enlouquecer com a programação
-          em 5 níveis.
+          O nosso herói está preso nas profundezas do labirinto. <br /> O seu
+          objetivo é ajudá-lo a escapar, sem enlouquecer com a programação, em 5
+          níveis.
         </Typography>
         <Typography variant={"body1"} align={"center"} color={"textPrimary"}>
           <b>Avisos:</b>
         </Typography>
         <Typography variant={"body1"} align={"center"} color={"textPrimary"}>
-          O progresso não será salvo, então, se sair, terá que recomeçar.
+          Clique em RODAR quando achar que terminou e aguarde para ver o
+          resultado.
+        </Typography>
+        <Typography variant={"body1"} align={"center"} color={"textPrimary"}>
+          Se fechar a página ou sair do labirinto durante seu progresso, terá
+          que recomeçar do nível 1.
         </Typography>
         <Typography variant={"body1"} align={"center"} color={"textPrimary"}>
           Você pode ver a dica novamente, se clicar na lâmpada.

@@ -166,12 +166,16 @@ function ForgotPass() {
           {error.length > 0 ? <Error /> : <Success />}
         </Box>
         <DialogTitle
-          sx={{ display: "flex", justifyContent: "center", padding: 0 }}
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            padding: 0,
+          }}
         >
           {error.length > 0 ? "Erro" : "Sucesso"}
         </DialogTitle>
         <DialogContent>
-          <DialogContentText>
+          <DialogContentText sx={{ textAlign: "center !important" }}>
             {message}
             <br />{" "}
             {error.length === 0 &&

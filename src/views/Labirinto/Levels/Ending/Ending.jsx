@@ -24,7 +24,8 @@ const Ending = (props) => {
           </Typography>
         </div>
         <Typography variant={"h6"} align={"center"} color={"textPrimary"}>
-          Nos veremos no próximo desafio.
+          Parabéns. <br /> Você aprendeu a evitar muitas repetições, utilizando
+          o bloco de repetição. <br /> Nos vemos no próximo desafio.
         </Typography>
 
         <div className={Style.buttons}>

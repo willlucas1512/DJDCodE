@@ -15,6 +15,7 @@
   background-color: rgba(0, 0, 0, 0.6);
   border-radius: 10px;
   padding: 16px;
+  max-width: 700px;
 }
 
 .secret {
@@ -40,4 +41,5 @@
   margin-top: 16px;
   display: flex;
   align-items: center;
+  justify-content: center;
 }

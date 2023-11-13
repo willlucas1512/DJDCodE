@@ -131,7 +131,7 @@ Mazing.prototype.walkUp = function (pCounter) {
     var tryPos = new Position(this.heroPos.x, this.heroPos.y);
     tryPos.x--;
     this.tryMoveHero(tryPos);
-  }, 1000 * pCounter);
+  }, 1000);
 };
 Mazing.prototype.walkLeft = function (pCounter) {
   setTimeout(() => {
@@ -139,7 +139,7 @@ Mazing.prototype.walkLeft = function (pCounter) {
     this.mazeContainer.classList.remove("face-right");
     tryPos.y--;
     this.tryMoveHero(tryPos);
-  }, 1000 * pCounter);
+  }, 1000);
 };
 Mazing.prototype.walkRight = function (pCounter) {
   setTimeout(() => {
@@ -147,14 +147,14 @@ Mazing.prototype.walkRight = function (pCounter) {
     this.mazeContainer.classList.add("face-right");
     tryPos.y++;
     this.tryMoveHero(tryPos);
-  }, 1000 * pCounter);
+  }, 1000);
 };
 Mazing.prototype.walkDown = function (pCounter) {
   setTimeout(() => {
     var tryPos = new Position(this.heroPos.x, this.heroPos.y);
     tryPos.x++;
     this.tryMoveHero(tryPos);
-  }, 1000 * pCounter);
+  }, 1000);
 };
 
 export default Mazing;
