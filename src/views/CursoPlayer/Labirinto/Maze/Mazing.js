@@ -24,7 +24,7 @@ export function Mazing(id) {
       var el = this.mazeContainer.children[i].children[j];
 
       this.maze[new Position(i, j)] = el;
-      if (el.classList.contains("tile-4-6")) {
+      if (el.classList.contains("tile-6-1")) {
         // place hero at entrance
         this.heroPos = new Position(i, j);
         this.initialHeroPos = new Position(i, j);
@@ -49,7 +49,9 @@ Mazing.prototype.setMessage = function (text) {
 };
 
 Mazing.prototype.heroTakeTreasure = function () {
-  this.maze[this.heroPos].classList.remove("nubbin");
+  this.maze[this.heroPos].classList.remove("tile-1-7");
+  this.maze[this.heroPos].classList.remove("tile-1-7");
+  this.maze[this.heroPos].classList.remove("tile-1-7");
   this.setMessage("uhu, tesouro!");
 };
 
@@ -87,13 +89,69 @@ Mazing.prototype.tryMoveHero = function (pos) {
 
   var nextStep = this.maze[pos]?.className;
 
+  const tilesToMatch = [
+    "tile-1-1",
+    "tile-1-2",
+    "tile-1-3",
+    "tile-1-4",
+    "tile-1-5",
+    "tile-1-6",
+    "tile-2-1",
+    "tile-2-2",
+    "tile-2-3",
+    "tile-2-4",
+    "tile-2-5",
+    "tile-2-6",
+    "tile-3-1",
+    "tile-3-2",
+    "tile-3-3",
+    "tile-3-4",
+    "tile-3-5",
+    "tile-3-6",
+    "tile-4-1",
+    "tile-4-2",
+    "tile-4-3",
+    "tile-4-4",
+    "tile-4-5",
+    "tile-5-1",
+    "tile-5-2",
+    "tile-5-3",
+    "tile-5-4",
+    "tile-5-5",
+    "tile-5-6",
+    "tile-5-7",
+    "tile-5-8",
+    "tile-6-1",
+    "tile-6-2",
+    "tile-6-7",
+    "tile-6-8",
+    "tile-7-1",
+    "tile-7-2",
+    "tile-7-3",
+    "tile-7-4",
+    "tile-7-5",
+    "tile-7-6",
+    "tile-7-7",
+    "tile-7-8",
+    "tile-8-1",
+    "tile-8-2",
+    "tile-8-3",
+    "tile-8-4",
+    "tile-8-5",
+    "tile-8-6",
+    "tile-8-7",
+    "tile-8-8",
+  ];
+
+  const regexPattern = new RegExp(`${tilesToMatch.join("|")}`);
+
   // before moving
   if (nextStep) {
-    if (nextStep.match(/sentinel/)) {
+    if (nextStep.match(/tile-4-7|tile-4-8/)) {
       this.setMessage("ai, isso dói!");
       return;
     }
-    if (nextStep.match(/wall/)) {
+    if (nextStep.match(regexPattern)) {
       return;
     }
     if (nextStep.match(/tile-6-3|tile-6-4|tile-6-5|tile-6-6/)) {
@@ -107,6 +165,7 @@ Mazing.prototype.tryMoveHero = function (pos) {
   }
   // move hero one step
   this.maze[this.heroPos]?.classList.remove("hero");
+  this.maze[this.heroPos]?.classList.remove("tile-6-1");
   this.maze[pos]?.classList.add("hero");
   this.heroPos = pos;
 

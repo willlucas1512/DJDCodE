@@ -1,5 +1,6 @@
 import React from "react";
 import Style from "./Ending.module.scss";
+import { Link } from "react-router-dom";
 import { Typography, Button } from "@material-ui/core";
 
 const Ending = (props) => {
@@ -23,19 +24,26 @@ const Ending = (props) => {
           </Typography>
         </div>
         <Typography variant={"h6"} align={"center"} color={"textPrimary"}>
-          Parabéns. Você aprendeu a evitar muitas repetições, utilizando o bloco
-          de repetição. Nos veremos no próximo desafio.
+          Parabéns. <br /> Você aprendeu a evitar muitas repetições, utilizando
+          o bloco de repetição. <br /> Nos vemos no próximo desafio.
         </Typography>
 
-        <div className={Style.button}>
-          <Button
-            variant={"contained"}
-            size={"small"}
-            color={"inherit"}
-            onClick={backToStart}
-          >
-            Acho que posso fazer melhor...
-          </Button>
+        <div className={Style.buttons}>
+          <div className={Style.button}>
+            <Button
+              variant={"contained"}
+              size={"small"}
+              color={"inherit"}
+              onClick={backToStart}
+            >
+              Acho que posso fazer melhor...
+            </Button>
+          </div>
+          <Link to={"/home"}>
+            <Button variant={"outlined"} size={"small"}>
+              Voltar para a home
+            </Button>
+          </Link>
         </div>
       </div>
     </div>

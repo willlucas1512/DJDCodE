@@ -15,6 +15,7 @@
   background-color: rgba(0, 0, 0, 0.6);
   border-radius: 10px;
   padding: 16px;
+  max-width: 700px;
 }
 
 .secret {
@@ -30,8 +31,15 @@
 }
 
 .button {
-  margin-top: 16px;
   display: flex;
   justify-content: center;
   color: black;
+  margin-right: 16px;
+}
+
+.buttons {
+  margin-top: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

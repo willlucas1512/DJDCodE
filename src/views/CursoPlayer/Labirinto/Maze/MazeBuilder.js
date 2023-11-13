@@ -139,7 +139,59 @@ class MazeBuilder {
       return false; // shorter route already mapped
     }
 
-    if (!this.isGap([r, c])) {
+    if (
+      this.maze[r][c].includes("tile-1-1") ||
+      this.maze[r][c].includes("tile-1-2") ||
+      this.maze[r][c].includes("tile-1-3") ||
+      this.maze[r][c].includes("tile-1-4") ||
+      this.maze[r][c].includes("tile-1-5") ||
+      this.maze[r][c].includes("tile-1-6") ||
+      this.maze[r][c].includes("tile-2-1") ||
+      this.maze[r][c].includes("tile-2-2") ||
+      this.maze[r][c].includes("tile-2-3") ||
+      this.maze[r][c].includes("tile-2-4") ||
+      this.maze[r][c].includes("tile-2-5") ||
+      this.maze[r][c].includes("tile-2-6") ||
+      this.maze[r][c].includes("tile-3-1") ||
+      this.maze[r][c].includes("tile-3-2") ||
+      this.maze[r][c].includes("tile-3-3") ||
+      this.maze[r][c].includes("tile-3-4") ||
+      this.maze[r][c].includes("tile-3-5") ||
+      this.maze[r][c].includes("tile-3-6") ||
+      this.maze[r][c].includes("tile-4-1") ||
+      this.maze[r][c].includes("tile-4-2") ||
+      this.maze[r][c].includes("tile-4-3") ||
+      this.maze[r][c].includes("tile-4-4") ||
+      this.maze[r][c].includes("tile-4-5") ||
+      this.maze[r][c].includes("tile-5-1") ||
+      this.maze[r][c].includes("tile-5-2") ||
+      this.maze[r][c].includes("tile-5-3") ||
+      this.maze[r][c].includes("tile-5-4") ||
+      this.maze[r][c].includes("tile-5-5") ||
+      this.maze[r][c].includes("tile-5-6") ||
+      this.maze[r][c].includes("tile-5-7") ||
+      this.maze[r][c].includes("tile-5-8") ||
+      this.maze[r][c].includes("tile-6-1") ||
+      this.maze[r][c].includes("tile-6-2") ||
+      this.maze[r][c].includes("tile-6-7") ||
+      this.maze[r][c].includes("tile-6-8") ||
+      this.maze[r][c].includes("tile-7-1") ||
+      this.maze[r][c].includes("tile-7-2") ||
+      this.maze[r][c].includes("tile-7-3") ||
+      this.maze[r][c].includes("tile-7-4") ||
+      this.maze[r][c].includes("tile-7-5") ||
+      this.maze[r][c].includes("tile-7-6") ||
+      this.maze[r][c].includes("tile-7-7") ||
+      this.maze[r][c].includes("tile-7-8") ||
+      this.maze[r][c].includes("tile-8-1") ||
+      this.maze[r][c].includes("tile-8-2") ||
+      this.maze[r][c].includes("tile-8-3") ||
+      this.maze[r][c].includes("tile-8-4") ||
+      this.maze[r][c].includes("tile-8-5") ||
+      this.maze[r][c].includes("tile-8-6") ||
+      this.maze[r][c].includes("tile-8-7") ||
+      this.maze[r][c].includes("tile-8-8")
+    ) {
       return false; // not traversable
     }
 
@@ -167,7 +219,7 @@ class MazeBuilder {
     this.totalSteps = -1;
 
     for (let j = 1; j < this.cols - 1; j++) {
-      if (this.maze[this.rows - 1][j].includes("tile-4-6")) {
+      if (this.maze[this.rows - 1][j].includes("tile-6-1")) {
         this.countSteps(fromEntrance, this.rows - 1, j, 0, "exit");
       }
       if (
@@ -176,7 +228,7 @@ class MazeBuilder {
         this.maze[0][j].includes("tile-6-5") ||
         this.maze[0][j].includes("tile-6-6")
       ) {
-        this.countSteps(fromExit, 0, j, 0, "tile-4-6");
+        this.countSteps(fromExit, 0, j, 0, "tile-6-1");
       }
     }
 
