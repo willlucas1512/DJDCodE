@@ -24,6 +24,9 @@ const Run = (props) => {
       backgroundColor: "#f36c5d",
       borderRadius: isMobile ? "50%" : "10px",
       marginRight: "10px",
+      width: isMobile && "32px",
+      height: isMobile && "32px",
+      padding: "8px",
     },
   });
 
@@ -67,7 +70,11 @@ const Run = (props) => {
   }, []);
 
   return (
-    <IconButton classes={{ root: classes.root }} onClick={runCode}>
+    <IconButton
+      size={"small"}
+      classes={{ root: classes.root }}
+      onClick={runCode}
+    >
       {!isMobile && <Typography className={Style.label}>RODAR</Typography>}
       <Icon>play_arrow</Icon>
     </IconButton>

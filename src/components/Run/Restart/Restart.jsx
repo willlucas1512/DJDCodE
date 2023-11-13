@@ -29,6 +29,9 @@ const Restart = (props) => {
       backgroundColor: "#5368a6",
       borderRadius: isMobile ? "50%" : "10px",
       marginRight: "10px",
+      width: isMobile && "32px",
+      height: isMobile && "32px",
+      padding: "8px",
     },
   });
 
@@ -39,7 +42,11 @@ const Restart = (props) => {
   }, []);
 
   return (
-    <IconButton classes={{ root: classes.root }} onClick={resetWorkspace}>
+    <IconButton
+      size={"small"}
+      classes={{ root: classes.root }}
+      onClick={resetWorkspace}
+    >
       {!isMobile && <Typography className={Style.label}>RECOMEÇAR</Typography>}
       <Icon>replay</Icon>
     </IconButton>

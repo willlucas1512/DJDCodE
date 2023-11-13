@@ -88,6 +88,9 @@ const Navbar = (props) => {
       backgroundColor: "#5368a6",
       borderRadius: isMobile ? "50%" : "10px",
       marginRight: "10px",
+      width: isMobile && "40px",
+      height: isMobile && "40px",
+      padding: "8px",
     },
   });
 
@@ -99,7 +102,11 @@ const Navbar = (props) => {
 
   const Hint = () => {
     return (
-      <IconButton classes={{ root: classes2.root }} onClick={handleHint}>
+      <IconButton
+        size={"small"}
+        classes={{ root: classes2.root }}
+        onClick={handleHint}
+      >
         {!isMobile && <Typography className={Style.label}>DICA</Typography>}
         <Icon>tips_and_updates</Icon>
       </IconButton>
@@ -135,11 +142,15 @@ const Navbar = (props) => {
           <Link to={"/home"}>
             <div className={Style.restNav}>
               <Logo />
-              <div className={Style.navbarTitle}>
-                <Typography variant="h6" className={Style.title}>
-                  DJDCodE
-                </Typography>
-              </div>
+              {(location.pathname === "/labirinto" ||
+                location.pathname === "/cursoplayer") &&
+              isMobile ? null : (
+                <div className={Style.navbarTitle}>
+                  <Typography variant="h6" className={Style.title}>
+                    DJDCodE
+                  </Typography>
+                </div>
+              )}
             </div>
           </Link>
           {location.pathname === "/cursoplayer" && (
@@ -194,7 +205,7 @@ const Navbar = (props) => {
                 <div className={Style.levelName}>
                   <Typography variant={"h6"}>
                     {" "}
-                    {currentLevel !== 0
+                    {currentLevel !== 0 && currentLevel !== 6
                       ? `Nível ${currentLevel}`
                       : "O Labirinto"}
                   </Typography>
@@ -257,38 +268,44 @@ const Navbar = (props) => {
               </div>
             )}
         </div>
-        {localStorage.getItem("user") && !isMobile ? (
-          <Link to="/perfil">
-            <div className={Style.username}>
-              <Avatar />
+        {localStorage.getItem("user") ? (
+          isMobile &&
+          (location.pathname == "/labirinto" ||
+            location.pathname == "/cursoplayer") ? null : (
+            <Link to="/perfil">
+              <div className={Style.username}>
+                <Avatar />
 
-              <div className={Style.horizontalSpacer}></div>
-              <div className={Style.horizontalSpacer}></div>
-              <div className={Style.horizontalSpacer}></div>
-              <Typography variant={"body1"}>
-                <b>
-                  {JSON.parse(localStorage.getItem("user"))
-                    .name_first.charAt(0)
-                    .toUpperCase() +
-                    JSON.parse(localStorage.getItem("user")).name_first.slice(
-                      1
-                    )}{" "}
-                </b>
-              </Typography>
-              <div className={Style.horizontalSpacer}></div>
-              <Typography variant={"body1"}>
-                {" "}
-                <b>
+                <div className={Style.horizontalSpacer}></div>
+                <div className={Style.horizontalSpacer}></div>
+                <div className={Style.horizontalSpacer}></div>
+                <Typography variant={"body1"}>
+                  <b>
+                    {JSON.parse(localStorage.getItem("user"))
+                      .name_first.charAt(0)
+                      .toUpperCase() +
+                      JSON.parse(localStorage.getItem("user")).name_first.slice(
+                        1
+                      )}{" "}
+                  </b>
+                </Typography>
+                <div className={Style.horizontalSpacer}></div>
+                <Typography variant={"body1"}>
                   {" "}
-                  {JSON.parse(localStorage.getItem("user"))
-                    .name_last.charAt(0)
-                    .toUpperCase() +
-                    JSON.parse(localStorage.getItem("user")).name_last.slice(1)}
-                </b>
-              </Typography>
-              <div className={Style.horizontalSpacer}></div>
-            </div>
-          </Link>
+                  <b>
+                    {" "}
+                    {JSON.parse(localStorage.getItem("user"))
+                      .name_last.charAt(0)
+                      .toUpperCase() +
+                      JSON.parse(localStorage.getItem("user")).name_last.slice(
+                        1
+                      )}
+                  </b>
+                </Typography>
+                <div className={Style.horizontalSpacer}></div>
+              </div>
+            </Link>
+          )
         ) : (
           <Link to="/login">
             <Button color="inherit">Login</Button>
