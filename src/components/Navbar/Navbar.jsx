@@ -261,31 +261,37 @@ const Navbar = (props) => {
           <Link to="/perfil">
             <div className={Style.username}>
               <Avatar />
-              <div className={Style.horizontalSpacer}></div>
-              <div className={Style.horizontalSpacer}></div>
-              <div className={Style.horizontalSpacer}></div>
-              <Typography variant={"body1"}>
-                <b>
-                  {JSON.parse(localStorage.getItem("user"))
-                    .name_first.charAt(0)
-                    .toUpperCase() +
-                    JSON.parse(localStorage.getItem("user")).name_first.slice(
-                      1
-                    )}{" "}
-                </b>
-              </Typography>
-              <div className={Style.horizontalSpacer}></div>
-              <Typography variant={"body1"}>
-                {" "}
-                <b>
-                  {" "}
-                  {JSON.parse(localStorage.getItem("user"))
-                    .name_last.charAt(0)
-                    .toUpperCase() +
-                    JSON.parse(localStorage.getItem("user")).name_last.slice(1)}
-                </b>
-              </Typography>
-              <div className={Style.horizontalSpacer}></div>
+              {!isMobile && (
+                <>
+                  <div className={Style.horizontalSpacer}></div>
+                  <div className={Style.horizontalSpacer}></div>
+                  <div className={Style.horizontalSpacer}></div>
+                  <Typography variant={"body1"}>
+                    <b>
+                      {JSON.parse(localStorage.getItem("user"))
+                        .name_first.charAt(0)
+                        .toUpperCase() +
+                        JSON.parse(
+                          localStorage.getItem("user")
+                        ).name_first.slice(1)}{" "}
+                    </b>
+                  </Typography>
+                  <div className={Style.horizontalSpacer}></div>
+                  <Typography variant={"body1"}>
+                    {" "}
+                    <b>
+                      {" "}
+                      {JSON.parse(localStorage.getItem("user"))
+                        .name_last.charAt(0)
+                        .toUpperCase() +
+                        JSON.parse(
+                          localStorage.getItem("user")
+                        ).name_last.slice(1)}
+                    </b>
+                  </Typography>
+                  <div className={Style.horizontalSpacer}></div>
+                </>
+              )}
             </div>
           </Link>
         ) : (
