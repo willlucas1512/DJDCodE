@@ -75,6 +75,20 @@ function Perfil() {
         </Typography>
       </Box>
     );
+  } else if (courses.length === 0) {
+    return (
+      <Box
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        minHeight="100vh"
+      >
+        <Typography variant={"h5"} className={Style.title}>
+          Você ainda não tem nenhum curso. Experimente criar um, na seção{" "}
+          <Link to={"/cursomaker"}>Curso Maker</Link>!
+        </Typography>
+      </Box>
+    );
   } else {
     return (
       <>

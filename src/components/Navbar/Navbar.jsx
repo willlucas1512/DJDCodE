@@ -26,6 +26,9 @@ const Navbar = (props) => {
   const location = useLocation();
   const { currentLevel, updateLevel, updateHintLevel } =
     useContext(LevelContext);
+  const [selectedCourse, setSelectedCourse] = useState(
+    JSON.parse(localStorage.getItem("course"))
+  );
   const { coursePlaying } = useContext(CourseContext);
   const { maze } = useContext(CodeContext);
   const [isMobile, setIsMobile] = useState(false);
@@ -85,6 +88,10 @@ const Navbar = (props) => {
   };
 
   useEffect(() => {
+    Object.keys(coursePlaying).length !== 0 && setSelectedCourse(coursePlaying);
+  }, [coursePlaying]);
+
+  useEffect(() => {
     IsMobile();
   }, []);
 
@@ -124,7 +131,7 @@ const Navbar = (props) => {
                     {" "}
                     {currentLevel !== 0
                       ? `Nível ${currentLevel}`
-                      : coursePlaying.nome}
+                      : selectedCourse.nome}
                   </Typography>
                 </div>
                 <div className={Style.stepper}>
@@ -132,7 +139,7 @@ const Navbar = (props) => {
                     className={classList(xClassNames)}
                     // style={{ backgroundColor: "white" }}
                     variant="dots"
-                    steps={coursePlaying.qtd_niveis}
+                    steps={selectedCourse.qtd_niveis}
                     position="static"
                     activeStep={currentLevel}
                     nextButton={

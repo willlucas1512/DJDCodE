@@ -11,6 +11,8 @@ const CourseProvider = memo((props) => {
 
   const updateCourse = (course) => {
     setCoursePlaying(course);
+    localStorage.removeItem("course");
+    localStorage.setItem("course", JSON.stringify(course));
   };
 
   const actions = { updateCourse };

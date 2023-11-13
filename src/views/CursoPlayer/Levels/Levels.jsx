@@ -5,8 +5,6 @@ import Ending from "./Ending";
 import LevelContext from "../../../contexts/Level/LevelContext";
 
 const Levels = (props) => {
-  const { colunas, linhas, niveis, nome, qtd_niveis, introducao } =
-    props.coursePlaying;
   const layouts = [
     [[]],
     [
@@ -123,6 +121,9 @@ const Levels = (props) => {
     ],
     [[]],
   ];
+  const [selectedCourse, setSelectedCourse] = useState(
+    JSON.parse(localStorage.getItem("course"))
+  );
   const [isMobile, setIsMobile] = useState(false);
   const [currentLevelState, setCurrentLevelState] = useState({
     level: 0,
@@ -161,12 +162,12 @@ const Levels = (props) => {
     );
   };
 
-  const generateLayout = (linhas, colunas, tilePositions) => {
+  const generateLayout = (pLinhas, pColunas, tilePositions) => {
     const grid = [];
 
-    for (let y = 0; y < linhas; y++) {
+    for (let y = 0; y < pLinhas; y++) {
       const linha = [];
-      for (let x = 0; x < colunas; x++) {
+      for (let x = 0; x < pColunas; x++) {
         const square = {
           x: 256 + x * 32,
           y: y * 32,
@@ -211,31 +212,37 @@ const Levels = (props) => {
   const updateLocalLevel = (level) => {
     setCurrentLevelState({
       level: level,
-      layout: generateLayout(linhas, colunas, niveis[level]?.tiles),
-      hint: niveis[level]?.dica,
-      blocos: niveis[level]?.blocos,
+      layout: generateLayout(
+        selectedCourse.linhas,
+        selectedCourse.colunas,
+        selectedCourse.niveis[level]?.tiles
+      ),
+      hint: selectedCourse.niveis[level]?.dica,
+      blocos: selectedCourse.niveis[level]?.blocos,
     });
   };
 
   useEffect(() => {
     IsMobile();
     updateLocalLevel(1);
+    Object.keys(props.coursePlaying).length !== 0 &&
+      setSelectedCourse(props.coursePlaying);
   }, []);
 
   useEffect(() => {
-    if (currentLevel !== 0 && currentLevel < qtd_niveis) {
+    if (currentLevel !== 0 && currentLevel <= selectedCourse.qtd_niveis) {
       updateLocalLevel(currentLevel);
     }
   }, [currentLevel]);
 
   return currentLevel === 0 ? (
     <Intro
-      nome={nome}
-      introducao={introducao}
+      nome={selectedCourse.nome}
+      introducao={selectedCourse.introducao}
       isMobile={isMobile}
       updateLevel={updateLevel}
     />
-  ) : currentLevel > qtd_niveis ? (
+  ) : currentLevel > selectedCourse.qtd_niveis ? (
     <Ending isMobile={isMobile} updateLevel={updateLevel} />
   ) : (
     <Level

@@ -30,13 +30,15 @@ const Ending = (props) => {
 
         <div className={Style.buttons}>
           <div className={Style.button}>
-            <Button
-              variant={"contained"}
-              size={"small"}
-              color={"inherit"}
-              onClick={backToStart}
-            >
-              Acho que posso fazer melhor...
+            <Link to={"/cursos"}>
+              <Button variant={"contained"} size={"small"}>
+                Experimentar outro curso
+              </Button>
+            </Link>
+          </div>
+          <div className={Style.button}>
+            <Button variant={"outlined"} size={"small"} onClick={backToStart}>
+              Repetir
             </Button>
           </div>
           <Link to={"/home"}>
