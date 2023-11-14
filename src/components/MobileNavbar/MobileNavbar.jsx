@@ -19,7 +19,7 @@ const MobileNavbar = (props) => {
   };
 
   const IsMobile = () => {
-    if (window.innerWidth < 800) {
+    if (window.innerWidth < 900) {
       setIsMobile(true);
     } else {
       setIsMobile(false);

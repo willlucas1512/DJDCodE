@@ -132,7 +132,7 @@ const Levels = (props) => {
   });
   const { currentLevel, updateLevel } = useContext(LevelContext);
   const IsMobile = () => {
-    if (window.innerWidth < 800) {
+    if (window.innerWidth < 900) {
       setIsMobile(true);
     } else {
       setIsMobile(false);

@@ -12,7 +12,7 @@ const Run = (props) => {
   const [show, setShow] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const IsMobile = () => {
-    if (window.innerWidth < 800) {
+    if (window.innerWidth < 900) {
       setIsMobile(true);
     } else {
       setIsMobile(false);

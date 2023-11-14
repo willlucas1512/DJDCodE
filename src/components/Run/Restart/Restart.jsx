@@ -8,7 +8,7 @@ const Restart = (props) => {
   const { updateResetLevel } = useContext(NavbarContext);
   const [isMobile, setIsMobile] = useState(false);
   const IsMobile = () => {
-    if (window.innerWidth < 800) {
+    if (window.innerWidth < 900) {
       setIsMobile(true);
     } else {
       setIsMobile(false);

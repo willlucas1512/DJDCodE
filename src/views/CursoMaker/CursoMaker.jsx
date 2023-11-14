@@ -111,7 +111,7 @@ const CursoMaker = () => {
   };
 
   const IsMobile = () => {
-    if (window.innerWidth < 800) {
+    if (window.innerWidth < 900) {
       setIsMobile(true);
     } else {
       setIsMobile(false);
